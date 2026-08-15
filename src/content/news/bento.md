@@ -1,7 +1,7 @@
 ---
 title: "Bento is a slide deck that carries its own editor"
 description: "A PowerPoint alternative shipped as one 560 KB HTML file: the viewer, presenter and editor live inside the document, and it rewrites itself on save."
-publishDate: 2026-08-15
+publishDate: 2026-08-01
 category: web
 tags: ["slides", "single file", "self-hosted", "local-first"]
 repo:

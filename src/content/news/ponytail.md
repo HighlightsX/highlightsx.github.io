@@ -1,7 +1,7 @@
 ---
 title: "Ponytail makes your coding agent stop over-building"
 description: "An agent skill that enforces YAGNI and reaches for native platform features first. Its own benchmark walked back its earlier, more flattering numbers."
-publishDate: 2026-08-15
+publishDate: 2026-08-11
 category: devtools
 tags: ["agent skills", "YAGNI", "benchmarks", "Claude Code"]
 repo:

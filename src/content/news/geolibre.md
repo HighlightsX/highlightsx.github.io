@@ -1,7 +1,7 @@
 ---
 title: "GeoLibre runs 1,000+ GIS tools in the browser, offline"
 description: "A cloud-native GIS built on Tauri, MapLibre and DuckDB-WASM that ships the WhiteboxTools toolbox to WebAssembly — desktop, mobile, browser and Jupyter."
-publishDate: 2026-08-15
+publishDate: 2026-08-04
 category: data
 tags: ["GIS", "geospatial", "WebAssembly", "DuckDB"]
 repo:

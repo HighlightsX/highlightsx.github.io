@@ -1,7 +1,7 @@
 ---
 title: "Vorssaint puts a dozen paid Mac utilities in one menu bar"
 description: "Per-app volume, system monitor, window switcher, clipboard history and more, in a Swift app where each feature installs and uninstalls separately."
-publishDate: 2026-08-15
+publishDate: 2026-08-12
 category: apps
 tags: ["macOS", "Swift", "menu bar", "utilities"]
 repo:

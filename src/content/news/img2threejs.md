@@ -1,7 +1,7 @@
 ---
 title: "img2threejs turns one photo into Three.js source, not a mesh"
 description: "An agent pipeline that rebuilds the object in a reference image as procedural Three.js code, gated on a checklist of details it must account for."
-publishDate: 2026-08-15
+publishDate: 2026-08-05
 category: graphics
 tags: ["Three.js", "3D", "agents", "procedural generation"]
 repo:

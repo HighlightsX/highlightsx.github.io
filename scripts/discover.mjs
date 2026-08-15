@@ -12,7 +12,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = join(ROOT, 'data');
@@ -283,5 +283,10 @@ function selftest() {
   console.log('selftest ok');
 }
 
+// Guarded so `import { isJunk, score }` from another script does not kick off a
+// full discovery run as a side effect - which is exactly what happened the first
+// time the filters were reused, quietly rewriting data/queue.json.
+const runDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+
 if (process.argv.includes('--selftest')) selftest();
-else await main();
+else if (runDirectly) await main();

@@ -1,7 +1,7 @@
 ---
 title: "Open Code Review: Alibaba's internal review bot, opened up"
 description: "A Go CLI that reviews git diffs with a hybrid of deterministic pipelines and an LLM agent, and claims a ninth of the tokens a general agent spends."
-publishDate: 2026-08-15
+publishDate: 2026-08-09
 category: devtools
 tags: ["code review", "Go", "agents", "CLI"]
 repo:

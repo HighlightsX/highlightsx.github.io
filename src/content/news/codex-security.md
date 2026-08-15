@@ -1,7 +1,7 @@
 ---
 title: "OpenAI ships a security scanner you point at any model"
 description: "Codex Security is a CLI and SDK that finds, validates and fixes vulnerabilities — and it will run the scan through OpenRouter, Bedrock or Fireworks instead."
-publishDate: 2026-08-15
+publishDate: 2026-08-02
 category: security
 tags: ["security", "vulnerability scanning", "CLI", "OpenAI"]
 repo:

@@ -1,7 +1,7 @@
 ---
 title: "DeepSeek Harness: an agent runner where everything is a plugin"
 description: "DeepSeek published its own agent harness, dsh, and it collected six figures of stars in two days. It is also a developer preview that promises to break."
-publishDate: 2026-08-15
+publishDate: 2026-08-03
 category: ai
 tags: ["agents", "TypeScript", "developer preview", "plugins"]
 repo:
