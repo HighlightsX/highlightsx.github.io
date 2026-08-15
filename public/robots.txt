@@ -4,6 +4,7 @@ Allow: /
 # /search carries a noindex meta tag, so it stays crawlable on purpose:
 # a disallowed URL is never fetched, and the noindex is never seen.
 
-# GitHub Pages cannot redirect, so /sitemap.xml does not exist. This is the
-# index @astrojs/sitemap writes, and the URL to submit to Search Console.
-Sitemap: https://highlightsx.github.io/sitemap-index.xml
+# /sitemap.xml is served by src/pages/sitemap.xml.ts and carries the same index
+# @astrojs/sitemap writes to sitemap-index.xml, because Pages cannot redirect
+# one onto the other and crawlers probe the short name first.
+Sitemap: https://highlightsx.github.io/sitemap.xml
