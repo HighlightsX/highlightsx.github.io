@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { glossary } from '../data/glossary';
+
+const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term, 'en'));
+---
+
+<Base
+  title="Glossary"
+  description="The terms that keep coming back: stars, forks, copyleft, bus factor, supply chain and the rest, in two or three lines each."
+>
+  <div class="wrap with-sidebar">
+    <main>
+      <h1>Glossary</h1>
+      <p class="lede">
+        {terms.length} terms the posts lean on. Each definition says what the term means in
+        practice, not what it stands for.
+      </p>
+
+      <nav class="glossary-nav" aria-label="Jump to a term">
+        {terms.map((t) => <a class="topic-chip" href={`#${t.slug}`}>{t.term}</a>)}
+      </nav>
+
+      <dl class="glossary">
+        {terms.map((t) => (
+          <>
+            <dt id={t.slug}>{t.term}</dt>
+            <dd>{t.body}</dd>
+          </>
+        ))}
+      </dl>
+    </main>
+    <Sidebar />
+  </div>
+</Base>

@@ -1,0 +1,62 @@
+---
+import { categories } from '../data/site';
+import { cleanPath } from '../lib/format';
+import { publishedNews } from '../lib/posts';
+
+interface Props {
+  current?: string;
+}
+const { current } = Astro.props;
+
+const posts = (await publishedNews()).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+const counts = new Map<string, number>();
+for (const p of posts) counts.set(p.data.category, (counts.get(p.data.category) ?? 0) + 1);
+const path = cleanPath(Astro.url);
+const latest = posts.filter((p) => `/${p.id}` !== path).slice(0, 5);
+---
+
+<aside class="sidebar">
+  {path !== '/search' && (
+    <form class="side-box side-search" role="search" action="/search" method="get">
+      <label for="side-q" class="visually-hidden">Search the site</label>
+      <input type="search" id="side-q" name="q" placeholder="Search projects" autocomplete="off" />
+      <button type="submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-4-4" />
+        </svg>
+      </button>
+    </form>
+  )}
+
+  <div class="side-box">
+    <h2>Categories</h2>
+    <ul class="side-cats">
+      {Object.entries(categories)
+        .filter(([slug]) => counts.has(slug))
+        .map(([slug, cat]) => (
+          <li>
+            <a
+              href={`/c/${slug}`}
+              style={`--cat: ${cat.color}`}
+              class={current === slug ? 'current' : undefined}
+            >
+              <span class="name"><span class="dot"></span>{cat.name}</span>
+              <span class="muted">{counts.get(slug)}</span>
+            </a>
+          </li>
+        ))}
+    </ul>
+  </div>
+
+  <div class="side-box">
+    <h2>Latest</h2>
+    <ul class="side-posts">
+      {latest.map((p) => (
+        <li><a href={`/${p.id}`}>{p.data.title}</a></li>
+      ))}
+    </ul>
+  </div>
+</aside>

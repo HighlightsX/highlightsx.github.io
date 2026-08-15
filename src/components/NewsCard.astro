@@ -1,0 +1,28 @@
+---
+import { categories } from '../data/site';
+import Thumb from './Thumb.astro';
+import { compactNumber, enDate } from '../lib/format';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'news'>;
+}
+const { post } = Astro.props;
+const cat = categories[post.data.category];
+const { repo } = post.data;
+---
+
+<a class="card" href={`/${post.id}`} style={`--cat: ${cat.color}`}>
+  <Thumb slug={post.id} icon={cat.icon} color={cat.color} />
+  <div class="card-body">
+    <span class="tag">{cat.name}</span>
+    <h3>{post.data.title}</h3>
+    <p class="card-repo">{repo.owner}/{repo.name}</p>
+    <p>{post.data.description}</p>
+    <div class="card-meta">
+      <span class="stars">★ {compactNumber(repo.stars)}</span>
+      {repo.language && <span>· {repo.language}</span>}
+      <span>· {enDate(post.data.publishDate)}</span>
+    </div>
+  </div>
+</a>

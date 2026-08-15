@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="Disclosure" description="How the posts on this site are written, and what the limits are.">
+  <div class="wrap" style="padding-block: 2.5rem; max-width: 47rem;">
+    <h1>Disclosure</h1>
+
+    <div class="post-body">
+      <p>
+        Posts on {site.name} are drafted with a language model from public repository data, and
+        every one ends with the sources it was written from, each linked and dated.
+      </p>
+
+      <h2>How a project gets picked</h2>
+      <p>
+        A script queries the GitHub search API for repositories created or revived recently, keeps
+        a local record of star counts so it can compute what changed since the last run, and drops
+        forks, archived repositories, anything without a licence or a real README, and the
+        list-and-tutorial genre. What survives is ranked and handed to a writer as a brief. No
+        project can pay to be covered and none has.
+      </p>
+
+      <h2>What the model does and does not do</h2>
+      <p>
+        It works from the repository metadata, the README, release notes and linked discussion. It
+        does not invent numbers, dates or quotes. Every figure in a post comes from the snapshot
+        recorded in the post's own front matter, taken on the date shown beside it.
+      </p>
+
+      <h2>Why the numbers have a date on them</h2>
+      <p>
+        Star counts, release tags and last-push dates are captured once, when the post is written,
+        and never re-fetched. A number that silently updates would make the surrounding sentence
+        wrong without anyone noticing. A dated snapshot is allowed to age.
+      </p>
+
+      <h2>Review before publishing</h2>
+      <p>
+        A person reads every post before it goes live and checks that the sources exist and that
+        the post reflects them. That is a fact check, not a full copy edit.
+      </p>
+
+      <h2>Mistakes</h2>
+      <p>
+        A post found to be wrong is corrected, and a dated line at the bottom says what changed.
+        Nothing is deleted quietly. See <a href="/corrections">corrections</a>.
+      </p>
+
+      <h2>Copyright and trademarks</h2>
+      <p>
+        Posts are summaries in our own words, not translations or copies. Direct quotes are short
+        and attributed. Code snippets are the project's own install or usage commands, used as
+        documentation and covered by the project's licence, which each post names. Project names
+        and logos belong to their owners. This site is not affiliated with GitHub, Inc.
+      </p>
+    </div>
+  </div>
+</Base>

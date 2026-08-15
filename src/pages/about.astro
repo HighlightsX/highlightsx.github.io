@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="About" description={site.description}>
+  <div class="wrap" style="padding-block: 2.5rem; max-width: 47rem;">
+    <h1>About</h1>
+
+    <div class="post-body">
+      <p>{site.footerAbout}</p>
+
+      <h2>Who it is for</h2>
+      <p>
+        People who will actually clone the thing: engineers, platform teams, anyone deciding what
+        to bring into a stack. The assumption is that you can read a README yourself, so the post
+        spends its words on what the README leaves out.
+      </p>
+
+      <h2>What gets published</h2>
+      <p>
+        Two projects a day, one post each, around five hundred words. A repository qualifies when
+        something changed recently enough to explain the attention: a first stable release, a
+        rewrite, a spike in stars, a licence change. Star count alone is not a story.
+      </p>
+
+      <h2>What does not get published</h2>
+      <p>
+        Awesome-lists, roadmaps, interview-prep repositories, course notes and cheat sheets. They
+        collect stars faster than software does, and covering them is how a site about GitHub
+        stops being about code.
+      </p>
+
+      <h2>How it is written</h2>
+      <p>The details are on the <a href="/disclosure">disclosure page</a>.</p>
+
+      <h2>Contact</h2>
+      <p>
+        Corrections, tips and takedown requests: open an issue on the site repository, or write to
+        the address listed there.
+      </p>
+    </div>
+  </div>
+</Base>

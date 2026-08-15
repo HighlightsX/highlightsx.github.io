@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+---
+
+<Base title="Search" description="Search every project covered on the site." noindex>
+  <div class="wrap with-sidebar">
+    <main>
+      <h1>Search</h1>
+
+      <form class="search-form" role="search" onsubmit="return false">
+        <label for="q" class="visually-hidden">Search the site</label>
+        <input
+          type="search"
+          id="q"
+          name="q"
+          placeholder="Repository, language, or a word from the post"
+          autocomplete="off"
+          autofocus
+        />
+      </form>
+
+      <p id="search-count" class="muted"></p>
+      <div id="search-results" class="cards"></div>
+
+      <noscript>
+        <p class="muted">
+          Search needs JavaScript. Browse by category in the menu above, or take the
+          <a href="/rss.xml">RSS feed</a>.
+        </p>
+      </noscript>
+    </main>
+    <Sidebar />
+  </div>
+</Base>

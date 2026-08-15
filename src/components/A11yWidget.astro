@@ -1,0 +1,36 @@
+---
+// Preferences live in localStorage and are applied by site.js on every page.
+---
+
+<div class="a11y">
+  <button
+    id="a11y-btn"
+    type="button"
+    class="a11y-btn"
+    aria-expanded="false"
+    aria-controls="a11y-panel"
+    aria-label="Accessibility menu"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <circle cx="12" cy="4.2" r="1.8" fill="currentColor" stroke="none" />
+      <path d="M4.5 8h15M12 8v5M12 13l-3.5 7M12 13l3.5 7" />
+    </svg>
+  </button>
+
+  <div id="a11y-panel" class="a11y-panel" hidden>
+    <h2>Accessibility</h2>
+
+    <div class="a11y-row">
+      <button type="button" data-a11y="smaller">A−</button>
+      <button type="button" data-a11y="bigger">A+</button>
+    </div>
+
+    <button type="button" data-a11y="contrast" aria-pressed="false">High contrast</button>
+    <button type="button" data-a11y="links" aria-pressed="false">Highlight links</button>
+    <button type="button" data-a11y="spacing" aria-pressed="false">Text spacing</button>
+    <button type="button" data-a11y="motion" aria-pressed="false">Stop animations</button>
+
+    <button type="button" class="a11y-reset" data-a11y="reset">Reset</button>
+    <a href="/accessibility">Accessibility statement</a>
+  </div>
+</div>

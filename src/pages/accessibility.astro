@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base
+  title="Accessibility statement"
+  description="The accessibility state of this site, what was tested, and how to report a problem."
+>
+  <div class="wrap" style="padding-block: 2.5rem; max-width: 47rem;">
+    <h1>Accessibility statement</h1>
+
+    <div class="post-body">
+      <p>
+        {site.name} aims to be usable by everyone, including people with disabilities. The site is
+        built to WCAG 2.1 level AA.
+      </p>
+
+      <h2>What the accessibility menu offers</h2>
+      <p>
+        The button in the corner of the screen opens a menu with six controls: text size up and
+        down across four steps, high contrast, underlined links, wider line and letter spacing, and
+        stopping animations and transitions. Your choice is stored in the browser and carries to
+        the next page.
+      </p>
+
+      <h2>What is done beyond the menu</h2>
+      <p>
+        The whole site can be navigated by keyboard alone, every page starts with a skip link to
+        the main content, and focus is clearly marked. Headings follow a real hierarchy, decorative
+        illustrations are hidden from screen readers, and form fields are labelled. Code blocks are
+        selectable text, not images.
+      </p>
+      <p>
+        The site honours the operating system's reduce-motion setting without touching the menu. It
+        has been checked with keyboard-only navigation and at 200% zoom.
+      </p>
+
+      <h2>Known limitations</h2>
+      <p>
+        Posts carry a lot of identifiers — repository names, commands, flags — that a screen reader
+        pronounces as words. Command examples are shown as written, so punctuation-heavy lines can
+        be tedious to hear.
+      </p>
+      <p>
+        Posts are drafted with a language model. They are reviewed before publishing, but phrasing
+        quality can vary between posts.
+      </p>
+
+      <h2>Reporting an accessibility problem</h2>
+      <p>
+        If you find a page or a component that is not accessible, we want to know. Get in touch
+        through the <a href="/about">about page</a> and include the page address, what you were
+        trying to do, and the assistive technology you were using.
+      </p>
+    </div>
+  </div>
+</Base>

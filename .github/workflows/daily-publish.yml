@@ -1,0 +1,35 @@
+name: Daily publish
+
+# The site is static, so a queued post only appears when something rebuilds.
+# Target: 09:00 Israel time. GitHub cron is UTC-only and Israel shifts between
+# UTC+3 (summer) and UTC+2 (winter), so both candidate hours are scheduled and a
+# guard drops the one that isn't 09:00 locally.
+on:
+  schedule:
+    - cron: "0 6 * * *" # 09:00 IDT (summer)
+    - cron: "0 7 * * *" # 09:00 IST (winter)
+  workflow_dispatch: # publish by hand from the Actions tab, any time
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check it is morning in Israel
+        id: when
+        if: github.event_name == 'schedule'
+        run: |
+          hour=$(TZ=Asia/Jerusalem date +%H)
+          # GitHub often starts scheduled jobs late, so accept a window rather
+          # than the exact hour — a redundant deploy just rebuilds the same site.
+          if [ "$hour" -ge 9 ] && [ "$hour" -le 11 ]; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Local time is ${hour}:00 — not the 09:00 run, skipping."
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Netlify build
+        if: github.event_name == 'workflow_dispatch' || steps.when.outputs.go == 'true'
+        run: curl -fsS -X POST -d '{}' "$NETLIFY_BUILD_HOOK"
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}

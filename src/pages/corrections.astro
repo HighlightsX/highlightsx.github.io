@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import { enDate } from '../lib/format';
+import { publishedNews } from '../lib/posts';
+
+const posts = await publishedNews();
+
+const log = posts
+  .flatMap((post) => post.data.corrections.map((c) => ({ post, ...c })))
+  .sort((a, b) => b.date.valueOf() - a.date.valueOf());
+---
+
+<Base
+  title="Corrections"
+  description="Every correction made to a post on this site, newest first. The original post stays where it is, with the correction at the bottom."
+>
+  <div class="wrap with-sidebar">
+    <main>
+      <h1>Corrections</h1>
+      <p class="lede">
+        When a post turns out to be wrong it is corrected, and the correction is logged here and
+        at the bottom of the post itself. We do not delete posts and we do not edit them quietly.
+      </p>
+
+      {log.length === 0 ? (
+        <p class="empty">
+          Nothing logged yet. That does not mean there are no mistakes, only that none has been
+          reported or found. If you spot one, <a href="/about">tell us</a>.
+        </p>
+      ) : (
+        <ul class="corrections-log">
+          {log.map(({ post, date, text }) => (
+            <li>
+              <time datetime={date.toISOString()}>{enDate(date)}</time>
+              <h2><a href={`/${post.id}`}>{post.data.title}</a></h2>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h2 class="section-title">What counts as a correction</h2>
+      <div class="post-body">
+        <p>
+          Anything that changes the meaning: a wrong star count, a wrong date, a wrong licence,
+          a feature credited to the wrong project, or a claim the sources do not support. Those
+          get a dated line saying what changed.
+        </p>
+        <p>
+          A star count that has moved since the snapshot date is not a correction. It is a
+          snapshot, labelled with the day it was taken, and it is expected to age.
+        </p>
+        <p>
+          Typos and phrasing that do not change the meaning are fixed without a log entry,
+          because logging them would bury the corrections that matter.
+        </p>
+      </div>
+    </main>
+    <Sidebar />
+  </div>
+</Base>

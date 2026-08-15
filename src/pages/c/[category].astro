@@ -1,0 +1,42 @@
+---
+import { publishedNews } from '../../lib/posts';
+import Base from '../../layouts/Base.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { categories } from '../../data/site';
+
+// Paths come from the categories that actually have posts, so an empty
+// category never produces a page and never reaches the sitemap.
+export async function getStaticPaths() {
+  const posts = await publishedNews();
+  const used = [...new Set(posts.map((p) => p.data.category))];
+  return used.map((category) => ({
+    params: { category },
+    props: {
+      posts: posts
+        .filter((p) => p.data.category === category)
+        .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()),
+    },
+  }));
+}
+
+const { category } = Astro.params;
+const { posts } = Astro.props;
+const cat = categories[category as keyof typeof categories];
+---
+
+<Base title={cat.name} description={cat.description}>
+  <div class="wrap with-sidebar">
+    <main style={`--cat: ${cat.color}`}>
+      <nav class="crumbs"><a href="/">Highlights</a><span>›</span>{cat.name}</nav>
+      <h1>{cat.name}</h1>
+      <p class="lede">{cat.description}</p>
+
+      <h2 class="section-title">{posts.length} {posts.length === 1 ? 'project' : 'projects'}</h2>
+      <div class="cards">
+        {posts.map((post) => <NewsCard post={post} />)}
+      </div>
+    </main>
+    <Sidebar current={category} />
+  </div>
+</Base>

@@ -1,0 +1,66 @@
+---
+import { site, categories } from '../data/site';
+import { cleanPath } from '../lib/format';
+import { publishedNews } from '../lib/posts';
+
+const posts = await publishedNews();
+// A category with no post yet gets no page, so it must not get a nav link either.
+const used = new Set(posts.map((p) => p.data.category));
+const path = cleanPath(Astro.url);
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          {/* a repository tile with a highlight spark rising out of it */}
+          <rect x="8" y="14" width="32" height="26" rx="6" fill="var(--logo-ink)" />
+          <rect x="13" y="19" width="22" height="16" rx="3" fill="var(--logo-face)" />
+          <path d="M17 30l4.5-5 3.5 3.5 5-6.5" stroke="var(--accent)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="30" cy="22" r="2.2" fill="var(--accent-2)" />
+          <path d="M24 4l1.9 4.1 4.1.6-3 3 .7 4.3-3.7-2.1-3.7 2.1.7-4.3-3-3 4.1-.6Z" fill="var(--accent)" />
+        </svg>
+      </span>
+      <span class="brand-text">
+        <span class="brand-name">{site.name}</span>
+        <span class="brand-tagline">{site.tagline}</span>
+      </span>
+    </a>
+
+    <button id="theme-btn" class="theme-btn" type="button" aria-pressed="false" aria-label="Switch between dark and light mode" title="Dark / light mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" />
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4.2" />
+        <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" />
+      </svg>
+    </button>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu">☰</label>
+
+    <nav class="util-nav" aria-label="Site information">
+      <a href="/about" class={path === '/about' ? 'current' : undefined}>About</a>
+      <a href="/glossary" class={path === '/glossary' ? 'current' : undefined}>Glossary</a>
+      <a href="/search" class={path === '/search' ? 'current' : undefined}>Search</a>
+      <a href="/disclosure" class={path === '/disclosure' ? 'current' : undefined}>Disclosure</a>
+      <a href="/corrections" class={path === '/corrections' ? 'current' : undefined}>Corrections</a>
+      <a href="/terms" class={path === '/terms' ? 'current' : undefined}>Terms</a>
+      <a href="/privacy" class={path === '/privacy' ? 'current' : undefined}>Privacy</a>
+      <a href="/accessibility" class={path === '/accessibility' ? 'current' : undefined}>Accessibility</a>
+    </nav>
+
+    <nav class="site-nav">
+      <a href="/" class={path === '/' ? 'current' : undefined}>Home</a>
+      {Object.entries(categories)
+        .filter(([slug]) => used.has(slug as keyof typeof categories))
+        .map(([slug, cat]) => (
+          <a href={`/c/${slug}`} style={`--cat: ${cat.color}`} class={path === `/c/${slug}` ? 'current' : undefined}>
+            {cat.name}
+          </a>
+        ))}
+    </nav>
+  </div>
+</header>

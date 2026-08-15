@@ -1,0 +1,59 @@
+---
+import { site, categories } from '../data/site';
+import { publishedNews } from '../lib/posts';
+
+const posts = await publishedNews();
+const used = new Set(posts.map((p) => p.data.category));
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <h3>{site.name}</h3>
+        <p>{site.footerAbout}</p>
+      </div>
+
+      <div class="footer-cats">
+        <h3>Categories</h3>
+        <ul>
+          {Object.entries(categories)
+            .filter(([slug]) => used.has(slug as keyof typeof categories))
+            .map(([slug, cat]) => (
+              <li>
+                <a href={`/c/${slug}`} style={`--cat: ${cat.color}`}>
+                  <span class="dot"></span>{cat.name}
+                </a>
+              </li>
+            ))}
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h3>The site</h3>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/glossary">Glossary</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/disclosure">Disclosure</a></li>
+          <li><a href="/corrections">Corrections</a></li>
+          <li><a href="/terms">Terms of use</a></li>
+          <li><a href="/privacy">Privacy policy</a></li>
+          <li><a href="/accessibility">Accessibility</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <p>
+        Posts are drafted with a language model from the public repository data linked at the
+        bottom of each one, and read by a person before publishing. Mistakes happen; what we
+        fixed is listed on the <a href="/corrections">corrections page</a>. Found one,
+        <a href="/about">tell us</a>. Not affiliated with GitHub or with any project covered.
+      </p>
+      <p>© {year} {site.name}</p>
+    </div>
+  </div>
+</footer>

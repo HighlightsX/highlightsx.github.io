@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="Terms of use" description="The terms for using this site and its content.">
+  <div class="wrap" style="padding-block: 2.5rem; max-width: 47rem;">
+    <h1>Terms of use</h1>
+
+    <div class="post-body">
+      <p>
+        Use of {site.name} is subject to the terms below. Browsing the site means accepting them.
+        If you do not accept them, do not use the site.
+      </p>
+
+      <h2>What the site publishes</h2>
+      <p>
+        Summaries and explanations of open-source projects hosted on GitHub, written from publicly
+        available repository data and other published sources. Posts are drafted with a language
+        model and reviewed before publishing; the full account is on the
+        <a href="/disclosure">disclosure page</a>.
+      </p>
+
+      <h2>The content is not advice</h2>
+      <p>
+        Posts are general information. They are not professional, legal, financial or security
+        advice, and they are not a substitute for evaluating a project yourself. Deciding to run,
+        adopt or depend on a piece of software is your call and your risk. Verify anything that
+        matters against the linked sources — and against the repository's own licence — before
+        acting on it.
+      </p>
+      <p>
+        Software moves. A post that was accurate on its publication date may be wrong two months
+        later: the project may be archived, relicensed, renamed or rewritten. Every post carries
+        its date, and every repository figure carries the date it was captured, for that reason.
+      </p>
+
+      <h2>Accuracy and mistakes</h2>
+      <p>
+        We try to be accurate and do not guarantee it. Errors, omissions and inaccuracies are
+        possible. What we find gets fixed and logged on the
+        <a href="/corrections">corrections page</a>. Nothing here promises uninterrupted
+        availability or a fault-free site.
+      </p>
+
+      <h2>Using our content</h2>
+      <p>
+        Quoting a reasonable extract for reporting, criticism or study is fine, provided the site
+        is named and the original page is linked. Do not republish whole posts or substantial parts
+        of them elsewhere, including in translation, and do not use them as training data for
+        commercial models, without prior permission.
+      </p>
+
+      <h2>Projects, links and trademarks</h2>
+      <p>
+        Every post links the sources it was written from. Links are for verification and
+        convenience. We do not control the content of those sites, are not responsible for it, and
+        a link is not an endorsement. Project names, logos and source code belong to their owners
+        and are used descriptively; each post names the licence the project carried at the time of
+        writing. This site is not affiliated with, endorsed by, or sponsored by GitHub, Inc. or any
+        project it covers. Maintainers who want a correction, an update or a takedown can reach us
+        through the <a href="/about">about page</a>.
+      </p>
+
+      <h2>Changes to these terms</h2>
+      <p>
+        These terms may be updated. The version on this page is the binding one. A material change
+        will also be flagged on the home page.
+      </p>
+
+      <h2>Governing law</h2>
+      <p>
+        These terms and any use of the site are governed by the laws of the State of Israel, and
+        the competent courts in Israel have exclusive jurisdiction.
+      </p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms go through the <a href="/about">about page</a>.</p>
+    </div>
+  </div>
+</Base>

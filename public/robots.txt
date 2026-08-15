@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# /search carries a noindex meta tag, so it stays crawlable on purpose:
+# a disallowed URL is never fetched, and the noindex is never seen.
+Sitemap: https://github-highlights.netlify.app/sitemap-index.xml

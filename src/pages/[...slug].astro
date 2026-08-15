@@ -1,0 +1,83 @@
+---
+import { render } from 'astro:content';
+import { publishedNews } from '../lib/posts';
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Sources from '../components/Sources.astro';
+import Thumb from '../components/Thumb.astro';
+import RepoFacts from '../components/RepoFacts.astro';
+import { categories } from '../data/site';
+import { enDate, readingTime, topicSlug } from '../lib/format';
+
+export async function getStaticPaths() {
+  const posts = await publishedNews();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const cat = categories[post.data.category];
+const minutes = readingTime(post.body ?? '');
+---
+
+<Base title={post.data.title} description={post.data.description} post={post.data}>
+  <div class="wrap with-sidebar">
+    <main class="post" style={`--cat: ${cat.color}`}>
+      <nav class="crumbs">
+        <a href="/">Highlights</a><span>›</span>
+        <a href={`/c/${post.data.category}`}>{cat.name}</a>
+      </nav>
+
+      <div class="post-thumb">
+        <Thumb slug={post.id} icon={cat.icon} color={cat.color} />
+      </div>
+
+      <h1>{post.data.title}</h1>
+      <p class="post-meta">
+        <time datetime={post.data.publishDate.toISOString()}>{enDate(post.data.publishDate)}</time>
+        <span>·</span>{minutes} min read
+      </p>
+
+      <p class="lede">{post.data.description}</p>
+
+      <RepoFacts repo={post.data.repo} />
+
+      <nav class="toc" id="toc" hidden>
+        <h2>In this post</h2>
+        <ol></ol>
+      </nav>
+
+      <div class="post-body">
+        <Content />
+      </div>
+
+      {post.data.corrections.length > 0 && (
+        <section class="corrections-note">
+          <h2>Corrections</h2>
+          <ul>
+            {post.data.corrections.map((c) => (
+              <li>
+                <time datetime={c.date.toISOString()}>{enDate(c.date)}</time>: {c.text}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <Sources sources={post.data.sources} />
+
+      {post.data.tags.length > 0 && (
+        <div class="post-topics">
+          <ul class="topic-list">
+            {post.data.tags.map((t) => (
+              <li>
+                <a class="topic-chip" href={`/t/${topicSlug(t)}`}>{t}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </main>
+    <Sidebar current={post.data.category} />
+  </div>
+</Base>

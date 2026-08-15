@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="Privacy policy" description="What this site collects, and what it does not.">
+  <div class="wrap" style="padding-block: 2.5rem; max-width: 47rem;">
+    <h1>Privacy policy</h1>
+
+    <div class="post-body">
+      <p>
+        {site.name} is a static content site. There is no sign-up, there are no accounts, and no
+        form on it collects personal details.
+      </p>
+
+      <h2>What is not collected</h2>
+      <p>
+        We do not ask for or store your name, email address, phone number or any other identifying
+        detail. There are no tracking cookies, no advertising pixels, and nothing is shared with
+        third parties for marketing.
+      </p>
+
+      <h2>What is stored in your browser</h2>
+      <p>
+        Accessibility preferences — text size, contrast and the rest — and your dark or light theme
+        choice are kept in the browser's local storage. They stay on your device, are never sent to
+        a server, and can be removed with the reset button in the accessibility menu or by clearing
+        your browsing data.
+      </p>
+
+      <h2>Server logs</h2>
+      <p>
+        The server that hosts the site records requests the way any web server does: IP address,
+        time, the page requested and the browser type. Those logs are used for operating the site
+        and diagnosing faults, nothing else. They are not cross-referenced with other sources and
+        are not used to build a profile.
+      </p>
+
+      <h2>Third-party services</h2>
+      <p>
+        Fonts load from Google Fonts, so your browser contacts a Google server when a page loads,
+        which exposes your IP address to Google under its own policy. Links inside posts lead to
+        external sites — GitHub above all — and once you follow one, that site's privacy policy
+        applies.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If this policy changes, the updated version appears on this page. There is no mailing list
+        to announce it through, so a material change will also be flagged on the home page.
+      </p>
+
+      <h2>Contact</h2>
+      <p>Privacy questions go through the <a href="/about">about page</a>.</p>
+    </div>
+  </div>
+</Base>
