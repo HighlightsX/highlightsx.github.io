@@ -1,7 +1,7 @@
 export const site = {
   name: 'GitHub Highlights',
   // Keep in sync with `site` in astro.config.mjs, which the sitemap reads.
-  url: 'https://github-highlights.netlify.app',
+  url: 'https://tomerdamari.github.io',
   tagline: 'New open source, explained',
   description:
     'One new open-source project a day, read properly: what it does, why it showed up now, how it works and where it is weak. Every number linked to its source.',

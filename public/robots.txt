@@ -3,4 +3,7 @@ Allow: /
 
 # /search carries a noindex meta tag, so it stays crawlable on purpose:
 # a disallowed URL is never fetched, and the noindex is never seen.
-Sitemap: https://github-highlights.netlify.app/sitemap-index.xml
+
+# GitHub Pages cannot redirect, so /sitemap.xml does not exist. This is the
+# index @astrojs/sitemap writes, and the URL to submit to Search Console.
+Sitemap: https://tomerdamari.github.io/sitemap-index.xml

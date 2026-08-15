@@ -2,8 +2,8 @@
 
 A daily English news site about newly-interesting open-source projects on GitHub.
 Same architecture and design language as [hamechona](../hamechona): Astro static site,
-markdown content collection, future-dated publishing queue, Netlify build pinged by a
-GitHub Actions cron. One repo per post. Discovery is scripted; writing stays human/Claude.
+markdown content collection, future-dated publishing queue drained by a GitHub Actions
+cron. One repo per post. Discovery is scripted; writing stays human/Claude.
 
 ---
 
@@ -15,7 +15,7 @@ GitHub Actions cron. One repo per post. Discovery is scripted; writing stays hum
 | Pipeline | Script discovers + scores candidates → queue JSON → posts written in-session |
 | Post shape | One repository per post |
 | Stack | Astro 7 static, zero UI framework, 3 npm deps (astro, @astrojs/rss, @astrojs/sitemap) |
-| Host | Netlify (`github-highlights.netlify.app` until a domain is bought) |
+| Host | GitHub Pages, user site `tomerdamari.github.io` (root URL, no base path) |
 | Cadence | 2 posts/day, published from a queue by `publishDate` |
 
 ## 2. What is copied from hamechona, unchanged
@@ -27,8 +27,7 @@ These are already load-bearing and correct; copy them verbatim and only rename s
 - `src/pages/rss.xml.js`, `src/pages/search-index.json.ts`, `src/pages/search.astro`, `public/site.js` (theme toggle, command-palette search, reading progress, TOC builder).
 - `src/components/*` — Header, Footer, Sidebar, NewsCard, Sources, Thumb, A11yWidget.
 - `src/styles/style.css` — the dark bento system: `--bg #08090d`, violet `--accent #7c5cff`, cyan `--accent-2`, 18px radius cards, fixed radial glow behind the header, `html{font-size:90%}`.
-- `netlify.toml`, `Dockerfile`, `server.mjs` (sirv + no-cache-on-404 + redirect map).
-- `.github/workflows/daily-publish.yml` — dual cron rows + local-hour guard.
+- `.github/workflows/*.yml` — dual cron rows + local-hour guard (rewritten for Pages: build and deploy in one workflow, no build hook).
 
 ## 3. What changes
 
@@ -163,8 +162,10 @@ thumb, post template. Deliverable: 3 hand-written seed posts render end to end.
 **P3 — Content run (ongoing).** Write 14 posts from the queue, `publishDate` spread 2/day
 across the first week. Deliverable: a site that looks alive on launch day.
 
-**P4 — Ship (½ day).** Netlify site + build hook, `daily-publish.yml` cron (09:00 Israel,
-both DST rows), Search Console verification meta + sitemap submit, RSS validated, Lighthouse pass.
+**P4 — Ship (½ day).** Create `tomerdamari/tomerdamari.github.io`, set Pages source to
+GitHub Actions, push. `deploy.yml` covers push + the 09:00 Israel cron (both DST rows).
+Then Search Console verification meta + submit `/sitemap-index.xml`, RSS validated,
+Lighthouse pass.
 
 **P5 — Later, only if wanted.** Weekly digest post linking that week's repos; `/l/{language}`
 pages; a "since last week" star delta badge; automated drafting via the Claude API in CI.
@@ -179,6 +180,7 @@ scraper. Each one is addable later; none is needed to publish.
 
 - **Star-count staleness** — solved by snapshotting with `snapshotAt` shown in the UI. Never re-fetch at build.
 - **Rate limits** — `GITHUB_TOKEN` in Actions, `data/seen.json` prevents re-querying the same repos.
+- **No redirects on Pages** — a renamed post slug breaks its old URL outright, since the static host cannot 301. Rename only before a post is indexed, or leave the slug alone.
 - **Slop feed** — the filter list is the product. Awesome-lists and tutorial repos are the failure mode of every GitHub-trending site.
 - **Repo dies after coverage** — `pushedAt` recorded; a stale-project note can be appended as a correction.
 - **Duplicate coverage** — the discover script greps existing posts for `repo.url` before proposing anything.

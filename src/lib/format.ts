@@ -20,14 +20,15 @@ export const age = (from: Date, to = new Date()) => {
 };
 
 // build.format: 'file' writes about.html, and Astro.url carries that suffix
-// through to anything derived from it. Netlify serves that file at /about,
+// through to anything derived from it. GitHub Pages serves that file at /about,
 // which is the one URL the site declares, so self-references normalize to it.
 export const cleanPath = (url: URL) =>
   url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, '') || '/';
 
-// Lowercased because Netlify 301s a mixed-case path onto its lowercase form,
-// which would leave /t/API redirecting to a URL nothing links to. The page still
-// shows the tag as written; only the slug is folded.
+// Lowercased so a tag has exactly one URL. GitHub Pages is case-sensitive and
+// cannot redirect, so /t/API and /t/api would be two pages if the case of a tag
+// ever varied between posts. The page still shows the tag as written; only the
+// slug is folded.
 export const topicSlug = (name: string) =>
   name
     .trim()

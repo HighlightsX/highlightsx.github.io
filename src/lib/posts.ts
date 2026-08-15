@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 // leak into one surface while being hidden from another.
 //
 // The site is static, so the queue only moves when something rebuilds - see
-// .github/workflows/daily-publish.yml, which pings the Netlify build hook each
-// morning. Without that build, a queued post stays invisible past its date.
+// .github/workflows/deploy.yml, which rebuilds and redeploys each morning.
+// Without that build, a queued post stays invisible past its date.
 export const publishedNews = () =>
   getCollection('news', ({ data }) => data.publishDate <= new Date());

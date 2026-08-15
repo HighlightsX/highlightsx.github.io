@@ -1,0 +1,84 @@
+name: Build and deploy
+
+# Two triggers, one pipeline:
+#   push    - ship what was just written
+#   cron    - drain the publishing queue. The site is static, so a future-dated
+#             post only appears when something rebuilds.
+# Target: 09:00 Israel time. GitHub cron is UTC-only and Israel shifts between
+# UTC+3 (summer) and UTC+2 (winter), so both candidate hours are scheduled and a
+# guard drops the one that isn't 09:00 locally.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * *" # 09:00 IDT (summer)
+    - cron: "0 7 * * *" # 09:00 IST (winter)
+  workflow_dispatch: # publish by hand from the Actions tab, any time
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never two deploys at once, and never cancel one halfway: a half-uploaded
+# artifact is a half-published site.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.when.outputs.go }}
+    steps:
+      - name: Check it is morning in Israel
+        id: when
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          hour=$(TZ=Asia/Jerusalem date +%H)
+          # GitHub often starts scheduled jobs late, so accept a window rather
+          # than the exact hour - a redundant deploy just rebuilds the same site.
+          if [ "$hour" -ge 9 ] && [ "$hour" -le 11 ]; then
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Local time is ${hour}:00 - not the 09:00 run, skipping."
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.when.outputs.go == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.when.outputs.go == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: steps.when.outputs.go == 'true'
+
+      - run: npm run build
+        if: steps.when.outputs.go == 'true'
+
+      - uses: actions/configure-pages@v5
+        if: steps.when.outputs.go == 'true'
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.when.outputs.go == 'true'
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.go == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
