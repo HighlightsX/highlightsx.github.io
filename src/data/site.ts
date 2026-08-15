@@ -63,6 +63,12 @@ export const categories = {
     icon: 'M4 21V9l8-6 8 6v12 M9.5 21v-6h5v6',
     color: '#34d399',
   },
+  hardware: {
+    name: 'Hardware & Robotics',
+    description: 'Embedded firmware, robotics, 3D-printed builds and open hardware.',
+    icon: 'M8 8h8v8H8z M4 10h4 M4 14h4 M16 10h4 M16 14h4 M10 4v4 M14 4v4 M10 16v4 M14 16v4',
+    color: '#fcd34d',
+  },
   graphics: {
     name: 'Graphics & Games',
     description: 'Renderers, game engines, shaders, simulation and creative coding.',

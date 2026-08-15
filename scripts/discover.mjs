@@ -26,7 +26,7 @@ const KEEP = 20; // how many make it into the queue
 // The genre that collects stars faster than software does. Covering it is how a
 // site about GitHub stops being about code.
 const LIST_WORDS =
-  /\b(awesome|roadmap|interview|interviews|cheat[- ]?sheet|cheatsheets?|tutorials?|courses?|handbook|bootcamp|learn|resources|collection|curated|guide|books?|notes|papers|examples|templates|boilerplate|starter|dotfiles|leetcode|freecodecamp|100[- ]?days)\b/i;
+  /\b(awesome|roadmap|interview|interviews|cheat[- ]?sheet|cheatsheets?|tutorials?|courses?|handbook|bootcamp|learn|resources|collection|curated|guide|books?|notes|papers|examples|templates|boilerplate|starter|dotfiles|leetcode|freecodecamp|100[- ]?days|beginners?|for[- ]?beginners|from[- ]?scratch[- ]?series|study)\b/i;
 
 // A README's first two thousand characters are usually badges. Stripping the
 // shields, logo blocks and centring markup is the difference between a brief
@@ -147,6 +147,9 @@ async function main() {
   for (const q of [
     `created:>=${daysAgo(NEW_DAYS)} stars:>150`,
     `pushed:>=${daysAgo(PUSH_DAYS)} stars:200..20000`,
+    // Without this the first two queries return a wall of agent frameworks and
+    // the site turns into an LLM newsletter. Same window, AI topics excluded.
+    `created:>=${daysAgo(NEW_DAYS * 2)} stars:>150 -topic:ai -topic:llm -topic:agent -topic:ai-agents -topic:mcp -topic:claude`,
   ]) {
     const items = await search(q);
     console.log(`query "${q}" -> ${items.length} repos`);
@@ -261,6 +264,11 @@ function selftest() {
     'tutorial descriptions are dropped',
   );
   assert(isJunk({ ...base, topics: ['cheatsheet'] }) === 'list/tutorial topic', 'list topics are dropped');
+  // caught in a live run: "investing-for-beginners" ranked into the top 20
+  assert(
+    isJunk({ ...base, name: 'investing-for-beginners' }) === 'list/tutorial repo',
+    'beginner guides are dropped',
+  );
   assert(
     isJunk(base, { covered: new Set(['acme/thing']) }) === 'already covered',
     'a repo already written about is dropped',
