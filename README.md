@@ -29,7 +29,7 @@ or every run looks like a first run.
 | Path | What |
 |---|---|
 | `src/content/news/` | the posts |
-| `src/data/site.ts` | name, URL, the nine categories and their colours |
+| `src/data/site.ts` | name, URL, the ten categories and their colours |
 | `src/lib/posts.ts` | `publishedNews()` — the one place the queue is enforced |
 | `src/components/RepoFacts.astro` | the facts strip under each headline |
 | `scripts/discover.mjs` | discovery; `--selftest` runs the filter and score checks offline |
@@ -37,7 +37,7 @@ or every run looks like a first run.
 
 ## Deploy
 
-GitHub Pages, from the repository `tomerdamari/tomerdamari.github.io`, served at the domain
+GitHub Pages, from the repository `HighlightsX/highlightsx.github.io`, served at the domain
 root — which is why every link in the source is an absolute path with no base prefix.
 `npm run build` → `dist` → `actions/deploy-pages`. Set Pages source to **GitHub Actions**
 in the repository settings once; no secrets, no build hook.

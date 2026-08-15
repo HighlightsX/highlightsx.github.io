@@ -15,7 +15,7 @@ cron. One repo per post. Discovery is scripted; writing stays human/Claude.
 | Pipeline | Script discovers + scores candidates → queue JSON → posts written in-session |
 | Post shape | One repository per post |
 | Stack | Astro 7 static, zero UI framework, 3 npm deps (astro, @astrojs/rss, @astrojs/sitemap) |
-| Host | GitHub Pages, user site `tomerdamari.github.io` (root URL, no base path) |
+| Host | GitHub Pages, org site `highlightsx.github.io` (root URL, no base path) |
 | Cadence | 2 posts/day, published from a queue by `publishDate` |
 
 ## 2. What is copied from hamechona, unchanged
@@ -162,7 +162,7 @@ thumb, post template. Deliverable: 3 hand-written seed posts render end to end.
 **P3 — Content run (ongoing).** Write 14 posts from the queue, `publishDate` spread 2/day
 across the first week. Deliverable: a site that looks alive on launch day.
 
-**P4 — Ship (½ day).** Create `tomerdamari/tomerdamari.github.io`, set Pages source to
+**P4 — Ship (½ day).** Create `HighlightsX/highlightsx.github.io`, set Pages source to
 GitHub Actions, push. `deploy.yml` covers push + the 09:00 Israel cron (both DST rows).
 Then Search Console verification meta + submit `/sitemap-index.xml`, RSS validated,
 Lighthouse pass.

@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://tomerdamari.github.io',
+  site: 'https://highlightsx.github.io',
   // One URL per page, without a trailing slash: canonical, og:url and the
   // sitemap all emit the slashless form.
   trailingSlash: 'never',

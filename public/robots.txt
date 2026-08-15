@@ -6,4 +6,4 @@ Allow: /
 
 # GitHub Pages cannot redirect, so /sitemap.xml does not exist. This is the
 # index @astrojs/sitemap writes, and the URL to submit to Search Console.
-Sitemap: https://tomerdamari.github.io/sitemap-index.xml
+Sitemap: https://highlightsx.github.io/sitemap-index.xml
