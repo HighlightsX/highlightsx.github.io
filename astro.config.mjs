@@ -6,6 +6,14 @@ export default defineConfig({
   // One URL per page, without a trailing slash: canonical, og:url and the
   // sitemap all emit the slashless form.
   trailingSlash: 'never',
+  // Astro's HTML compression deletes the newline between a word and an inline
+  // element instead of collapsing it to a space, so prose written as
+  //   ... the full account is on the
+  //   <a href="/disclosure">disclosure page</a>
+  // ships as "on thedisclosure page". It hit the footer on all 74 pages plus
+  // three other spots. Costs about 170 gzipped bytes a page to switch off,
+  // which is cheaper than remembering to write {' '} in every paragraph.
+  compressHTML: false,
   markdown: { smartypants: false },
   build: {
     // GitHub Pages serves about.html at /about as-is, but 301s a directory URL
