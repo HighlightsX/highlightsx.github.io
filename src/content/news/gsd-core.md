@@ -1,7 +1,7 @@
 ---
 title: "GSD Core fights context rot with fresh-context subagents"
 description: "A five-step phase loop for coding agents that runs research, planning and execution in clean 200k-token contexts so the main session never fills up."
-publishDate: 2026-08-26
+publishDate: 2026-08-20
 category: devtools
 tags: ["context engineering", "agents", "spec-driven development", "workflow"]
 repo:

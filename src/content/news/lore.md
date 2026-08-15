@@ -1,7 +1,7 @@
 ---
 title: "Epic open-sourced Lore, a version control system for artists"
 description: "A Rust VCS from Epic Games built for repositories where the code is the small part: large binary assets, huge teams, free branching, tamper-evident history."
-publishDate: 2026-08-22
+publishDate: 2026-08-15
 category: devtools
 tags: ["version control", "Rust", "game development", "Epic Games"]
 repo:

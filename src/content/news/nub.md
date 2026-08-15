@@ -1,7 +1,7 @@
 ---
 title: "Nub: Bun's ergonomics without leaving Node"
 description: "A Rust toolkit that runs TypeScript, installs packages and manages Node versions — by extending stock Node rather than replacing the runtime."
-publishDate: 2026-08-16
+publishDate: 2026-08-15
 category: languages
 tags: ["Node.js", "Rust", "TypeScript", "package manager"]
 repo:

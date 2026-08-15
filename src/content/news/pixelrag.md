@@ -1,7 +1,7 @@
 ---
 title: "PixelRAG retrieves over screenshots instead of parsed text"
 description: "A Berkeley project that renders pages as images and searches them visually, keeping the tables, charts and layout that HTML parsing throws away."
-publishDate: 2026-08-23
+publishDate: 2026-08-18
 category: data
 tags: ["RAG", "retrieval", "multimodal", "research"]
 repo:

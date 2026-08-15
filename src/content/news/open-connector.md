@@ -1,7 +1,7 @@
 ---
 title: "OpenConnector keeps SaaS credentials out of the agent"
 description: "An open-source auth gateway fronting 1,000+ providers for AI agents, with inspectable action contracts and a self-host path off the hosted runtime."
-publishDate: 2026-08-18
+publishDate: 2026-08-15
 category: infra
 tags: ["OAuth", "MCP", "integrations", "self-hosted"]
 repo:

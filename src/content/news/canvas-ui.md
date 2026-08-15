@@ -1,7 +1,7 @@
 ---
 title: "canvas-ui turns your live DOM into a shader texture"
 description: "Fluid, glass and shatter effects running over a real page — text still selectable, links still clickable — using the experimental HTML-in-canvas API."
-publishDate: 2026-08-24
+publishDate: 2026-08-19
 category: web
 tags: ["WebGL", "shaders", "components", "shadcn"]
 repo:

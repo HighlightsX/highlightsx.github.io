@@ -1,7 +1,7 @@
 ---
 title: "OOMWOO is a robot vacuum you print, wire and own"
 description: "A LiDAR-mapping vacuum built from a Raspberry Pi, an ESP32 and 3D-printed parts, running ROS2 and Home Assistant with no cloud in the loop."
-publishDate: 2026-08-24
+publishDate: 2026-08-15
 category: hardware
 tags: ["robotics", "ROS2", "Raspberry Pi", "Home Assistant"]
 repo:

@@ -1,7 +1,7 @@
 ---
 title: "A community desktop shell for DeepSeek Harness, in two days"
 description: "DSH Desktop wraps the official harness in a native app with a tray, a plugin marketplace, phone remote control and IM channels — and is not a DeepSeek product."
-publishDate: 2026-08-26
+publishDate: 2026-08-20
 category: apps
 tags: ["desktop", "DeepSeek", "plugins", "Electron"]
 repo:

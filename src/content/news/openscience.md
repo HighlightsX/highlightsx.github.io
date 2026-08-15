@@ -1,7 +1,7 @@
 ---
 title: "OpenScience gives a research agent 295 skills and a lab"
 description: "A browser workbench that reads the literature, writes code, runs experiments and queries UniProt, PDB, ChEMBL and thirty more databases — on your own API keys."
-publishDate: 2026-08-25
+publishDate: 2026-08-19
 category: ai
 tags: ["research", "agents", "science", "TypeScript"]
 repo:

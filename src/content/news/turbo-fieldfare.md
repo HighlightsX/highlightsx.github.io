@@ -1,7 +1,7 @@
 ---
 title: "TurboFieldfare runs Gemma 4 26B on an 8 GB MacBook"
 description: "A Swift and Metal runtime that keeps a 1.35 GB core resident and streams only the experts each token needs off SSD, built for Apple Silicon rather than on MLX."
-publishDate: 2026-08-23
+publishDate: 2026-08-18
 category: ai
 tags: ["Apple Silicon", "Swift", "Metal", "local inference"]
 repo:

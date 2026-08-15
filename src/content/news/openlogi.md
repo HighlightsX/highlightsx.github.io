@@ -1,7 +1,7 @@
 ---
 title: "OpenLogi replaces Logitech Options+ with a Rust agent"
 description: "Remap buttons, DPI and SmartShift over HID++ from a plain TOML file, with no account and no telemetry — and on Linux, which Options+ never supported."
-publishDate: 2026-08-20
+publishDate: 2026-08-17
 category: apps
 tags: ["Rust", "Logitech", "HID", "local-first"]
 repo:

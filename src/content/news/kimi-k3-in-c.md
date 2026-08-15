@@ -1,7 +1,7 @@
 ---
 title: "A 2.78-trillion-parameter model in 8 GB of RAM, in C99"
 description: "kimi-k3-in-c streams a 1.56 TB checkpoint off disk to run Kimi K3 on an ordinary laptop CPU. No BLAS, no framework, no GPU, 176 KB of engine."
-publishDate: 2026-08-22
+publishDate: 2026-08-17
 category: ai
 tags: ["inference", "C", "quantization", "mixture of experts"]
 repo:

@@ -1,7 +1,7 @@
 ---
 title: "QM is an agent with a per-employee sandbox, in Slack"
 description: "A multiplayer agent harness where every person and every room gets its own memory, files, keychain, crons and durable sandbox — on a harness you choose."
-publishDate: 2026-08-20
+publishDate: 2026-08-16
 category: ai
 tags: ["agents", "Slack", "multi-tenant", "TypeScript"]
 repo:

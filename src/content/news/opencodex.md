@@ -1,7 +1,7 @@
 ---
 title: "opencodex puts any model behind Codex and Claude Code"
 description: "A local proxy that translates the Codex Responses API into whatever your provider speaks — streaming, tool calls, reasoning tokens and images, both ways."
-publishDate: 2026-08-19
+publishDate: 2026-08-16
 category: devtools
 tags: ["proxy", "LLM", "Codex", "TypeScript"]
 repo:
