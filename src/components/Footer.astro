@@ -5,6 +5,7 @@ import { publishedNews } from '../lib/posts';
 const posts = await publishedNews();
 const used = new Set(posts.map((p) => p.data.category));
 const year = new Date().getFullYear();
+const isHome = Astro.url.pathname === '/';
 ---
 
 <footer class="site-footer">
@@ -47,6 +48,14 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-legal">
+      {isHome && (
+        <p>
+          <a href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener">
+            <img src="https://lemonlaunch.dev/badge/lemonlaunch-badge-light.svg"
+                 alt="Featured on LemonLaunch" width="188" height="56" />
+          </a>
+        </p>
+      )}
       <p>
         Posts are drafted with a language model from the public repository data linked at the
         bottom of each one, and read by a person before publishing. Mistakes happen; what we
