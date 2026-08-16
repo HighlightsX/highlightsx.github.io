@@ -30,6 +30,10 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | Insidr.ai | 16 Aug 2026 | no | "Succes! You will receive an email shortly" — see caveat below |
 | aitools.inc | 16 Aug 2026 | no | typeform, "we'll be in touch over the next few days" |
 | indieblog.page | 16 Aug 2026 | no | RSS feed suggested, "will be reviewed soon" |
+| Search My Site | 16 Aug 2026 | no | independent-website category, Basic (free) tier, moderator review then indexing |
+| feedle.world | 16 Aug 2026 | no | RSS feed submitted to their feed search engine, "we will review your content" |
+| Ping-O-Matic | 16 Aug 2026 | no | ping sent for the homepage + RSS feed; Blo.gs and FeedBurner both returned "Ping sent" |
+| Infotiger | 16 Aug 2026 | no | URL added to their crawl queue — **unverified**, the form gives no confirmation |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
 the email + Send button. The success message fired, but if their mail is a plain newsletter opt-in
@@ -49,6 +53,10 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | Web Review | free plan reached (badge verified), but the step-1 form would not advance — retry later |
 | DeepLaunch, AiToolSaver, PromoteProject, LaunchIgniter, IndieShowcase, PostYourStartup, SubmitMySaaS, dang.ai, findanaitools, aiindex.tools, toolfame, saasfame, saasgrow, listmysaas, yo.directory, openhunts, ufind.best, turbo0, woy.ai, newtool.site, nicklaunches, freeaidirectories, JustSimple.tools | account creation or sign-in required — not done on your behalf |
 | Startup Ranking, aistage.net | Cloudflare bot check |
+| ooh.directory, ExactSeek, wiby.me | form is filled in seconds but ends in a CAPTCHA checkbox — one click from you finishes each |
+| Marginalia Search | submission is a GitHub issue on their public repo, posted under your GitHub identity — your call |
+| Dofollow.Tools | free tier exists (badge required) but the final step demands sign-in, same as DeepLaunch |
+| feedspot, blogsurf.io, blogroll.org, console.dev, rightdao, mojeek, tap4.ai | login wall, dead page, or no public submit route |
 | marketingtoolslist.com | domain now redirects to a gambling site |
 | aitoolzdir | categories are generative-AI only; no honest fit |
 | aitoollist.org | submission is a pull request against their GitHub repo |
