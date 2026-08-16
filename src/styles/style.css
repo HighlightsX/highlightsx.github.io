@@ -602,6 +602,20 @@ main > h1 em, h1 .grad {
 
 .footer-legal p { margin: 0.4rem 0; }
 
+/* directory badges: one height for all of them, dimmed so they sit behind the text */
+.footer-legal img {
+  block-size: 26px;
+  inline-size: auto;
+  vertical-align: middle;
+  margin-inline-end: 0.4rem;
+  opacity: 0.5;
+  filter: brightness(0.75);
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.footer-legal a:hover img,
+.footer-legal a:focus-visible img { opacity: 1; filter: none; }
+
 /* mobile */
 
 @media (max-width: 780px) {
