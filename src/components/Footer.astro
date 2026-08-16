@@ -5,7 +5,8 @@ import { publishedNews } from '../lib/posts';
 const posts = await publishedNews();
 const used = new Set(posts.map((p) => p.data.category));
 const year = new Date().getFullYear();
-const isHome = Astro.url.pathname === '/';
+// build.format is 'file', so the built homepage is /index.html, not /.
+const isHome = /^\/(index\.html)?$/.test(Astro.url.pathname);
 ---
 
 <footer class="site-footer">
