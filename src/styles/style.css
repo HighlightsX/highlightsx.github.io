@@ -608,8 +608,9 @@ main > h1 em, h1 .grad {
   inline-size: auto;
   vertical-align: middle;
   margin-inline-end: 0.4rem;
-  opacity: 0.5;
-  filter: brightness(0.75);
+  margin-block-end: 0.9rem;
+  opacity: 0.72;
+  filter: brightness(0.9);
   transition: opacity 0.15s ease, filter 0.15s ease;
 }
 
