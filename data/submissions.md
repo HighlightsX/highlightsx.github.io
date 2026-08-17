@@ -14,7 +14,7 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | LemonLaunch | https://lemonlaunch.dev/dev-tools/github-highlights | before 16 Aug 2026 | yes | |
 | TheSaaSDir | https://thesaasdir.com/product/github-highlights | before 16 Aug 2026 | yes | badge required |
 | Twelve Tools | twelve.tools, slug `highlightsx-github-io` | 16 Aug 2026 | yes | badge required · manage: https://twelve.tools/edit?hash=wp8tefl59nwd9tmxvjrw&email=tommycoupe%40gmail.com |
-| Wired Business | wired.business, slug `highlightsx-github-io` | 16 Aug 2026 | yes | badge required · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
+| Wired Business | https://wired.business/highlightsx-github-io | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — both outbound links are bare hrefs, no rel · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
 
 ## Submitted, waiting on review
 

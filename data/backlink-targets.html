@@ -1,0 +1,2574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backlink Audit</title>
+<style>
+  :root{
+    --bg:#fbfbfa; --panel:#fff; --ink:#16150f; --muted:#6b6a63; --line:#e4e2dc; --hover:#f6f5f1;
+    --go:#1a7f4b; --go-bg:#e7f4ec; --no:#a8432c; --no-bg:#fbeceb; --maybe:#8a6a15; --maybe-bg:#fcf3dd;
+    --avoid:#8a1c1c; --avoid-bg:#f7e0e0; --accent:#2b5fd9; --code:#f2f1ec; --star:#7a3fbf; --star-bg:#f1e9fb;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141513; --panel:#1c1e1b; --ink:#eceae2; --muted:#9b9a92; --line:#2e312c; --hover:#232622;
+      --go:#5fd497; --go-bg:#16301f; --no:#f0836a; --no-bg:#331a15; --maybe:#e0b84e; --maybe-bg:#2e2612;
+      --avoid:#ff9b8f; --avoid-bg:#3d1414; --accent:#7ea2ff; --code:#232520; --star:#c39bf0; --star-bg:#2a1d3a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141513; --panel:#1c1e1b; --ink:#eceae2; --muted:#9b9a92; --line:#2e312c; --hover:#232622;
+    --go:#5fd497; --go-bg:#16301f; --no:#f0836a; --no-bg:#331a15; --maybe:#e0b84e; --maybe-bg:#2e2612;
+    --avoid:#ff9b8f; --avoid-bg:#3d1414; --accent:#7ea2ff; --code:#232520; --star:#c39bf0; --star-bg:#2a1d3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;padding:2.25rem 1rem 5rem}
+  .wrap{max-width:1500px;margin:0 auto}
+  h1{font-size:1.85rem;line-height:1.15;margin:0 0 .3rem;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin:0 0 1.4rem;font-size:.92rem;max-width:80ch}
+  .stats{display:flex;gap:.55rem;flex-wrap:wrap;margin:0 0 1.4rem}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.55rem .85rem;min-width:106px}
+  .stat b{display:block;font-size:1.4rem;line-height:1.1;letter-spacing:-.02em}
+  .stat span{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .controls{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin:0 0 .9rem}
+  button.f{font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;background:var(--panel);
+    color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;transition:.12s}
+  button.f:hover{border-color:var(--accent);color:var(--ink)}
+  button.f[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  #q{font:inherit;font-size:.85rem;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:.4rem .7rem;min-width:210px;flex:1;max-width:320px}
+  #q:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:1240px;font-size:.845rem}
+  th{text-align:left;font-weight:600;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);padding:.65rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap;
+    cursor:pointer;user-select:none;position:sticky;top:0;background:var(--panel);z-index:2}
+  th:hover{color:var(--ink)}
+  th .ar{opacity:.35;font-size:.7rem}
+  th[aria-sort] .ar{opacity:1;color:var(--accent)}
+  th.nos{cursor:default}
+  th.nos:hover{color:var(--muted)}
+  td{padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:hover{background:var(--hover)}
+  tbody tr:last-child td{border-bottom:0}
+  td.site{font-weight:600;white-space:nowrap}
+  td.site a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+  td.site a:hover{border-color:var(--accent);color:var(--accent)}
+  .field,.note-c{color:var(--muted);font-size:.81rem}
+  .where{min-width:190px}
+  .notes{min-width:250px}
+  code,.rel{font-family:ui-monospace,SFMono-Regular,"Cascadia Code",Menlo,monospace;
+    font-size:.755rem;background:var(--code);padding:.1rem .35rem;border-radius:4px}
+  .rel{white-space:nowrap}
+  .tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    padding:.18rem .42rem;border-radius:4px;white-space:nowrap}
+  .t-go{background:var(--go-bg);color:var(--go)}
+  .t-no{background:var(--no-bg);color:var(--no)}
+  .t-maybe{background:var(--maybe-bg);color:var(--maybe)}
+  .t-avoid{background:var(--avoid-bg);color:var(--avoid)}
+  .t-star{background:var(--star-bg);color:var(--star)}
+  .conf{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;margin-top:.1rem}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;
+    overflow-x:auto;font-size:.78rem;line-height:1.5;margin:.7rem 0 0}
+  pre code{background:none;padding:0;white-space:pre}
+  h2{font-size:1.1rem;margin:2.4rem 0 .3rem;letter-spacing:-.01em}
+  .lede{color:var(--muted);font-size:.88rem;margin:.2rem 0 .9rem;max-width:74ch}
+  .note{border-left:3px solid var(--accent);background:var(--panel);border-radius:0 8px 8px 0;
+    padding:.75rem 1rem;margin:1rem 0;font-size:.86rem;color:var(--muted)}
+  .note.hot{border-left-color:var(--star)}
+  .note b{color:var(--ink)}
+  footer{margin-top:2.6rem;padding-top:1.1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem}
+  #count{font-size:.78rem;color:var(--muted);margin:.6rem 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- REPLACE: title and standfirst -->
+<h1>Backlink Audit</h1>
+<p class="sub">Every platform tested, one table. All <code>rel</code> values read from live HTML on <b>17 August 2026</b> — not from memory. Click a column header to sort, use the pills to filter.</p>
+
+<div class="stats">
+  <div class="stat"><b style="color:var(--go)" id="s-go">—</b><span>dofollow</span></div>
+  <div class="stat"><b style="color:var(--no)" id="s-no">—</b><span>nofollow</span></div>
+  <div class="stat"><b style="color:var(--maybe)" id="s-un">—</b><span>unresolved</span></div>
+  <div class="stat"><b style="color:var(--avoid)" id="s-av">—</b><span>avoid</span></div>
+  <div class="stat"><b id="s-all">—</b><span>total tested</span></div>
+</div>
+
+<div class="note">
+<b>Reading the rel column.</b> A link passes ranking signal only if it is <em>not</em> <code>nofollow</code>, <code>sponsored</code>, or <code>ugc</code>. A bare <code>&lt;a href&gt;</code> with no <code>rel</code> is dofollow — and so are <code>noopener</code> and <code>noreferrer</code> on their own, which are security and privacy hints, not crawl directives.
+</div>
+
+<div class="controls">
+  <button class="f" data-v="all" aria-pressed="true">All</button>
+  <button class="f" data-v="dofollow" aria-pressed="false">Dofollow</button>
+  <button class="f" data-v="nofollow" aria-pressed="false">Nofollow</button>
+  <button class="f" data-v="unresolved" aria-pressed="false">Unresolved</button>
+  <button class="f" data-v="avoid" aria-pressed="false">Avoid</button>
+  <input id="q" type="search" placeholder="Search platform, category, notes…">
+</div>
+
+<div class="card scroll">
+<table id="tbl">
+<thead><tr>
+  <th class="nos"></th>
+  <th data-s="name">Platform <span class="ar">↕</span></th>
+  <th data-s="cat">Category <span class="ar">↕</span></th>
+  <th data-s="verdict">Verdict <span class="ar">↕</span></th>
+  <th data-s="rel">Verified rel <span class="ar">↕</span></th>
+  <th data-s="where">Where the link goes <span class="ar">↕</span></th>
+  <th data-s="gate">Gate <span class="ar">↕</span></th>
+  <th data-s="mins">Effort <span class="ar">↕</span></th>
+  <th data-s="conf">Confidence <span class="ar">↕</span></th>
+  <th class="nos">Notes</th>
+</tr></thead>
+<tbody id="body"></tbody>
+</table>
+</div>
+<p id="count"></p>
+
+<!-- REPLACE or delete: highlight callout for the single strongest find -->
+<div class="note hot">
+<b>Headline finding goes here.</b> Explain what makes the starred row worth acting on first, and any catch attached to it.
+</div>
+
+<h2>Verify anything yourself</h2>
+<p class="lede">The method behind every row. If the output contains <code>nofollow</code>, <code>sponsored</code>, or <code>ugc</code>, the link passes nothing.</p>
+<pre><code>curl -s -A "Mozilla/5.0" "https://PLATFORM/YOUR-PROFILE" \
+  | grep -oiE '&lt;a [^&gt;]*href="https?://[^"]*"[^&gt;]*&gt;' \
+  | grep -i "YOURDOMAIN"</code></pre>
+<p class="lede" style="margin-top:.7rem">For client-rendered rows, open the page in a browser and run in DevTools console:</p>
+<pre><code>[...document.querySelectorAll('a[href*="YOURDOMAIN"]')]
+  .map(a =&gt; a.rel || '(none = dofollow)')</code></pre>
+
+<footer>
+Values read from live HTML on 17 August 2026. <b>verified</b> = fetched and read directly. <b>inferred</b> = shares an engine with a verified row, not individually fetched. <b>unverified</b> = client-rendered or returned an error, markup could not be read. Platforms change these values without notice.
+</footer>
+
+</div>
+<script>
+// REPLACE: one object per platform.
+// verdict: "dofollow" | "nofollow" | "unresolved" | "avoid"
+// conf:    "verified" | "inferred" | "unverified"
+// star:    1 on the single strongest find (optional)
+const D=[
+ {
+  "name": "Alltop",
+  "url": "https://alltop.com",
+  "cat": "Blog / RSS",
+  "verdict": "dofollow",
+  "rel": "rel=\"noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Feed-driven topic pages link each story with rel=\"noreferrer\" only — passes. Human review of the feed submission; free."
+ },
+ {
+  "name": "OnToplist",
+  "url": "https://ontoplist.com/add-your-business-listing/",
+  "cat": "Blog / RSS",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "https://www.ontoplist.com/add-your-business-listing/",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "verified",
+  "notes": "Verified on a live category page: editorially listed blogs carry rel=\"noopener\" (passes) while paid placements carry rel=\"noopener sponsored\". Free submission goes through review."
+ },
+ {
+  "name": "Personalsit.es",
+  "url": "https://personalsit.es",
+  "cat": "Blog / RSS",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "4,100+ member sites linked bare from one index page. Submission is a pull request; frame the site as a personal project or it will not fit their scope."
+ },
+ {
+  "name": "Five Taco",
+  "url": "https://fivetaco.com/submit",
+  "cat": "Community / gallery",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://fivetaco.com/submit",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Submission via paperform; sampled outbound links rel=\"noopener noreferrer\" — passes."
+ },
+ {
+  "name": "DevPages",
+  "url": "https://devpages.io/submit-a-tool",
+  "cat": "Dev / open-source",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://devpages.io/submit-a-tool",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Sampled entry links rel=\"noopener noreferrer\" — passes."
+ },
+ {
+  "name": "Devtool.io",
+  "url": "https://devtool.io/submit-tool",
+  "cat": "Dev / open-source",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "Submit form: https://devtool.io/submit-tool",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Listing links rel=\"noopener\" with ?ref= tracking — passes; GitHub link is nofollowed."
+ },
+ {
+  "name": "OpenSaaS Directory",
+  "url": "https://opensaas.directory",
+  "cat": "Dev / open-source",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Entry links rel=\"noopener noreferrer\" — passes. Fit is OSS-tool-shaped, pitch accordingly."
+ },
+ {
+  "name": "OpenSourceAlternative.to",
+  "url": "https://opensourcealternative.to/submit",
+  "cat": "Dev / open-source",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://opensourcealternative.to/submit",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Best topical fit of the whole sweep. Entry links out with no rel; editors approve. Pitch the site as an OSS discovery resource."
+ },
+ {
+  "name": "Betapage",
+  "url": "https://betapage.co/submit",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://betapage.co/submit",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "verified",
+  "notes": "Product pages link out bare in places. Same operator as Pitchwall — pick one of the two."
+ },
+ {
+  "name": "EarlyHunt",
+  "url": "https://earlyhunt.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://earlyhunt.com/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Listing links rel=\"noopener noreferrer\" on the sampled entry — passes, but the same page nofollows GitHub."
+ },
+ {
+  "name": "IdeaKiln",
+  "url": "https://ideakiln.com",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Entry links rel=\"noopener noreferrer\" — passes."
+ },
+ {
+  "name": "Launch List",
+  "url": "https://launch-list.org",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Product page links the site with no rel. Tiny directory, fast approval."
+ },
+ {
+  "name": "Launchscroll",
+  "url": "https://launchscroll.com",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "LaunchVault",
+  "url": "https://launchvault.dev",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Project links carry rel=\"noopener\" only, so they pass. Dev-oriented, small but young and relevant."
+ },
+ {
+  "name": "Microlaunch",
+  "url": "https://microlaunch.net",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Evidence page: https://microlaunch.net/tools/alternatives-finder"
+ },
+ {
+  "name": "Mylaunchstash",
+  "url": "https://mylaunchstash.com",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Pitchwall",
+  "url": "https://pitchwall.co/submit",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://pitchwall.co/submit",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "verified",
+  "notes": "Same template and operator as Betapage. Two listings from one operator is the ceiling."
+ },
+ {
+  "name": "SoloLaunches",
+  "url": "https://sololaunches.com",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Listing links bare (no rel). Small indie audience, quick approval."
+ },
+ {
+  "name": "StarterBest",
+  "url": "https://starterbest.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://starterbest.com/submit",
+  "gate": "Free + paid tiers",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Mixed: some entries bare, some rel=\"nofollow noopener noreferrer\". Free tier likely the nofollow side — verify after your listing goes live."
+ },
+ {
+  "name": "Startup Fame",
+  "url": "https://startupfa.me",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "https://startupfa.me/submit — name, URL, tagline, logo",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "verified",
+  "notes": "Listing page links the product domain with no rel. Free tier queues behind paid; badge on your site speeds verification."
+ },
+ {
+  "name": "Startup List Africa",
+  "url": "https://startuplist.africa/submit-startup",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://startuplist.africa/submit-startup",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Listing links bare. Regional fit is weak for a global OSS blog — low priority."
+ },
+ {
+  "name": "Startupaideas",
+  "url": "https://startupaideas.com",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Startups.fm",
+  "url": "https://startups.fm/submit",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "Submit form: https://startups.fm/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Mixed markup — partner links bare, some listings rel=\"nofollow noopener noreferrer\"."
+ },
+ {
+  "name": "StartupsLab",
+  "url": "https://startupslab.site/submit-product",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener dofollow\"",
+  "where": "Submit form: https://startupslab.site/submit-product",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Product page shows a badge wall of other directories; own listing links mixed. Low standing."
+ },
+ {
+  "name": "SubmitDeck",
+  "url": "https://submitdeck.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "Submit form: https://submitdeck.com/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Outbound listing links append ?utm_source and carry rel=\"noopener\" only."
+ },
+ {
+  "name": "TinyLaunch",
+  "url": "https://tinylaunch.com",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Review pages link the product with rel=\"noopener noreferrer\" — passes. Free slot is a queue; tinylaun.ch is the same site."
+ },
+ {
+  "name": "Uneed",
+  "url": "https://uneed.best/submit-a-tool",
+  "cat": "Launch / startup",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "Submit form: https://uneed.best/submit-a-tool",
+  "gate": "Signup",
+  "mins": 10,
+  "conf": "verified",
+  "notes": "Free slot far out in the queue; listing links mix bare and nofollow. Cloudflare on submit."
+ },
+ {
+  "name": "SaaSField",
+  "url": "https://saasfield.com/submit",
+  "cat": "SaaS directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://saasfield.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Part of the submitsaas clone network — same template, ads and markup as a dozen others in this table."
+ },
+ {
+  "name": "SaaSpo",
+  "url": "https://saaspo.com/submit",
+  "cat": "SaaS directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://saaspo.com/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Design-gallery angle; sampled links bare. Fit is landing-page design, weak for a news site."
+ },
+ {
+  "name": "SaaSRow",
+  "url": "https://saasrow.com/submit",
+  "cat": "SaaS directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://saasrow.com/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Software pages link the vendor site with rel=\"noopener noreferrer\" — passes."
+ },
+ {
+  "name": "SpotSaaS",
+  "url": "https://spotsaas.com",
+  "cat": "SaaS directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "verified",
+  "notes": "Sampled product page had no outbound vendor link in server HTML."
+ },
+ {
+  "name": "Viesearch",
+  "url": "https://viesearch.com/submit",
+  "cat": "Search engine",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener\"",
+  "where": "https://viesearch.com/submit — title, URL, description, category",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Human-moderated web search directory, free tier. Listed sites carry rel=\"noopener\" only, so equity passes. Editorial approval is what makes it worth the slot.",
+  "star": 1
+ },
+ {
+  "name": "Acidtools",
+  "url": "https://acidtools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network. Listing links the product rel=\"noopener noreferrer\" so equity passes, but a dozen identical templates in one profile is a footprint, not a set of independent mentions."
+ },
+ {
+  "name": "Appalist",
+  "url": "https://appalist.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — identical markup to acidtools, theapptools, toolfinddir. Pick at most one or two from this cluster."
+ },
+ {
+  "name": "Appsytools",
+  "url": "https://appsytools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Ashlist",
+  "url": "https://ashlist.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Beamtools",
+  "url": "https://beamtools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Besttoolvault",
+  "url": "https://besttoolvault.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Ctrl Alt",
+  "url": "https://ctrlalt.cc",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Product page links the site bare (no rel). Very small, very fast."
+ },
+ {
+  "name": "Dironix",
+  "url": "https://dironix.com/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://dironix.com/submit",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Entry links bare. New directory — fragile: young niche platforms are the first to be patched once spammers arrive."
+ },
+ {
+  "name": "DomainRank",
+  "url": "https://domainrank.app/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit form: https://domainrank.app/submit",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Item pages mix bare and nofollow links — free tier is likely the nofollow one."
+ },
+ {
+  "name": "Findly.tools",
+  "url": "https://findly.tools/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://findly.tools/submit",
+  "gate": "Free + paid tiers",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Evidence came from a review post linking out rel=\"noopener noreferrer\" (passes); the listing template itself is unread."
+ },
+ {
+  "name": "Gets.tools",
+  "url": "https://gets.tools/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://gets.tools/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Mixed markup — some listings bare, some rel=\"noopener noreferrer nofollow\". Free listing is the nofollow one in most samples."
+ },
+ {
+  "name": "Huntfortools",
+  "url": "https://huntfortools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "IndieHackerStacks",
+  "url": "https://indiehackerstacks.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Outbound links rel=\"noreferrer\" only — passes. Tiny site, fragile."
+ },
+ {
+  "name": "Mystarttools",
+  "url": "https://mystarttools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "NavFolders",
+  "url": "https://navfolders.com/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://navfolders.com/submit",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Outbound links rel=\"noreferrer\" only — passes."
+ },
+ {
+  "name": "PowerUpTools",
+  "url": "https://poweruptools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — identical template to acidtools, appalist, thekeytools and others here."
+ },
+ {
+  "name": "Productivity Directory",
+  "url": "https://productivity.directory",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Outbound links on entry pages carry no rel. Free tier with review; paid skips queue."
+ },
+ {
+  "name": "Productlistdir",
+  "url": "https://productlistdir.com/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://productlistdir.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Refined.so",
+  "url": "https://refined.so",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"dofollow\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Also publishes an annotated dofollow/nofollow directory list — useful cross-reference, their labels unverified by me."
+ },
+ {
+  "name": "Roozna",
+  "url": "https://roozna.com/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://roozna.com/submit",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Listing links rel=\"noopener noreferrer\" — passes."
+ },
+ {
+  "name": "Solvertools",
+  "url": "https://solvertools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Sourcedir",
+  "url": "https://sourcedir.com/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://sourcedir.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Spiff",
+  "url": "https://spiff.store/submit-tool",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://spiff.store/submit-tool",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Tool pages link out rel=\"noopener noreferrer\" — passes."
+ },
+ {
+  "name": "Stackdirectory",
+  "url": "https://stackdirectory.com/submit",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://stackdirectory.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Startup Resources",
+  "url": "https://startupresources.io/add-resource/",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"external noopener noreferrer\"",
+  "where": "Submit form: https://startupresources.io/add-resource/",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Resource links use rel=\"external noopener noreferrer\" — external is a semantic hint, so these pass."
+ },
+ {
+  "name": "Theapptools",
+  "url": "https://theapptools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Thecoretools",
+  "url": "https://thecoretools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Thekeytools",
+  "url": "https://thekeytools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Themegatools",
+  "url": "https://themegatools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Tinytoolhub",
+  "url": "https://tinytoolhub.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Toolcosmos",
+  "url": "https://toolcosmos.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Toolfinddir",
+  "url": "https://toolfinddir.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Toolslisthq",
+  "url": "https://toolslisthq.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Toolsunderradar",
+  "url": "https://toolsunderradar.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Unitelist",
+  "url": "https://unitelist.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "VerifiedDR",
+  "url": "https://verifieddr.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Evidence came from a blog post, rel=\"noopener noreferrer\" (passes); listing template unread."
+ },
+ {
+  "name": "Weliketools",
+  "url": "https://weliketools.com",
+  "cat": "Tools directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "submitsaas clone network — see acidtools row."
+ },
+ {
+  "name": "Alive Directory",
+  "url": "https://alivedirectory.com",
+  "cat": "Web directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Old-school editor-reviewed directory; category pages link out with no rel at all. Free listing exists alongside paid express review."
+ },
+ {
+  "name": "GainWeb",
+  "url": "https://gainweb.org",
+  "cat": "Web directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Category listings link out with no rel. Small traffic, but a clean, non-spam neighbourhood."
+ },
+ {
+  "name": "ProLink Directory",
+  "url": "https://prolinkdirectory.com",
+  "cat": "Web directory",
+  "verdict": "dofollow",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Category pages link out bare (no rel). Free submission with editorial review; regular (free) queue is slow."
+ },
+ {
+  "name": "TheFastestWeb",
+  "url": "https://thefastestweb.site/submit",
+  "cat": "Web directory",
+  "verdict": "dofollow",
+  "rel": "rel=\"noopener noreferrer\"",
+  "where": "Submit form: https://thefastestweb.site/submit",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Site entries link rel=\"noopener noreferrer\" — passes. Thin, new."
+ },
+ {
+  "name": "WIP",
+  "url": "https://wip.co",
+  "cat": "Community / gallery",
+  "verdict": "nofollow",
+  "rel": "rel=\"noopener nofollow\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Paid",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Profile links rel=\"nofollow noopener\" and membership is paid."
+ },
+ {
+  "name": "LibHunt",
+  "url": "https://libhunt.com",
+  "cat": "Dev / open-source",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "verified",
+  "notes": "Repo links are rel=\"nofollow\", sponsor slots rel=\"sponsored\". Submit for the dev traffic, not the link."
+ },
+ {
+  "name": "OpenAlternative",
+  "url": "https://openalternative.co/submit",
+  "cat": "Dev / open-source",
+  "verdict": "nofollow",
+  "rel": "rel=\"noopener nofollow\"",
+  "where": "Submit form: https://openalternative.co/submit",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Verified on a live tool page: the listed tool's own URL carries rel=\"noopener nofollow\". Free submit queue; worth it for dev traffic, not equity."
+ },
+ {
+  "name": "AwesomeIndie",
+  "url": "https://awesomeindie.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"noopener noreferrer nofollow\"",
+  "where": "Submit form: https://awesomeindie.com/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Product links rel=\"noopener noreferrer nofollow\"."
+ },
+ {
+  "name": "BetterLaunch",
+  "url": "https://betterlaunch.co/submit",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"noopener noreferrer nofollow ugc\"",
+  "where": "Submit form: https://betterlaunch.co/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Links rel=\"noopener noreferrer nofollow ugc\" — three directives, nothing passes."
+ },
+ {
+  "name": "IndieHunt",
+  "url": "https://indiehunt.io/submit",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow noopener\"",
+  "where": "Submit form: https://indiehunt.io/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Product links rel=\"nofollow noopener\"."
+ },
+ {
+  "name": "LaunchPad India",
+  "url": "https://launchpadindia.co/submit",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"noopener nofollow\"",
+  "where": "Submit form: https://launchpadindia.co/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Listing links rel=\"noopener nofollow\". Regional fit weak."
+ },
+ {
+  "name": "Les Pépites Tech",
+  "url": "https://lespepitestech.com",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "All startup links rel=\"nofollow\", French-market only."
+ },
+ {
+  "name": "PeerPush",
+  "url": "https://peerpush.net/submit",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"sponsored nofollow noopener\"",
+  "where": "Submit form: https://peerpush.net/submit",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Tool links are rel=\"sponsored nofollow noopener\" — no equity."
+ },
+ {
+  "name": "SmolLaunch",
+  "url": "https://smollaunch.com",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"sponsored nofollow noopener\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Listing links rel=\"sponsored nofollow noopener\"."
+ },
+ {
+  "name": "Startups.gallery",
+  "url": "https://startups.gallery",
+  "cat": "Launch / startup",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "verified",
+  "notes": "Company pages link out rel=\"nofollow\" throughout."
+ },
+ {
+  "name": "MicroSaaS Examples",
+  "url": "https://microsaasexamples.com/submit",
+  "cat": "SaaS directory",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow noopener\"",
+  "where": "Submit form: https://microsaasexamples.com/submit",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Listing links rel=\"nofollow noopener\"."
+ },
+ {
+  "name": "Bowora",
+  "url": "https://bowora.com",
+  "cat": "Tools directory",
+  "verdict": "nofollow",
+  "rel": "rel=\"noreferrer sponsored\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Outbound links rel=\"noreferrer sponsored\" — no equity."
+ },
+ {
+  "name": "Verifiedtools",
+  "url": "https://verifiedtools.info/submit",
+  "cat": "Tools directory",
+  "verdict": "nofollow",
+  "rel": "rel=\"noopener noreferrer sponsored\"",
+  "where": "Submit form: https://verifiedtools.info/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Evidence page: https://verifiedtools.info/tools/adkit-ads-mcp"
+ },
+ {
+  "name": "Directory Launch",
+  "url": "https://directory-launch.com",
+  "cat": "Web directory",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow noopener noreferrer\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Evidence page: https://directory-launch.com/blog/profitable-directory-website-examples-2026"
+ },
+ {
+  "name": "OneMillionDirectory",
+  "url": "https://onemilliondirectory.com/submit",
+  "cat": "Web directory",
+  "verdict": "nofollow",
+  "rel": "rel=\"nofollow noopener\"",
+  "where": "Submit form: https://onemilliondirectory.com/submit",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Listing links carry rel=\"nofollow noopener\" — index value only, no equity."
+ },
+ {
+  "name": "Alltopstartups",
+  "url": "https://alltopstartups.com/submit-startup/",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://alltopstartups.com/submit-startup/",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Blogarama",
+  "url": "https://blogarama.com/add-a-site/",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "https://blogarama.com/add-a-site/ — blog URL, category, description",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "unverified",
+  "notes": "Category pages are client-rendered — only one link was in the server HTML. Free submission exists; verify rel after the listing is live."
+ },
+ {
+  "name": "BlogFlux",
+  "url": "https://blogflux.com",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "unverified",
+  "notes": "Long-running blog directory; markup unread, low traffic."
+ },
+ {
+  "name": "Bloglovin",
+  "url": "https://bloglovin.com",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "unverified",
+  "notes": "Claim-your-blog flow; rel unread. Lifestyle-heavy audience, weak topical fit."
+ },
+ {
+  "name": "Blogpros",
+  "url": "https://blogpros.com",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Feedmystartup",
+  "url": "https://feedmystartup.com/submit-your-app/",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://feedmystartup.com/submit-your-app/",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Indieseek.xyz",
+  "url": "https://indieseek.xyz",
+  "cat": "Blog / RSS",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Returns 403 to a plain fetch. Hand-curated small-web directory — the right neighbourhood for this site; check rel in a browser."
+ },
+ {
+  "name": "Curated.design",
+  "url": "https://curated.design",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Design gallery, human review; markup unread."
+ },
+ {
+  "name": "DEV.to",
+  "url": "https://dev.to",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 10,
+  "conf": "unverified",
+  "notes": "Profile website field and post links are nofollowed in practice; sampled pages client-rendered here. Value is referral traffic."
+ },
+ {
+  "name": "DZone",
+  "url": "https://dzone.com",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 15,
+  "conf": "unverified",
+  "notes": "Contributor programme, editorial. Heavy lift for one link."
+ },
+ {
+  "name": "Hashnode",
+  "url": "https://hashnode.com",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 10,
+  "conf": "unverified",
+  "notes": "Sampled bare links were Hashnode's own cross-product promos, not user fields. Profile/blog rel unconfirmed."
+ },
+ {
+  "name": "Land-book",
+  "url": "https://land-book.com/submit-template",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://land-book.com/submit-template",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Design gallery, curated. Only worth it if the site's visual design is the pitch."
+ },
+ {
+  "name": "Peerlist",
+  "url": "https://peerlist.io",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "— (pl.st redirect hop)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 10,
+  "conf": "verified",
+  "notes": "Outbound goes through a pl.st redirect hop — equity dies at the hop regardless of rel."
+ },
+ {
+  "name": "Sidebar",
+  "url": "https://sidebar.io/submit",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://sidebar.io/submit",
+  "gate": "Curated",
+  "mins": 4,
+  "conf": "unverified",
+  "notes": "Five design links a day, editor-picked. Long odds per submission, real standing if picked."
+ },
+ {
+  "name": "Slashdot",
+  "url": "https://slashdot.org/submit",
+  "cat": "Community / gallery",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://slashdot.org/submit",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Story submission, editor-approved, very long odds. Not a directory listing."
+ },
+ {
+  "name": "Alternative",
+  "url": "https://alternative.me",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Alternativeto",
+  "url": "https://alternativeto.net",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "APIList.fun",
+  "url": "https://apilist.fun",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Bare links sampled were the operator's own partner banners, not a submitted listing — treat as unconfirmed."
+ },
+ {
+  "name": "DevHunt",
+  "url": "https://devhunt.org",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 10,
+  "conf": "unverified",
+  "notes": "Weekly dev-tool launch board, GitHub login. Tool pages carried no outbound link in server HTML — equity unconfirmed."
+ },
+ {
+  "name": "Directory Fsf",
+  "url": "https://directory.fsf.org",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Free For",
+  "url": "https://free-for.dev",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Saashub",
+  "url": "https://saashub.com",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Stackshare",
+  "url": "https://stackshare.io",
+  "cat": "Dev / open-source",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 429 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Disrupt500",
+  "url": "https://disrupt500.com",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Nextbigwhat",
+  "url": "https://nextbigwhat.com",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Sideprojectors",
+  "url": "https://sideprojectors.com",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Snapmunk",
+  "url": "https://snapmunk.com",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Springwise",
+  "url": "https://springwise.com/submit-an-innovation/",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://springwise.com/submit-an-innovation/",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Stateoftech",
+  "url": "https://stateoftech.net",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Superlaun",
+  "url": "https://superlaun.ch",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Techpluto",
+  "url": "https://techpluto.com/submit-startup/",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://techpluto.com/submit-startup/",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Webwiki",
+  "url": "https://webwiki.com",
+  "cat": "Directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Abacklaunch",
+  "url": "https://abacklaunch.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://abacklaunch.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Only blog affiliate links readable; listing markup unread."
+ },
+ {
+  "name": "Arcticstartup",
+  "url": "https://arcticstartup.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Crazyaboutstartups",
+  "url": "https://crazyaboutstartups.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "EU-Startups",
+  "url": "https://eu-startups.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 8,
+  "conf": "unverified",
+  "notes": "Directory entry sampled had only a feedburner link; editorial directory, submission reviewed."
+ },
+ {
+  "name": "Fazier",
+  "url": "https://fazier.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://fazier.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Huntcaster",
+  "url": "https://huntcaster.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Huzzler",
+  "url": "https://huzzler.so",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "unverified",
+  "notes": "Listing pages are client-rendered; no outbound link in server HTML."
+ },
+ {
+  "name": "Indiepa Ge",
+  "url": "https://indiepa.ge",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Indieproducts",
+  "url": "https://indieproducts.io",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Only a blog post was readable; listing markup unread."
+ },
+ {
+  "name": "Jaimelesstartups",
+  "url": "https://jaimelesstartups.fr",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Justhunt",
+  "url": "https://justhunt.co",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Evidence page was an alternatives listicle, not a submitted listing."
+ },
+ {
+  "name": "Killerstartups",
+  "url": "https://killerstartups.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Launchcaster",
+  "url": "https://launchcaster.xyz",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Launchingnext",
+  "url": "https://launchingnext.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Placestopostyourstartup",
+  "url": "https://placestopostyourstartup.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Producthunt",
+  "url": "https://producthunt.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Projecthunt",
+  "url": "https://projecthunt.me",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Shipstreams",
+  "url": "https://shipstreams.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Shipstry",
+  "url": "https://shipstry.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupanz",
+  "url": "https://startupanz.com/submit-a-blog/",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://startupanz.com/submit-a-blog/",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "StartupBase",
+  "url": "https://startupbase.io",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 6,
+  "conf": "unverified",
+  "notes": "Client-rendered listing pages — rel unread."
+ },
+ {
+  "name": "StartupBeat",
+  "url": "https://startupbeat.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Curated",
+  "mins": 6,
+  "conf": "unverified",
+  "notes": "Editorial startup news site with a submit form; listing markup unread."
+ },
+ {
+  "name": "StartupBlink",
+  "url": "https://startupblink.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 8,
+  "conf": "unverified",
+  "notes": "Global startup map, free profile. Listing markup unread — client-rendered."
+ },
+ {
+  "name": "Startupbuffer",
+  "url": "https://startupbuffer.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Startupbutton",
+  "url": "https://startupbutton.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupcollections",
+  "url": "https://startupcollections.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupeurope",
+  "url": "https://startupeurope.net",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupindex",
+  "url": "https://startupindex.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupinspire",
+  "url": "https://startupinspire.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupstash",
+  "url": "https://startupstash.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "StartupTabs",
+  "url": "https://startuptabs.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Sampled page mixed unrelated UK charity links — neighbourhood looks unmaintained."
+ },
+ {
+  "name": "Startuptoolslist",
+  "url": "https://startuptoolslist.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startuptracker",
+  "url": "https://startuptracker.io",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Startupxplore",
+  "url": "https://startupxplore.com",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Sampled page linked only a financial regulator, not listings."
+ },
+ {
+  "name": "Tinystartups",
+  "url": "https://tinystartups.com/submit",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://tinystartups.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Only partner links on the sampled page; listing markup unread."
+ },
+ {
+  "name": "Websitehunt",
+  "url": "https://websitehunt.co",
+  "cat": "Launch / startup",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "B2bstack",
+  "url": "https://b2bstack.com",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "ConfettiSaaS",
+  "url": "https://confettisaas.com/submit",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://confettisaas.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Bare ?ref= links on blog posts; listing markup unconfirmed."
+ },
+ {
+  "name": "Productburst",
+  "url": "https://productburst.com",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Saasgenius",
+  "url": "https://saasgenius.com",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Evidence page: https://www.saasgenius.com/reviews/salesforce-crm/"
+ },
+ {
+  "name": "Saaspirate",
+  "url": "https://saaspirate.com",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Saaspromo",
+  "url": "https://saaspromo.com",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Saasworthy",
+  "url": "https://saasworthy.com",
+  "cat": "SaaS directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Only the operator's own properties were linked on the sampled page; vendor link not in server HTML."
+ },
+ {
+  "name": "Entireweb",
+  "url": "https://entireweb.com",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 3,
+  "conf": "unverified",
+  "notes": "Free URL submission to their index. No listing page, so no rel to read — this is an indexation ping, not a backlink."
+ },
+ {
+  "name": "Gimpsy",
+  "url": "https://gimpsy.com",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Incrawler",
+  "url": "https://incrawler.com",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Jayde",
+  "url": "https://jayde.com",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Searchsight",
+  "url": "https://searchsight.com",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Somuch",
+  "url": "https://somuch.com/submit-links",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://somuch.com/submit-links",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Sonicrun",
+  "url": "https://sonicrun.com",
+  "cat": "Search engine",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Handpickedtools",
+  "url": "https://handpickedtools.com",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Nextgentools",
+  "url": "https://nextgentools.me/submit-your-tool",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://nextgentools.me/submit-your-tool",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Remote",
+  "url": "https://remote.tools",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Sideprojectstack",
+  "url": "https://sideprojectstack.com",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 403 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Simplelister",
+  "url": "https://simplelister.com",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Toolfolio",
+  "url": "https://toolfolio.io",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "— (toolfolio.link redirect hop)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Outbound goes through toolfolio.link redirect hop — equity dies at the hop."
+ },
+ {
+  "name": "Toolkitly",
+  "url": "https://toolkitly.com",
+  "cat": "Tools directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Client-rendered listings; rel unread."
+ },
+ {
+  "name": "1WebsDirectory",
+  "url": "https://1websdirectory.com/submit-site/",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://1websdirectory.com/submit-site/",
+  "gate": "Curated",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Bare links on the sampled category page were search-engine nav, not listings."
+ },
+ {
+  "name": "9sites",
+  "url": "https://9sites.net",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "A1webdirectory",
+  "url": "https://a1webdirectory.org",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Awesome Directories",
+  "url": "https://awesome-directories.com/submit",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://awesome-directories.com/submit",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Blog post links only; the directory index itself is client-rendered."
+ },
+ {
+  "name": "Directoryworld",
+  "url": "https://directoryworld.net",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Dirjournal",
+  "url": "https://dirjournal.com",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Homepage returned HTTP 429 to a plain fetch — could not read markup."
+ },
+ {
+  "name": "Freeonline",
+  "url": "https://freeonline.org",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Goguides",
+  "url": "https://goguides.org",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Linkcentre",
+  "url": "https://linkcentre.com",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Signup",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Sitelike",
+  "url": "https://sitelike.org/add-site",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit form: https://sitelike.org/add-site",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Tomdirectory",
+  "url": "https://tomdirectory.com",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Vlib",
+  "url": "https://vlib.org",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "W3catalog",
+  "url": "https://w3catalog.com",
+  "cat": "Web directory",
+  "verdict": "unresolved",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Free + paid tiers",
+  "mins": 5,
+  "conf": "unverified",
+  "notes": "Listing pages client-rendered or no outbound link found in server HTML."
+ },
+ {
+  "name": "Lobsters",
+  "url": "https://lobste.rs",
+  "cat": "Community / gallery",
+  "verdict": "avoid",
+  "rel": "—",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Invite-only",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Invite-only and self-promotion is policed. Not a submission target."
+ },
+ {
+  "name": "Jasmine Directory",
+  "url": "https://jasminedirectory.com",
+  "cat": "Web directory",
+  "verdict": "avoid",
+  "rel": "rel=\"me\"",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "Paid",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Paid listing only. The bare links sampled were on editorial blog posts, not on submitted listings."
+ },
+ {
+  "name": "Weboworld",
+  "url": "https://weboworld.com",
+  "cat": "Web directory",
+  "verdict": "avoid",
+  "rel": "(no rel attribute)",
+  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "gate": "None",
+  "mins": 5,
+  "conf": "verified",
+  "notes": "Dofollow, but the neighbouring listings are gambling and SEO-spam pages. Burnt neighbourhood — skip."
+ }
+];
+
+const TAG={dofollow:"t-go",nofollow:"t-no",unresolved:"t-maybe",avoid:"t-avoid"};
+const body=document.getElementById('body'), countEl=document.getElementById('count');
+let filter='all', sortKey=null, sortDir=1, query='';
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function rows(){
+  let r = D.filter(d => filter==='all' || d.verdict===filter);
+  if(query){
+    const q=query.toLowerCase();
+    r = r.filter(d => (d.name+d.cat+d.notes+d.where+d.rel).toLowerCase().includes(q));
+  }
+  if(sortKey){
+    r=[...r].sort((a,b)=>{
+      const x=a[sortKey], y=b[sortKey];
+      const n = typeof x==='number' ? x-y : String(x).localeCompare(String(y));
+      return n*sortDir;
+    });
+  }
+  return r;
+}
+
+function render(){
+  const r=rows();
+  body.innerHTML = r.map(d=>{
+    const key='bl_'+d.name.replace(/\W+/g,'').toLowerCase();
+    const site = d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.name)}</a>` : esc(d.name);
+    const badge = d.star ? `<span class="tag t-star">best find</span>`
+                         : `<span class="tag ${TAG[d.verdict]}">${esc(d.verdict)}</span>`;
+    return `<tr>
+      <td><input type="checkbox" data-k="${key}"></td>
+      <td class="site">${site}</td>
+      <td class="field">${esc(d.cat)}</td>
+      <td>${badge}</td>
+      <td><span class="rel">${esc(d.rel)}</span></td>
+      <td class="field where">${esc(d.where)}</td>
+      <td class="field">${esc(d.gate)}</td>
+      <td class="field">${d.mins?d.mins+' min':'—'}</td>
+      <td class="conf">${esc(d.conf)}</td>
+      <td class="note-c notes">${esc(d.notes)}</td>
+    </tr>`;
+  }).join('');
+  countEl.textContent = `Showing ${r.length} of ${D.length} platforms.`;
+  wireBoxes();
+}
+
+function wireBoxes(){
+  document.querySelectorAll('#body input[type=checkbox]').forEach(b=>{
+    b.checked = localStorage.getItem(b.dataset.k)==='1';
+    b.addEventListener('change',()=>localStorage.setItem(b.dataset.k, b.checked?'1':'0'));
+  });
+}
+
+document.querySelectorAll('button.f').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    filter=btn.dataset.v;
+    document.querySelectorAll('button.f').forEach(o=>o.setAttribute('aria-pressed', String(o===btn)));
+    render();
+  });
+});
+
+document.getElementById('q').addEventListener('input', e=>{ query=e.target.value; render(); });
+
+document.querySelectorAll('th[data-s]').forEach(th=>{
+  th.addEventListener('click',()=>{
+    const k=th.dataset.s;
+    sortDir = (sortKey===k) ? -sortDir : 1;
+    sortKey = k;
+    document.querySelectorAll('th[data-s]').forEach(o=>o.removeAttribute('aria-sort'));
+    th.setAttribute('aria-sort', sortDir===1?'ascending':'descending');
+    render();
+  });
+});
+
+const n = v => D.filter(d=>d.verdict===v).length;
+document.getElementById('s-go').textContent = n('dofollow');
+document.getElementById('s-no').textContent = n('nofollow');
+document.getElementById('s-un').textContent = n('unresolved');
+document.getElementById('s-av').textContent = n('avoid');
+document.getElementById('s-all').textContent = D.length;
+render();
+</script>
+</body>
+</html>
