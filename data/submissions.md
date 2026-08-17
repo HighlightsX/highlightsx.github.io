@@ -34,6 +34,9 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | feedle.world | 16 Aug 2026 | no | RSS feed submitted to their feed search engine, "we will review your content" |
 | Ping-O-Matic | 16 Aug 2026 | no | ping sent for the homepage + RSS feed; Blo.gs and FeedBurner both returned "Ping sent" |
 | Infotiger | 16 Aug 2026 | no | URL added to their crawl queue — **unverified**, the form gives no confirmation |
+| Launching Next | 17 Aug 2026 | no | free submission id 145180, reviewed daily ($99 skip-the-queue upgrade declined) |
+| ooh.directory | 17 Aug 2026 | no | curated blog directory, category "Development", "it will take a while for new ones to appear" |
+| FutureTools | 17 Aug 2026 | no | free tier, category Research, "Matt will review it" |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
 the email + Send button. The success message fired, but if their mail is a plain newsletter opt-in
@@ -53,7 +56,9 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | Web Review | free plan reached (badge verified), but the step-1 form would not advance — retry later |
 | DeepLaunch, AiToolSaver, PromoteProject, LaunchIgniter, IndieShowcase, PostYourStartup, SubmitMySaaS, dang.ai, findanaitools, aiindex.tools, toolfame, saasfame, saasgrow, listmysaas, yo.directory, openhunts, ufind.best, turbo0, woy.ai, newtool.site, nicklaunches, freeaidirectories, JustSimple.tools | account creation or sign-in required — not done on your behalf |
 | Startup Ranking, aistage.net | Cloudflare bot check |
-| ooh.directory, ExactSeek, wiby.me | form is filled in seconds but ends in a CAPTCHA checkbox — one click from you finishes each |
+| ExactSeek, wiby.me | form left **prefilled in an open Chrome tab** — tick the CAPTCHA and press Submit to finish |
+| EasyWithAI ($125), Toolify ($99), TopAI.tools ($47), OpenTools | paid submission only |
+| aixploria | Cloudflare interstitial never clears |
 | Marginalia Search | submission is a GitHub issue on their public repo, posted under your GitHub identity — your call |
 | Dofollow.Tools | free tier exists (badge required) but the final step demands sign-in, same as DeepLaunch |
 | feedspot, blogsurf.io, blogroll.org, console.dev, rightdao, mojeek, tap4.ai | login wall, dead page, or no public submit route |
