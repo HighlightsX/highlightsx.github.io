@@ -37,6 +37,14 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | Launching Next | 17 Aug 2026 | no | free submission id 145180, reviewed daily ($99 skip-the-queue upgrade declined) |
 | ooh.directory | 17 Aug 2026 | no | curated blog directory, category "Development", "it will take a while for new ones to appear" |
 | FutureTools | 17 Aug 2026 | no | free tier, category Research, "Matt will review it" |
+| ExactSeek | 17 Aug 2026 | no | "Website Submitted" — **needs the confirmation link emailed to tommycoupe@gmail.com** or it is dropped |
+
+## Filled in, waiting on one click from you
+
+| Directory | State | What is left |
+|---|---|---|
+| DevTool.io | free listing selected, all fields filled, **badge already live in the footer** | tick the Cloudflare box, press *Submit Tool* |
+| wiby.me | URL and worksafe set | type the image captcha, press *Submit* |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
 the email + Send button. The success message fired, but if their mail is a plain newsletter opt-in
@@ -56,7 +64,10 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | Web Review | free plan reached (badge verified), but the step-1 form would not advance — retry later |
 | DeepLaunch, AiToolSaver, PromoteProject, LaunchIgniter, IndieShowcase, PostYourStartup, SubmitMySaaS, dang.ai, findanaitools, aiindex.tools, toolfame, saasfame, saasgrow, listmysaas, yo.directory, openhunts, ufind.best, turbo0, woy.ai, newtool.site, nicklaunches, freeaidirectories, JustSimple.tools | account creation or sign-in required — not done on your behalf |
 | Startup Ranking, aistage.net | Cloudflare bot check |
-| ExactSeek, wiby.me | form left **prefilled in an open Chrome tab** — tick the CAPTCHA and press Submit to finish |
+| Alive Directory, ProLink Directory, 1WebsDirectory | listing is paid only ($49.95–$209 / $17+) |
+| FiveTaco, awesomeindie, gets.tools, betterlaunch, abacklaunch, domainrank, awesome-directories, Viesearch, Alltop, OnToplist | account creation required |
+| Spiff, TheFastestWeb, The Productivity Directory, FeedMyStartup | domain dead, 404, or the submit page has no form |
+| OpenSourceAlternative.to ($29), earlyhunt, confettisaas | paid |
 | EasyWithAI ($125), Toolify ($99), TopAI.tools ($47), OpenTools | paid submission only |
 | aixploria | Cloudflare interstitial never clears |
 | Marginalia Search | submission is a GitHub issue on their public repo, posted under your GitHub identity — your call |
