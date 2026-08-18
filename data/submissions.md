@@ -15,6 +15,7 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | TheSaaSDir | https://thesaasdir.com/product/github-highlights | before 16 Aug 2026 | yes | badge required |
 | Twelve Tools | twelve.tools, slug `highlightsx-github-io` | 16 Aug 2026 | yes | badge required · manage: https://twelve.tools/edit?hash=wp8tefl59nwd9tmxvjrw&email=tommycoupe%40gmail.com |
 | Wired Business | https://wired.business/highlightsx-github-io | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — both outbound links are bare hrefs, no rel · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
+| TheAIToolsDir | https://theaitoolsdir.com/product/github-highlights/ | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — only outbound link is `rel="noopener"` (no crawl directive), href is our domain with `?utm_source=theaitoolsdir.com&utm_medium=referral` · page indexable, robots.txt `Allow: /`, no meta robots |
 
 ## Submitted, waiting on review
 
@@ -22,9 +23,8 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 |---|---|---|---|
 | SpotStartups | 16 Aug 2026 | yes | priority (dofollow) queue, badge verified by them, 24h review |
 | SaaS Cubes | 16 Aug 2026 | yes | free plan, badge required, 3–5 business days |
-| TheAIToolsDir | 16 Aug 2026 | yes | free plan, badge required, they detect it within 24h, review ≤7 days |
 | AIHuntList | 16 Aug 2026 | yes | free listing, backlink verified by them, submission id 3874 |
-| SumoDir | 16 Aug 2026 | yes | free plan, badge **verified**, publish queue ~2 weeks, listing will be sumodir.com/item/github-highlights |
+| SumoDir | 16 Aug 2026 | removed | **dropped** — they removed our listing; badge pulled from the footer 18 Aug 2026 |
 | ActiveSearchResults | 16 Aug 2026 | no | search-engine index submission, confirmed |
 | aitoolslist.io | 16 Aug 2026 | no | Tally form (`tally.so/r/n9BqRX`), editorial review |
 | Insidr.ai | 16 Aug 2026 | no | "Succes! You will receive an email shortly" — see caveat below |
