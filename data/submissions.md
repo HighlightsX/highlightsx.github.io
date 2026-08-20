@@ -16,6 +16,7 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | Twelve Tools | twelve.tools, slug `highlightsx-github-io` | 16 Aug 2026 | yes | badge required · manage: https://twelve.tools/edit?hash=wp8tefl59nwd9tmxvjrw&email=tommycoupe%40gmail.com |
 | Wired Business | https://wired.business/highlightsx-github-io | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — both outbound links are bare hrefs, no rel · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
 | TheAIToolsDir | https://theaitoolsdir.com/product/github-highlights/ | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — only outbound link is `rel="noopener"` (no crawl directive), href is our domain with `?utm_source=theaitoolsdir.com&utm_medium=referral` · page indexable, robots.txt `Allow: /`, no meta robots |
+| EasyLaunch | https://easylaunch.dev/dev-tools/github-highlights | 20 Aug 2026 | yes | badge added 20 Aug 2026 · **dofollow verified 20 Aug 2026** — page returns 200, the only outbound link to us is `rel="noopener"` (no crawl directive), no meta robots, site serves no robots.txt |
 
 ## Submitted, waiting on review
 
@@ -38,12 +39,13 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | ooh.directory | 17 Aug 2026 | no | curated blog directory, category "Development", "it will take a while for new ones to appear" |
 | FutureTools | 17 Aug 2026 | no | free tier, category Research, "Matt will review it" |
 | ExactSeek | 17 Aug 2026 | no | "Website Submitted" — **needs the confirmation link emailed to tommycoupe@gmail.com** or it is dropped |
+| EasyDoFollow | 20 Aug 2026 | removed | listing URL `https://easydofollow.dev/education/github-highlights` **returned 404** on 20 Aug 2026 — their root loads fine, so either the slug differs or the submission never landed. Badge was added and **pulled the same day**; re-add only once the listing page returns 200 |
 
 ## Filled in, waiting on one click from you
 
 | Directory | State | What is left |
 |---|---|---|
-| DevTool.io | free listing selected, all fields filled, **badge already live in the footer** | tick the Cloudflare box, press *Submit Tool* |
+| DevTool.io | free listing selected, all fields filled; **badge pulled from the footer 20 Aug 2026** — re-add it before submitting if they require one | tick the Cloudflare box, press *Submit Tool* |
 | wiby.me | URL and worksafe set | type the image captcha, press *Submit* |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
