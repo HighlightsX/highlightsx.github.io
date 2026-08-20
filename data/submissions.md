@@ -39,6 +39,8 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | ooh.directory | 17 Aug 2026 | no | curated blog directory, category "Development", "it will take a while for new ones to appear" |
 | FutureTools | 17 Aug 2026 | no | free tier, category Research, "Matt will review it" |
 | ExactSeek | 17 Aug 2026 | no | "Website Submitted" — **needs the confirmation link emailed to tommycoupe@gmail.com** or it is dropped |
+| Nick Launches | 20 Aug 2026 | yes | **submitted** — Free Launch, $0, "Thanks, you're in the queue!". Badge verified by them ("Badge backlink found", last checked 20 Aug 2026). Weeks up to 13 Sep were full; publishes week of **14–20 Sep 2026**. Listing will be nicklaunches.com/products/github-highlights |
+| DevPages | 20 Aug 2026 | no | **no account and no badge** — plain open form. Category Learning Platforms, pricing Free, GitHub repo linked. "Submission received... every tool is reviewed by hand". Listing links `rel="noopener noreferrer"`, verified live 20 Aug 2026 on `/tool/openai` |
 | Curlie | 20 Aug 2026 | no | suggested to `Computers/Open_Source/News_and_Media` — the exact-fit category. "Your site suggestion has been received", human editor reviews. Free, no account, dofollow |
 | SaaSBison | 20 Aug 2026 | yes | free plan, **badge verified by them 20 Aug 2026**, id `0c190ce3-7e3f-4c00-9866-e62fad472ac0`, reviewed within 2 weeks, 1 dofollow backlink |
 | DodoDirectory | 20 Aug 2026 | yes | free plan, **badge verified by them 20 Aug 2026**, id `5d5b4068-b77c-42ac-a7f7-b7e48d6f78ab`, reviewed within 2 weeks, 1 dofollow backlink |
@@ -50,7 +52,10 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 |---|---|---|
 | DevTool.io | free listing selected, all fields filled; **badge pulled from the footer 20 Aug 2026** — re-add it before submitting if they require one | tick the Cloudflare box, press *Submit Tool* |
 | wiby.me | URL and worksafe set | type the image captcha, press *Submit* |
-| Nick Launches | draft saved as `github-highlights`, all fields filled, Free Launch selected, total $0. **Badge verified by them 20 Aug 2026 — "Badge backlink found ✓"** | one gate left: upvote 3 products on nicklaunches.com this week (0/3). Casting votes from your account was not mine to do. *Submit launch* unlocks the moment that counter hits 3 |
+| Uneed | product created under @slate_coil, id **48243**, `uneed.best/tool/github-highlights`. Their AI filled name, slug, URL, category Development, pricing Free, tags Learning/Open Source/News, tagline and rich description. Repo URL and Open Source flag set. One gallery image saved; the logo upload did not stick on save — retry it | re-upload the logo under *Media*, then press **Schedule your launch**. Uneed advertises a DR 75 dofollow link |
+| Gets.tools | step 1 complete (name, tagline, 1,200-char description, logo, category Developer Tools, pricing Free, platform Web, GitHub repo). Reached step 2 | free tier says *"Add dofollow backlink to our site in your website footer"* — **badge required**, review within 2 days. Your call before I press submit |
+| SubmitDeck | steps 1–2 complete (name, URL, description, logo, cover, 3 categories, Free, Web, 5 tags). Stuck at step 3 | free tier is **badge required** *and* every launch date is greyed out through November 2026 — no bookable slot. Effectively closed unless you pay $9 |
+| Dironix | same operator and identical template as SubmitDeck. Step 1 filled but their image upload fails — previews render broken and *Next* stays disabled | blocked on their bug |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
 the email + Send button. The success message fired, but if their mail is a plain newsletter opt-in
@@ -61,6 +66,11 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | Directory | Reason |
 |---|---|
 | Joinly | form completes then redirects to a payproglobal checkout — paid, not free |
+| Startups.fm | **paid only** — £49 one-off, no free tier at all. Their own submit page says so: "Listings are paid — £49 one-off." The candidates file recorded them as Signup/dofollow; the gate is money |
+| Pitchwall | blocked on their side. `/submit` bounces to `/account/profile` with "Username is required", and saving the profile silently fails — the field is empty again after every save, tried twice. Same operator as Betapage, so this was one-of-two anyway |
+| Startup Fame | logged in, Dashboard reachable at `/startupfa.me/dashboard`, but the **Add startup** button does nothing — clicked three times, no navigation, no modal, no console error. `/submit` is a 404. The account already holds one unrelated startup (Slate), so a one-per-account cap is the likely cause |
+| OpenSaaS Directory | requires the GitHub repo to be **public with 200+ stars**, verified automatically on submit. `HighlightsX/highlightsx.github.io` is public with **0 stars**. Disqualified until that changes |
+| FoundrList | free tier states plainly that `Dofollow backlink` is **NOT INCLUDED** — the free listing links out nofollow, dofollow starts at $29. Draft `821fb367` was filled to 100% under @slate_coil and then abandoned on 20 Aug 2026: a permanent footer badge, or 3 upvotes plus a public comment, in exchange for a link that carries no equity |
 | Toolcurio | free tier exists (badge required, and our badge is live) but their *Continue* button on the free plan stays disabled with no console error — their flow is broken. Paid tiers $5/$10 advance fine. Retry later; same operator as SaaSBison and DodoDirectory, both of which worked |
 | BetaList | rejects `*.github.io`: "must use a custom domain". Unlocks with a custom domain |
 | Open-Launch | free launch slots "fully booked into 2027"; only $12+ paid launches bookable |

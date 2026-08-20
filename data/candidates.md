@@ -9,7 +9,7 @@ Every `rel` below was read out of live markup on the date above — never recall
 equity unless the `rel` contains `nofollow`, `sponsored` or `ugc`. `noopener`, `noreferrer`, `me` and
 `external` are **not** crawl directives and pass full equity.
 
-Counts: **72 dofollow**, 17 nofollow,
+Counts: **70 dofollow**, 19 nofollow,
 102 unresolved (client-rendered or blocked), 3 avoid.
 
 The filterable version of this table is [backlink-targets.html](backlink-targets.html) — open it in a browser.
@@ -54,7 +54,7 @@ Ranked on fit with an open-source news site, verified equity, and no account wal
 | SubmitDeck | Launch / startup | dofollow | `rel="noopener"` | Signup | verified | Outbound listing links append ?utm_source and carry rel="noopener" only. |
 | Five Taco | Community / gallery | dofollow | `rel="noopener noreferrer"` | Free + paid tiers | verified | Submission via paperform; sampled outbound links rel="noopener noreferrer" — passes. |
 | Startup Resources | Tools directory | dofollow | `rel="external noopener noreferrer"` | Curated | verified | Resource links use rel="external noopener noreferrer" — external is a semantic hint, so these pass. |
-| TheFastestWeb | Web directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | Site entries link rel="noopener noreferrer" — passes. **Gate corrected 20 Aug 2026** — /submit is a "Sign in to submit" card, Google only. |
+| TheFastestWeb | Web directory | nofollow | `rel="noopener noreferrer"` | Signup | verified | **Re-read live 20 Aug 2026: the listing page `/site/altimateguide` links the site `rel="nofollow noopener"`.** The earlier dofollow reading no longer holds. Also signup-gated. Skip. |
 | Refined.so | Tools directory | dofollow | `rel="dofollow"` | No submit route | verified | **Corrected 20 Aug 2026** — refined.so is an MVP-development agency site, not a submittable directory. Their annotated dofollow/nofollow list is still a useful cross-reference; their labels unverified by me. |
 | Roozna | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup + badge | verified | Duplicate of the Roozna row above. **Gate corrected 20 Aug 2026** — account plus badge required. |
 
@@ -122,7 +122,7 @@ Ranked on fit with an open-source news site, verified equity, and no account wal
 
 | Site | Category | Link equity | rel read from markup | Gate | Confidence | Note |
 |---|---|---|---|---|---|---|
-| EarlyHunt | Launch / startup | dofollow | `rel="noopener noreferrer"` | Signup | verified | Listing links rel="noopener noreferrer" on the sampled entry — passes, but the same page nofollows GitHub. |
+| EarlyHunt | Launch / startup | nofollow | `rel="noopener noreferrer"` | Signup | verified | **Re-read live 20 Aug 2026: `/project/export-any-website-to-figma-chrome-extension` links the product `rel="nofollow noopener noreferrer"`.** The earlier dofollow reading no longer holds. Skip. |
 | IdeaKiln | Launch / startup | dofollow | `rel="noopener noreferrer"` | Signup | verified | Entry links rel="noopener noreferrer" — passes. |
 | Launchscroll | Launch / startup | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — see acidtools row. |
 | Microlaunch | Launch / startup | dofollow | `rel="noopener noreferrer"` | Free + paid tiers | verified | Evidence page: https://microlaunch.net/tools/alternatives-finder |
@@ -283,6 +283,32 @@ rather than a set of independent mentions. Pick two, skip the rest.
 **`*.github.io` still costs you rows.** BetaList already rejected the site for it. Several directories in the
 unresolved block gate on a custom domain or a DR floor, which a fresh github.io cannot clear. A custom domain
 unlocks that tier in one move.
+
+## Register-then-submit list — every `rel` re-read live on 20 Aug 2026
+
+These need an account. Each row's `rel` was read from a live listing page **today**, not recalled: the script
+opened the directory, followed a real listing, and read the rel on the link pointing at that product's own
+domain. Evidence page is named so any row can be re-checked.
+
+| # | Site | Sign-up / submit | rel read today | Evidence page |
+|---|---|---|---|---|
+| ~~1~~ | ~~DevPages~~ | **submitted 20 Aug 2026 — needed no account at all** | `noopener noreferrer` | `/tool/openai` |
+| 2 | OpenSaaS Directory | https://opensaas.directory/projects/new | `noopener noreferrer` | `/projects/olares` |
+| 3 | Startup Fame | https://startupfa.me/submit | `(no rel)` | `/s/qrmkr` |
+| 4 | SubmitDeck | https://submitdeck.com/submit | `noopener` | `/startups/gemini-omni-video-ai-video-generator` |
+| 5 | Uneed | https://uneed.best/submit-a-tool | `noopener` | `/tool/frank` |
+| 6 | Dironix | https://dironix.com/submit | `(no rel)` | `/startups/bkabhi` |
+| 7 | Pitchwall | https://pitchwall.co/submit | `noopener` | `/product/gs-jj` |
+| 8 | Startups.fm | https://startups.fm/submit | `noopener` | `/startups/startup-growth-hacks` |
+| 9 | Gets.tools | https://gets.tools/submit | `rel=""` (empty) | `/product/molyin` |
+| 10 | Roozna | https://roozna.com/submit | `noopener noreferrer` | `/project/videosnap` | 
+
+Roozna also wants a badge on top of the account. Pitchwall and Betapage are one operator — take Pitchwall only.
+
+**Dropped from this list after the live re-read.** TheFastestWeb and EarlyHunt were both recorded as dofollow
+on 17 Aug. Today their listing pages link the product `rel="nofollow noopener"` and
+`rel="nofollow noopener noreferrer"`. Both rows are corrected above. This is the second time in three days a
+row flipped in that direction.
 
 ## Sweep 2 — 20 Aug 2026, badge-swap directories
 
