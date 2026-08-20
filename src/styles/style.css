@@ -617,22 +617,6 @@ main > h1 em, h1 .grad {
 .footer-legal a:hover img,
 .footer-legal a:focus-visible img { opacity: 1; filter: none; }
 
-/* text-only badge, sized to sit on the same line as the image ones */
-.footer-legal .badge-text {
-  display: inline-block;
-  vertical-align: middle;
-  margin-inline-end: 0.4rem;
-  margin-block-end: 0.9rem;
-  font-size: 0.72rem;
-  color: var(--dimmer);
-  text-decoration: none;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  padding: 0.3rem 0.5rem;
-}
-
-.footer-legal .badge-text:hover { color: var(--text); border-color: var(--muted); }
-
 /* mobile */
 
 @media (max-width: 780px) {
