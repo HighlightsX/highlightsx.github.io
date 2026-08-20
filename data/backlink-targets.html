@@ -163,11 +163,11 @@ const D=[
   "cat": "Blog / RSS",
   "verdict": "dofollow",
   "rel": "rel=\"noreferrer\"",
-  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
-  "gate": "Curated",
-  "mins": 6,
+  "where": "No submission form — press/source suggestions go to their editorial email",
+  "gate": "Editorial email",
+  "mins": 5,
   "conf": "verified",
-  "notes": "Feed-driven topic pages link each story with rel=\"noreferrer\" only — passes. Human review of the feed submission; free."
+  "notes": "Correction: AllTop is no longer the blog directory it was. Today it is an algorithmic news and prediction-markets aggregator that ingests sources itself; the About page (updated 27 Jul 2026) describes clustering and ingestion, and no submit route exists. The rel=\"noreferrer\" reading on story links is still accurate — it just is not a link you can apply for. Only path is emailing a source suggestion."
  },
  {
   "name": "OnToplist",
@@ -175,11 +175,11 @@ const D=[
   "cat": "Blog / RSS",
   "verdict": "dofollow",
   "rel": "rel=\"noopener\"",
-  "where": "https://www.ontoplist.com/add-your-business-listing/",
+  "where": "Only visible form is https://www.ontoplist.com/add-your-business-listing/ — a local-business listing, not the blog directory",
   "gate": "Signup",
   "mins": 8,
   "conf": "verified",
-  "notes": "Verified on a live category page: editorially listed blogs carry rel=\"noopener\" (passes) while paid placements carry rel=\"noopener sponsored\". Free submission goes through review."
+  "notes": "rel is verified: editorially listed blogs carry rel=\"noopener\", paid ones rel=\"noopener sponsored\". But the blog-submission route is no longer linked anywhere on the site — the only form on offer is a business listing with address and hours. Treat the blog listing as unavailable until you find a live route."
  },
  {
   "name": "Personalsit.es",
@@ -236,10 +236,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "rel=\"noopener noreferrer\"",
   "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Entry links rel=\"noopener noreferrer\" — passes. Fit is OSS-tool-shaped, pitch accordingly."
+  "notes": "Entry links rel=\"noopener noreferrer\" — passes. Fit is OSS-tool-shaped, pitch accordingly. Gate corrected 20 Aug 2026 — /projects/new says 'Sign in to submit'."
  },
  {
   "name": "OpenSourceAlternative.to",
@@ -296,10 +296,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "(no rel attribute)",
   "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Product page links the site with no rel. Tiny directory, fast approval."
+  "notes": "Product page links the site with no rel. Tiny directory, fast approval. Gate corrected 20 Aug 2026 — submit is behind a Google/email account wall."
  },
  {
   "name": "Launchscroll",
@@ -621,10 +621,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "(no rel attribute)",
   "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Product page links the site bare (no rel). Very small, very fast."
+  "notes": "Product page links the site bare (no rel). Very small, very fast. Gate corrected 20 Aug 2026 — only Login / Join, no open submit."
  },
  {
   "name": "Dironix",
@@ -633,10 +633,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "(no rel attribute)",
   "where": "Submit form: https://dironix.com/submit",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Entry links bare. New directory — fragile: young niche platforms are the first to be patched once spammers arrive."
+  "notes": "Entry links bare. New directory — fragile: young niche platforms are the first to be patched once spammers arrive. Gate corrected 20 Aug 2026 — /submit 302s to /auth/signin."
  },
  {
   "name": "DomainRank",
@@ -693,10 +693,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "rel=\"noreferrer\"",
   "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Outbound links rel=\"noreferrer\" only — passes. Tiny site, fragile."
+  "notes": "Outbound links rel=\"noreferrer\" only — passes. Tiny site, fragile. Gate corrected 20 Aug 2026 — submit opens a Clerk sign-in modal."
  },
  {
   "name": "Mystarttools",
@@ -717,10 +717,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "rel=\"noopener noreferrer\"",
   "where": "Submit form: https://navfolders.com/submit",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Outbound links rel=\"noreferrer\" only — passes."
+  "notes": "Outbound links rel=\"noreferrer\" only — passes. Gate corrected 20 Aug 2026 — /submit 302s to /auth/login."
  },
  {
   "name": "PowerUpTools",
@@ -765,10 +765,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "rel=\"dofollow\"",
   "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
-  "gate": "None",
+  "gate": "No submit route",
   "mins": 5,
   "conf": "verified",
-  "notes": "Also publishes an annotated dofollow/nofollow directory list — useful cross-reference, their labels unverified by me."
+  "notes": "Also publishes an annotated dofollow/nofollow directory list — useful cross-reference, their labels unverified by me. Corrected 20 Aug 2026 — an MVP-development agency site, not a submittable directory."
  },
  {
   "name": "Roozna",
@@ -777,10 +777,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "rel=\"noopener noreferrer\"",
   "where": "Submit form: https://roozna.com/submit",
-  "gate": "None",
+  "gate": "Signup + badge",
   "mins": 5,
   "conf": "verified",
-  "notes": "Listing links rel=\"noopener noreferrer\" — passes."
+  "notes": "Listing links rel=\"noopener noreferrer\" — passes. Gate corrected 20 Aug 2026 — free tier needs an account AND their badge on your site; 1 dofollow link, paid gives 4."
  },
  {
   "name": "Solvertools",
@@ -810,13 +810,13 @@ const D=[
   "name": "Spiff",
   "url": "https://spiff.store/submit-tool",
   "cat": "Tools directory",
-  "verdict": "dofollow",
+  "verdict": "nofollow",
   "rel": "rel=\"noopener noreferrer\"",
   "where": "Submit form: https://spiff.store/submit-tool",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Tool pages link out rel=\"noopener noreferrer\" — passes."
+  "notes": "Tool pages link out rel=\"noopener noreferrer\" — passes. Corrected 20 Aug 2026 — the dofollow reading is the PAID tier. Free plan is advertised as 1 no-follow backlink with a 2-month queue; dofollow starts at $15."
  },
  {
   "name": "Stackdirectory",
@@ -1029,10 +1029,10 @@ const D=[
   "verdict": "dofollow",
   "rel": "rel=\"noopener noreferrer\"",
   "where": "Submit form: https://thefastestweb.site/submit",
-  "gate": "None",
+  "gate": "Signup",
   "mins": 5,
   "conf": "verified",
-  "notes": "Site entries link rel=\"noopener noreferrer\" — passes. Thin, new."
+  "notes": "Site entries link rel=\"noopener noreferrer\" — passes. Thin, new. Gate corrected 20 Aug 2026 — /submit is a 'Sign in to submit' card, Google only."
  },
  {
   "name": "WIP",
@@ -1244,11 +1244,11 @@ const D=[
   "cat": "Blog / RSS",
   "verdict": "unresolved",
   "rel": "—",
-  "where": "https://blogarama.com/add-a-site/ — blog URL, category, description",
+  "where": "https://www.blogarama.com/add-a-site/ redirects to member login",
   "gate": "Signup",
   "mins": 8,
   "conf": "unverified",
-  "notes": "Category pages are client-rendered — only one link was in the server HTML. Free submission exists; verify rel after the listing is live."
+  "notes": "Submission requires an account: /add-a-site/ 301s to /members/login. Category pages are client-rendered, so rel is unread."
  },
  {
   "name": "BlogFlux",
@@ -1256,11 +1256,11 @@ const D=[
   "cat": "Blog / RSS",
   "verdict": "unresolved",
   "rel": "—",
-  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "where": "https://www.blogflux.com/user.php?action=addblog",
   "gate": "Signup",
   "mins": 6,
   "conf": "unverified",
-  "notes": "Long-running blog directory; markup unread, low traffic."
+  "notes": "Live \"Add Your Blog\" route behind an account. Long-running but low-traffic; rel unread."
  },
  {
   "name": "Bloglovin",
@@ -1268,11 +1268,11 @@ const D=[
   "cat": "Blog / RSS",
   "verdict": "unresolved",
   "rel": "—",
-  "where": "Submit route not linked from the homepage — look for Submit/Add in the header or footer",
+  "where": "No submit or claim route linked from the homepage",
   "gate": "Signup",
   "mins": 8,
   "conf": "unverified",
-  "notes": "Claim-your-blog flow; rel unread. Lifestyle-heavy audience, weak topical fit."
+  "notes": "No submission route found on the live site; lifestyle-heavy audience anyway. Low priority."
  },
  {
   "name": "Blogpros",

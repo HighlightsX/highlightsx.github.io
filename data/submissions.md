@@ -39,6 +39,9 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | ooh.directory | 17 Aug 2026 | no | curated blog directory, category "Development", "it will take a while for new ones to appear" |
 | FutureTools | 17 Aug 2026 | no | free tier, category Research, "Matt will review it" |
 | ExactSeek | 17 Aug 2026 | no | "Website Submitted" — **needs the confirmation link emailed to tommycoupe@gmail.com** or it is dropped |
+| Curlie | 20 Aug 2026 | no | suggested to `Computers/Open_Source/News_and_Media` — the exact-fit category. "Your site suggestion has been received", human editor reviews. Free, no account, dofollow |
+| SaaSBison | 20 Aug 2026 | yes | free plan, **badge verified by them 20 Aug 2026**, id `0c190ce3-7e3f-4c00-9866-e62fad472ac0`, reviewed within 2 weeks, 1 dofollow backlink |
+| DodoDirectory | 20 Aug 2026 | yes | free plan, **badge verified by them 20 Aug 2026**, id `5d5b4068-b77c-42ac-a7f7-b7e48d6f78ab`, reviewed within 2 weeks, 1 dofollow backlink |
 | EasyDoFollow | 20 Aug 2026 | removed | listing URL `https://easydofollow.dev/education/github-highlights` **returned 404** on 20 Aug 2026 — their root loads fine, so either the slug differs or the submission never landed. Badge was added and **pulled the same day**; re-add only once the listing page returns 200 |
 
 ## Filled in, waiting on one click from you
@@ -47,6 +50,7 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 |---|---|---|
 | DevTool.io | free listing selected, all fields filled; **badge pulled from the footer 20 Aug 2026** — re-add it before submitting if they require one | tick the Cloudflare box, press *Submit Tool* |
 | wiby.me | URL and worksafe set | type the image captcha, press *Submit* |
+| Nick Launches | draft saved as `github-highlights`, all fields filled, Free Launch selected, total $0. **Badge verified by them 20 Aug 2026 — "Badge backlink found ✓"** | one gate left: upvote 3 products on nicklaunches.com this week (0/3). Casting votes from your account was not mine to do. *Submit launch* unlocks the moment that counter hits 3 |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
 the email + Send button. The success message fired, but if their mail is a plain newsletter opt-in
@@ -57,6 +61,7 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | Directory | Reason |
 |---|---|
 | Joinly | form completes then redirects to a payproglobal checkout — paid, not free |
+| Toolcurio | free tier exists (badge required, and our badge is live) but their *Continue* button on the free plan stays disabled with no console error — their flow is broken. Paid tiers $5/$10 advance fine. Retry later; same operator as SaaSBison and DodoDirectory, both of which worked |
 | BetaList | rejects `*.github.io`: "must use a custom domain". Unlocks with a custom domain |
 | Open-Launch | free launch slots "fully booked into 2027"; only $12+ paid launches bookable |
 | tap4.ai | only a $10 paid tier on the submit form |
@@ -64,7 +69,8 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | 500.tools | $1 first month then $5/month |
 | ThePopularApps | $50 |
 | Web Review | free plan reached (badge verified), but the step-1 form would not advance — retry later |
-| DeepLaunch, AiToolSaver, PromoteProject, LaunchIgniter, IndieShowcase, PostYourStartup, SubmitMySaaS, dang.ai, findanaitools, aiindex.tools, toolfame, saasfame, saasgrow, listmysaas, yo.directory, openhunts, ufind.best, turbo0, woy.ai, newtool.site, nicklaunches, freeaidirectories, JustSimple.tools | account creation or sign-in required — not done on your behalf |
+| DeepLaunch, AiToolSaver, PromoteProject, LaunchIgniter, IndieShowcase, PostYourStartup, SubmitMySaaS, dang.ai, findanaitools, aiindex.tools, toolfame, saasfame, saasgrow, listmysaas, yo.directory, openhunts, ufind.best, turbo0, woy.ai, newtool.site, freeaidirectories, JustSimple.tools | account creation or sign-in required — not done on your behalf |
+| nicklaunches | *no longer blocked* — you signed in 20 Aug 2026, draft filed. See the row above |
 | Startup Ranking, aistage.net | Cloudflare bot check |
 | Alive Directory, ProLink Directory, 1WebsDirectory | listing is paid only ($49.95–$209 / $17+) |
 | FiveTaco, awesomeindie, gets.tools, betterlaunch, abacklaunch, domainrank, awesome-directories, Viesearch, Alltop, OnToplist | account creation required |
@@ -78,6 +84,7 @@ the tool details may not have ridden along. No confirmation in a day → resubmi
 | marketingtoolslist.com | domain now redirects to a gambling site |
 | aitoolzdir | categories are generative-AI only; no honest fit |
 | aitoollist.org | submission is a pull request against their GitHub repo |
+| ToolIndex (`strategic-flow-audit.replit.app`) | listed as id 6849, but **no link back**: checked 20 Aug 2026, the rendered page has 325 anchors, 105 external, none to us — our entry is plain text in the leaderboard. `/directory/6849` is byte-identical to `/directory` and canonicals to it, so no per-listing page exists. Others do get `rel="noopener"` anchors; ours has `vote_count: 6, featured_tier: null`. Host is a Replit dev subdomain. Badge declined |
 | Appy Smarts, Makerlog, tinylaunchpad, aicut.pro | submit page dead or 404 |
 
 ## Footprint note

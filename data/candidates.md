@@ -9,7 +9,7 @@ Every `rel` below was read out of live markup on the date above — never recall
 equity unless the `rel` contains `nofollow`, `sponsored` or `ugc`. `noopener`, `noreferrer`, `me` and
 `external` are **not** crawl directives and pass full equity.
 
-Counts: **73 dofollow**, 16 nofollow,
+Counts: **72 dofollow**, 17 nofollow,
 102 unresolved (client-rendered or blocked), 3 avoid.
 
 The filterable version of this table is [backlink-targets.html](backlink-targets.html) — open it in a browser.
@@ -18,11 +18,16 @@ The filterable version of this table is [backlink-targets.html](backlink-targets
 
 Ranked on fit with an open-source news site, verified equity, and no account wall.
 
+> **Re-checked 20 Aug 2026.** Every `Gate: None` row in this section was re-probed live and **all of them
+> had closed**: Launch List, Ctrl Alt, Dironix, Roozna, Spiff, NavFolders, IndieHackerStacks, OpenSaaS
+> Directory and TheFastestWeb now require an account to submit, and Refined.so turned out not to be a
+> directory at all. The gates below are corrected. The `rel` readings are unchanged — those were and are
+> accurate; it is the *route to getting listed* that moved. Treat any remaining "no account wall" claim in
+> this file as a reading with a shelf life.
+
 | Site | Category | Link equity | rel read from markup | Gate | Confidence | Note |
 |---|---|---|---|---|---|---|
 | Viesearch | Search engine | dofollow | `rel="noopener"` | Curated | verified | Human-moderated web search directory, free tier. Listed sites carry rel="noopener" only, so equity passes. Editorial approval is what makes it worth the slot. |
-| OnToplist | Blog / RSS | dofollow | `rel="noopener"` | Signup | verified | Verified on a live category page: editorially listed blogs carry rel="noopener" (passes) while paid placements carry rel="noopener sponsored". Free submission goes through review. |
-| Alltop | Blog / RSS | dofollow | `rel="noreferrer"` | Curated | verified | Feed-driven topic pages link each story with rel="noreferrer" only — passes. Human review of the feed submission; free. |
 | Personalsit.es | Blog / RSS | dofollow | `(no rel attribute)` | Curated | verified | 4,100+ member sites linked bare from one index page. Submission is a pull request; frame the site as a personal project or it will not fit their scope. |
 | OpenSourceAlternative.to | Dev / open-source | dofollow | `(no rel attribute)` | Curated | verified | Best topical fit of the whole sweep. Entry links out with no rel; editors approve. Pitch the site as an OSS discovery resource. |
 | Productivity Directory | Tools directory | dofollow | `(no rel attribute)` | Signup | verified | Outbound links on entry pages carry no rel. Free tier with review; paid skips queue. |
@@ -31,25 +36,27 @@ Ranked on fit with an open-source news site, verified equity, and no account wal
 | Alive Directory | Web directory | dofollow | `(no rel attribute)` | Curated | verified | Old-school editor-reviewed directory; category pages link out with no rel at all. Free listing exists alongside paid express review. |
 | ProLink Directory | Web directory | dofollow | `(no rel attribute)` | Curated | verified | Category pages link out bare (no rel). Free submission with editorial review; regular (free) queue is slow. |
 | GainWeb | Web directory | dofollow | `(no rel attribute)` | Curated | verified | Category listings link out with no rel. Small traffic, but a clean, non-spam neighbourhood. |
-| Launch List | Launch / startup | dofollow | `(no rel attribute)` | None | verified | Product page links the site with no rel. Tiny directory, fast approval. |
-| Ctrl Alt | Tools directory | dofollow | `(no rel attribute)` | None | verified | Product page links the site bare (no rel). Very small, very fast. |
-| Dironix | Tools directory | dofollow | `(no rel attribute)` | None | verified | Entry links bare. New directory — fragile: young niche platforms are the first to be patched once spammers arrive. |
-| Roozna | Tools directory | dofollow | `rel="noopener noreferrer"` | None | verified | Listing links rel="noopener noreferrer" — passes. |
-| Spiff | Tools directory | dofollow | `rel="noopener noreferrer"` | None | verified | Tool pages link out rel="noopener noreferrer" — passes. |
-| NavFolders | Tools directory | dofollow | `rel="noopener noreferrer"` | None | verified | Outbound links rel="noreferrer" only — passes. |
-| IndieHackerStacks | Tools directory | dofollow | `rel="noreferrer"` | None | verified | Outbound links rel="noreferrer" only — passes. Tiny site, fragile. |
+| Launch List | Launch / startup | dofollow | `(no rel attribute)` | Signup | verified | Product page links the site with no rel. **Gate corrected 20 Aug 2026** — submit is behind a Google/email account wall, not open. |
+| Ctrl Alt | Tools directory | dofollow | `(no rel attribute)` | Signup | verified | Product page links the site bare (no rel). **Gate corrected 20 Aug 2026** — site now offers only Login / Join, no open submit. |
+| Dironix | Tools directory | dofollow | `(no rel attribute)` | Signup | verified | Entry links bare. **Gate corrected 20 Aug 2026** — /submit 302s to /auth/signin. New directory and fragile besides. |
+| Roozna | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup + badge | verified | Listing links rel="noopener noreferrer" — passes. **Gate corrected 20 Aug 2026** — free tier now needs an account *and* their badge on your site; 1 dofollow link, paid tiers give 4. |
+| Spiff | Tools directory | nofollow (free tier) | `rel="noopener noreferrer"` | Signup | verified | Tool pages link out rel="noopener noreferrer", but **that is the paid tier**. **Corrected 20 Aug 2026** — the $0 plan is advertised as *1 no-follow backlink* with a **2-month** queue; dofollow starts at $15. |
+| NavFolders | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | Outbound links rel="noreferrer" only — passes. **Gate corrected 20 Aug 2026** — /submit 302s to /auth/login. |
+| IndieHackerStacks | Tools directory | dofollow | `rel="noreferrer"` | Signup | verified | Outbound links rel="noreferrer" only — passes. **Gate corrected 20 Aug 2026** — "Add your product stack" opens a Clerk sign-in modal. |
 | SaaSRow | SaaS directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | Software pages link the vendor site with rel="noopener noreferrer" — passes. |
 | Findly.tools | Tools directory | dofollow | `rel="noopener noreferrer"` | Free + paid tiers | verified | Evidence came from a review post linking out rel="noopener noreferrer" (passes); the listing template itself is unread. |
 | Devtool.io | Dev / open-source | dofollow | `rel="noopener"` | Free + paid tiers | verified | Listing links rel="noopener" with ?ref= tracking — passes; GitHub link is nofollowed. |
 | DevPages | Dev / open-source | dofollow | `rel="noopener noreferrer"` | Signup | verified | Sampled entry links rel="noopener noreferrer" — passes. |
-| OpenSaaS Directory | Dev / open-source | dofollow | `rel="noopener noreferrer"` | None | verified | Entry links rel="noopener noreferrer" — passes. Fit is OSS-tool-shaped, pitch accordingly. |
+| OpenSaaS Directory | Dev / open-source | dofollow | `rel="noopener noreferrer"` | Signup | verified | Entry links rel="noopener noreferrer" — passes. **Gate corrected 20 Aug 2026** — /projects/new says "Sign in to submit". |
 | TinyLaunch | Launch / startup | dofollow | `rel="noopener noreferrer"` | Free + paid tiers | verified | Review pages link the product with rel="noopener noreferrer" — passes. Free slot is a queue; tinylaun.ch is the same site. |
 | Betapage | Launch / startup | dofollow | `(no rel attribute)` | Signup | verified | Product pages link out bare in places. Same operator as Pitchwall — pick one of the two. |
 | SoloLaunches | Launch / startup | dofollow | `(no rel attribute)` | Signup | verified | Listing links bare (no rel). Small indie audience, quick approval. |
 | SubmitDeck | Launch / startup | dofollow | `rel="noopener"` | Signup | verified | Outbound listing links append ?utm_source and carry rel="noopener" only. |
 | Five Taco | Community / gallery | dofollow | `rel="noopener noreferrer"` | Free + paid tiers | verified | Submission via paperform; sampled outbound links rel="noopener noreferrer" — passes. |
 | Startup Resources | Tools directory | dofollow | `rel="external noopener noreferrer"` | Curated | verified | Resource links use rel="external noopener noreferrer" — external is a semantic hint, so these pass. |
-| TheFastestWeb | Web directory | dofollow | `rel="noopener noreferrer"` | None | verified | Site entries link rel="noopener noreferrer" — passes. Thin, new. |
+| TheFastestWeb | Web directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | Site entries link rel="noopener noreferrer" — passes. **Gate corrected 20 Aug 2026** — /submit is a "Sign in to submit" card, Google only. |
+| Refined.so | Tools directory | dofollow | `rel="dofollow"` | No submit route | verified | **Corrected 20 Aug 2026** — refined.so is an MVP-development agency site, not a submittable directory. Their annotated dofollow/nofollow list is still a useful cross-reference; their labels unverified by me. |
+| Roozna | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup + badge | verified | Duplicate of the Roozna row above. **Gate corrected 20 Aug 2026** — account plus badge required. |
 
 ## Everything else, by category
 
@@ -57,9 +64,12 @@ Ranked on fit with an open-source news site, verified equity, and no account wal
 
 | Site | Category | Link equity | rel read from markup | Gate | Confidence | Note |
 |---|---|---|---|---|---|---|
-| Blogarama | Blog / RSS | unresolved | `—` | Signup | unverified | Category pages are client-rendered — only one link was in the server HTML. Free submission exists; verify rel after the listing is live. |
-| BlogFlux | Blog / RSS | unresolved | `—` | Signup | unverified | Long-running blog directory; markup unread, low traffic. |
-| Bloglovin | Blog / RSS | unresolved | `—` | Signup | unverified | Claim-your-blog flow; rel unread. Lifestyle-heavy audience, weak topical fit. |
+| Alltop | Blog / RSS | dofollow | `rel="noreferrer"` | Editorial email | verified | Correction: AllTop is no longer the blog directory it was. Today it is an algorithmic news and prediction-markets aggregator that ingests sources itself; the About page (updated 27 Jul 2026) describes clustering and ingestion, and no submit route exists. The rel="noreferrer" reading on story links is still accurate — it just is not a link you can apply for. Only path is emailing a source suggestion. |
+| OnToplist | Blog / RSS | dofollow | `rel="noopener"` | Signup | verified | rel is verified: editorially listed blogs carry rel="noopener", paid ones rel="noopener sponsored". But the blog-submission route is no longer linked anywhere on the site — the only form on offer is a business listing with address and hours. Treat the blog listing as unavailable until you find a live route. |
+| Alltopstartups | Blog / RSS | unresolved | `—` | None | unverified | Listing pages client-rendered or no outbound link found in server HTML. |
+| Blogarama | Blog / RSS | unresolved | `—` | Signup | unverified | Submission requires an account: /add-a-site/ 301s to /members/login. Category pages are client-rendered, so rel is unread. |
+| BlogFlux | Blog / RSS | unresolved | `—` | Signup | unverified | Live "Add Your Blog" route behind an account. Long-running but low-traffic; rel unread. |
+| Bloglovin | Blog / RSS | unresolved | `—` | Signup | unverified | No submission route found on the live site; lifestyle-heavy audience anyway. Low priority. |
 | Blogpros | Blog / RSS | unresolved | `—` | Free + paid tiers | unverified | Listing pages client-rendered or no outbound link found in server HTML. |
 | Feedmystartup | Blog / RSS | unresolved | `—` | None | unverified | Listing pages client-rendered or no outbound link found in server HTML. |
 | Indieseek.xyz | Blog / RSS | unresolved | `—` | Curated | unverified | Returns 403 to a plain fetch. Hand-curated small-web directory — the right neighbourhood for this site; check rel in a browser. |
@@ -213,7 +223,6 @@ Ranked on fit with an open-source news site, verified equity, and no account wal
 | Mystarttools | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — see acidtools row. |
 | PowerUpTools | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — identical template to acidtools, appalist, thekeytools and others here. |
 | Productlistdir | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — see acidtools row. |
-| Refined.so | Tools directory | dofollow | `rel="dofollow"` | None | verified | Also publishes an annotated dofollow/nofollow directory list — useful cross-reference, their labels unverified by me. |
 | Solvertools | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — see acidtools row. |
 | Sourcedir | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — see acidtools row. |
 | Stackdirectory | Tools directory | dofollow | `rel="noopener noreferrer"` | Signup | verified | submitsaas clone network — see acidtools row. |
@@ -274,6 +283,40 @@ rather than a set of independent mentions. Pick two, skip the rest.
 **`*.github.io` still costs you rows.** BetaList already rejected the site for it. Several directories in the
 unresolved block gate on a custom domain or a DR floor, which a fresh github.io cannot clear. A custom domain
 unlocks that tier in one move.
+
+## Sweep 2 — 20 Aug 2026, badge-swap directories
+
+Ran against the 104-name list on launchdirectories.com/dofollow-directories. 42 of those names were not
+already in this file. Probed live. What came back:
+
+**Worth a try — free tier confirmed, no account wall found**
+
+| Site | Route | State on 20 Aug 2026 |
+|---|---|---|
+| SaaSBison | saasbison.com/submit | Free listing $0, **badge required**, 1 dofollow link, manual queue. Premium $9.99 skips both |
+| Toolcurio | toolcurio.com/submit | Standard (Free) $0, **badge required**, manual review. Premium $5 |
+| DodoDirectory | dododirectory.com/submit | Free $0, **badge required**, 14-day queue. Premium $9.99 |
+| magicbox.tools | magicbox.tools/submit | Tool-name field open on the page; a Log in exists but does not block the form. Submit-time gate unverified |
+| hunt0 | hunt0.com/submit | Launch field open on the page; Sign in present but not blocking. Submit-time gate unverified |
+| LLM Relevance | llmrelevance.com/submit | Titled "Free Listing", tool-name field open, no sign-in found |
+
+**One operator.** SaaSBison, Toolcurio and DodoDirectory run the same template down to the wording —
+"badge required" on free, "no badge required" on paid, a $5–$10 premium tier and an AI-written listing
+page. Same two-listing ceiling applies as with the submitsaas network.
+
+**Account wall** — uno.directory, StartupTrusted, Saaspa.ge, NoonLaunch, Tulimoa, EuroAlternative,
+ProductLaunchpad, Launchy.tools, MakerHunt, Sidehunt, trylaunch.ai, ProofStories, LaunchVibe.
+MakerHunt and Sidehunt are one operator (identical magic-link markup).
+
+**Paid only** — StartupFA.me, Toolpilot, neeed.directory, SoloPush, SubmitHunt, Startups.fyi,
+ToolHub, Toollist, Saassy Board, Postioo, toolsfine ($10 via PayPal).
+
+**Dead or not what the list claims** — Versily (/submit is a 404), TrustMRR, NextGen Tools, SaasHunt,
+hot100, Shipybara, TechTrendin, RankYourAI, Made with Lovable, ShipYard HQ, startuups, Justgotfound,
+Aura++ (all 404 or no response on /submit). **Best of Web redirects to bowora.com**, which this file
+already records as nofollow (`rel="noreferrer sponsored"`) — same site, new name.
+
+**Vendor-verification platforms, not directories** — Sourceforge, SoftwareWorld, G2, Capterra.
 
 ## Dead or unreachable, checked so you do not have to
 
