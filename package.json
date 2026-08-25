@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/flatten-sitemap.mjs",
     "preview": "astro preview",
     "discover": "node scripts/discover.mjs"
   },

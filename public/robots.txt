@@ -4,7 +4,7 @@ Allow: /
 # /search carries a noindex meta tag, so it stays crawlable on purpose:
 # a disallowed URL is never fetched, and the noindex is never seen.
 
-# /sitemap.xml is served by src/pages/sitemap.xml.ts and carries the same index
-# @astrojs/sitemap writes to sitemap-index.xml, because Pages cannot redirect
-# one onto the other and crawlers probe the short name first.
+# scripts/flatten-sitemap.mjs renames the generated chunk to /sitemap.xml and
+# deletes the index: crawlers and Search Console probe the short name first, and
+# Pages cannot redirect one name onto the other.
 Sitemap: https://highlightsx.github.io/sitemap.xml
