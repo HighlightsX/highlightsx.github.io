@@ -38,6 +38,9 @@ const news = defineCollection({
     publishDate: z.date(),
     category: z.enum(CATEGORY_SLUGS),
     tags: z.array(z.string()).default([]),
+    // At most one post at a time: the homepage opens the first featured post it
+    // finds in full, above the listing, and leaves it out of the cards below.
+    featured: z.boolean().default(false),
     repo,
     // A post with no source to point at is the one thing the generator must
     // never publish, so the floor is enforced here rather than in review.
