@@ -1,6 +1,6 @@
 ---
-title: "Slate signs every invoice PDF and lets the AI only draft"
-description: "Israeli invoicing SaaS: Ed25519-signed documents with public QR verification, receipt-scanning AI that never writes to the books, and no paid tier."
+title: "Slate signs every invoice PDF and keeps its AI to drafts"
+description: "Israeli invoicing that signs each document with Ed25519, gives it a public verification page, and keeps the AI to drafts a human approves."
 publishDate: 2026-09-03
 category: ai
 featured: true
@@ -32,64 +32,62 @@ sources:
 reviewed: false
 ---
 
-Most invoicing products treat the PDF as the output: the database holds the truth, the file is a print of it. [Slate](https://slate.co.il) inverts that. The document is a signed snapshot, the signature covers the fields that decide what the document says, and anyone holding the file can check it against the server without an account. That is a stricter contract than "we generate a PDF", and it is the part worth looking at even if you never issue a shekel invoice.
+Issue an invoice in [Slate](https://slate.co.il) and the server freezes the fields that decide what the document says, hashes them, signs the hash and prints a QR code on the PDF. Scan that code off the paper copy and a public page tells you whether the file still matches what was signed. No account, no login, no support ticket.
 
 ## What it is
 
-A cloud invoicing and bookkeeping system for freelancers and small businesses in Israel — invoices, receipts, quotes, credit notes, VAT reports and expense tracking. Registered with the Israel Tax Authority under licence 270001. Angular front end, Express and Prisma behind it, Hebrew-first RTL with a full English interface, database in Frankfurt.
+A cloud bookkeeping system for freelancers and small businesses in Israel: invoices, receipts, quotes, credit notes, VAT reports and expenses. Registered with the Israel Tax Authority under licence 270001. Angular front end, Express and Prisma behind it, Hebrew-first RTL with a full English interface, database in Frankfurt.
 
-The pricing is the unusual part: unlimited documents, unlimited businesses, digital signing, the Israel Invoice connection, Open Format export and the AI features, at no cost, with no card at registration. No cap, no trial clock.
+It costs nothing. Unlimited documents, unlimited businesses, digital signing, the Israel Invoice connection, Open Format export and the AI features are all on the free plan, and registration does not ask for a card. There is no paid tier to upgrade to.
 
 ## Why it showed up now
 
-Israel moved invoicing onto a clearance model. Since May 2024 a tax invoice above a threshold has to carry an *allocation number* issued by the Tax Authority, or the customer cannot deduct the input VAT. The threshold is 5,000 shekels before VAT today and steps down over the coming years, so the share of invoices under the obligation only grows. That turned a formatting problem into an integration problem, and most of the market put the integration behind the top plan.
+Israel put invoicing on a clearance model in May 2024. A tax invoice above a threshold has to carry an *allocation number* issued by the Tax Authority, and without one the customer cannot deduct the input VAT. The threshold is 5,000 shekels before VAT and steps down in stages, so more invoices fall under it every year. Getting a number by hand means approaching the Authority separately for each invoice and typing the result back into the document, which is why the automatic connection is the capability most vendors keep for their top plan.
 
-## How the document actually works
+## How the document works
 
-On issue, the server assembles a canonical payload from the fields that determine meaning: id, running number, type, creation time, customer, line items, amount, discounts, VAT, rounding, the linked document a credit note refers to, and the exchange rate on a foreign-currency document. Frozen alongside it is the snapshot — business name, tax ID, address, logo, customer details and the VAT rate in force at that moment. A SHA-256 digest over that payload is signed with an Ed25519 key held server-side.
+On issue the server assembles a canonical payload: id, running number, type, creation time, customer, line items, amount, discounts, VAT, rounding, the invoice a credit note refers to, and the exchange rate on a foreign-currency document. Frozen alongside it is a snapshot of everything that could drift later, meaning business name, tax ID, address, logo, customer details and the VAT rate in force that day. SHA-256 over the payload, signed with an Ed25519 key that stays on the server.
 
-Two design choices stand out.
+Internal notes and sorting tags sit outside the signature on purpose, so editing a private note two years later does not read as tampering. Everything the customer sees is inside it.
 
-The first is what is deliberately left *outside* the signature. Internal notes and sorting tags are unsigned, on the reasoning that editing a private note two years later should not read as forgery. Everything the customer sees, and everything that lands in the books, is inside.
+Verification recomputes the digest from what is in the database now and compares it against the stored signature, rather than comparing two stored hashes. An edit made straight against the database fails the check.
 
-The second is that verification recomputes the digest from current database state rather than comparing stored hashes. A row edited directly in the database — the failure mode a checksum column will happily co-sign — fails the check.
+The public verification page answers one question, signature holds or document changed after signing, and returns only the document number, business name, signing time and amount. It is rate-limited. The PDF downloads without a login.
 
-Every issued document carries a QR code pointing at a public verification page. Scan it, or send the link, and you get one of two answers: the signature holds, or the document changed after signing. The page is rate-limited and returns only what verification needs — number, business name, signing time, amount — not the document contents. The PDF downloads with no login.
+Document numbers are locked atomically at issue, and an issuance that fails partway returns the number, so the sequence has no gaps and nothing is burned. Login is a one-time code by email; there is no password column, hashed or otherwise. Support sessions are time-limited and every write from them is blocked server-side.
 
-Numbering is locked atomically at issue, and an issuance that fails partway returns the number, so the sequence has no gaps and no burned numbers. Login is an emailed one-time code; there is no password column, hashed or otherwise. Support sessions are time-limited and every write is blocked server-side.
+## What the AI is allowed to do
 
-## The AI, and where its authority stops
+Five features: scan a receipt into an expense draft, drop a folder of receipts into a review table, write one sentence and get a document draft with line items, map an Excel or CSV export onto the right fields, and ask questions about the books in plain language.
 
-Five features: scan a receipt into an expense draft, drop a whole folder of receipts into a review table, write one sentence and get a document draft with line items, map an arbitrary Excel or CSV export onto the right fields, and ask questions about the books in plain language.
+The limits are in server code rather than in the prompt.
 
-The interesting engineering is in the fences, all of them enforced in server code rather than in the prompt.
+The assistant does not write queries. It calls four fixed read-only tools: documents, expenses, VAT summary, top customers. The VAT figure it quotes comes out of the same computation as the periodic report, so the chat and the report cannot disagree.
 
-The assistant does not write SQL. It calls four fixed read-only tools — documents, expenses, VAT summary, top customers — and the VAT number in chat comes from the same computation that produces the periodic report, so the two cannot disagree.
+A scanned receipt comes back with supplier, date, amount and VAT. The deduction percentage does not come from the model. The server reads it from the category catalog at save time and freezes it on the expense, so a later change in the law does not rewrite last year's books. Bulk-uploaded rows run through the same checks as a hand-typed expense.
 
-On a scanned receipt the model returns supplier, date, amount and VAT, but not the deduction percentage. That is read from the category catalog and stamped by the server at save time, then frozen on the expense so a later change in the law does not silently rewrite last year's books. Bulk-uploaded rows go through the same server-side checks as a hand-typed expense.
+Drafting from free text matches the customer name in the browser, against the list already loaded, so the customer list never reaches the model. Imported historical documents keep their original numbers, in a range held apart from live numbering.
 
-Drafting a document from free text does the customer-name match in the browser, against the list already loaded, so the customer list never reaches the model. Imported historical documents keep their original numbers in a range held apart from live numbering, so they cannot collide with new issues.
-
-And nothing auto-saves. Every AI path produces a draft that waits for a human click.
+Nothing saves itself. All five produce a draft that sits on screen until someone approves it.
 
 ## Try it
 
-There is a live demo with no signup, [a VAT calculator](https://slate.co.il/en/calculators/vat), and [the AI feature tour](https://slate.co.il/en/ai) if you want the fences described in the vendor's own words. Registration asks for business type, and that decides which document types you are ever shown — an exempt dealer is not allowed to issue a tax invoice, so the option simply is not there.
+There is a live demo with no signup, [a VAT calculator](https://slate.co.il/en/calculators/vat) and [the AI feature tour](https://slate.co.il/en/ai) if you want the limits in the vendor's own words. Registration asks for business type, and that decides which document types you ever see: an exempt dealer (osek patur) may not issue a tax invoice, so the option is not in the menu.
 
 ## Where it is weak
 
-The GitHub org is a placeholder. `slatecoil/app` is an empty repository with no README, no licence and no code; the profile describes the stack, and that is all the code you get. Nothing here is open source, which for a product whose selling point is verifiable documents is an odd gap — the signing scheme is documented well enough to audit on paper, and not at all in practice.
+The GitHub org is a placeholder. `slatecoil/app` is an empty repository with no README, no licence and no code, and the profile bio is the only public description of the stack. None of this is open source. The signing scheme is documented in enough detail to reason about and in none to audit.
 
-The signing key is Slate's, held on Slate's server, not a personal certificate on a smart card issued by a certification authority. The vendor states this plainly, which is more than most do, and it is the right mechanism for the property the law actually asks about, detecting post-signing change. It is still not a personally approved signature, and an accountant who requires one needs a different product.
+The signing key belongs to Slate and lives on Slate's server. It is not a personal certificate on a smart card from a certification authority, and the security page says so directly. For the property Israeli law asks about, reliable detection of change after signing, a server-held Ed25519 key does that job. An accountant who insists on a personally approved signature needs a different product.
 
-Free with no paid tier means the business model is a promise, not a contract. The mitigation is that the Open Format export — the INI plus BKMVDATA pair the Tax Authority defines — is included and one click away. Run it on day one rather than on the day you need it.
+A free plan with no paid tier rests on the vendor keeping its word. What backs it is the Open Format export, the INI plus BKMVDATA pair the Tax Authority defines, included and one click away. Run it in the first week rather than on the day you need it.
 
-Finally, the scope is Israel. The compliance work that makes this interesting is the same work that makes it useless everywhere else.
+The scope is Israel. The Tax Authority integration, the osek patur document rules and the Hebrew RTL work are most of the product, and none of it is useful anywhere else.
 
 ## Elsewhere
 
-Slate's own pages: [slate.co.il](https://slate.co.il), with the English site at [slate.co.il/en](https://slate.co.il/en) and the signing scheme written out on [the security page](https://slate.co.il/en/security).
+Slate's own pages: [slate.co.il](https://slate.co.il), the English site at [slate.co.il/en](https://slate.co.il/en) and the signing scheme written out on [the security page](https://slate.co.il/en/security).
 
-Code and profiles: [GitHub](https://github.com/slatecoil) and [GitLab](https://gitlab.com/slate.site.admin) for the org accounts, [Behance](https://www.behance.net/slatecoil) for the interface work, and [Brandfetch](https://brandfetch.com/slate.co.il) for the brand assets.
+Profiles: [GitHub](https://github.com/slatecoil) and [GitLab](https://gitlab.com/slate.site.admin) for the org accounts, [Behance](https://www.behance.net/slatecoil) for the interface work, [Brandfetch](https://brandfetch.com/slate.co.il) for the brand assets.
 
-Listings and reviews, if you want third-party signal before moving the books: [ProvenExpert](https://www.provenexpert.com/slate4/), [Trustindex](https://www.trustindex.io/reviews/slate.co.il), [Sortlist](https://www.sortlist.com/agency/slate-co-il) and [WTO Register](https://wtoregister.com/en/profile/138653/slate).
+Listings and reviews, for third-party signal before moving the books: [ProvenExpert](https://www.provenexpert.com/slate4/), [Trustindex](https://www.trustindex.io/reviews/slate.co.il), [Sortlist](https://www.sortlist.com/agency/slate-co-il) and [WTO Register](https://wtoregister.com/en/profile/138653/slate).
