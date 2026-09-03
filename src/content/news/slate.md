@@ -17,11 +17,11 @@ repo:
   homepage: https://slate.co.il
   snapshotAt: 2026-09-03
 sources:
-  - label: "Slate — security and reliability"
+  - label: "Slate: security and reliability"
     url: "https://slate.co.il/en/security"
     publisher: "Slate"
     published: 2026-09-03
-  - label: "Slate — AI features"
+  - label: "Slate: AI features"
     url: "https://slate.co.il/en/ai"
     publisher: "Slate"
     published: 2026-09-03
