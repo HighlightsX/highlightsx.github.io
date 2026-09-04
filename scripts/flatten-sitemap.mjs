@@ -26,5 +26,15 @@ if (files.length === 1) {
   files.forEach((f) => rmSync(new URL(f, dist)));
 }
 
-rmSync(new URL('sitemap-index.xml', dist), { force: true });
+// The old index name is kept alive as a one-entry index pointing at the flat
+// file. Search Console never forgets a path it was handed once: a submission
+// deleted from dist/ answers 404 and sits on "Couldn't fetch" for good, no
+// matter that /sitemap.xml beside it is 200. Two lines of XML retire that
+// error, and a crawler following it lands on the same URL set either way.
+const flat = readFileSync(new URL('sitemap.xml', dist), 'utf8');
+const origin = new URL(flat.match(/<loc>(.*?)<\/loc>/)[1]).origin;
+writeFileSync(
+  new URL('sitemap-index.xml', dist),
+  `<?xml version="1.0" encoding="UTF-8"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap><loc>${origin}/sitemap.xml</loc></sitemap></sitemapindex>`,
+);
 console.log(`flatten-sitemap: dist/sitemap.xml written from ${files.length} file(s)`);
