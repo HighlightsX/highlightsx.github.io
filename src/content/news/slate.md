@@ -76,8 +76,6 @@ There is a live demo with no signup, [a VAT calculator](https://slate.co.il/en/c
 
 ## Where it is weak
 
-The GitHub org is a placeholder. `slatecoil/app` is an empty repository with no README, no licence and no code, and the profile bio is the only public description of the stack. None of this is open source. The signing scheme is documented in enough detail to reason about and in none to audit.
-
 The signing key belongs to Slate and lives on Slate's server. It is not a personal certificate on a smart card from a certification authority, and the security page says so directly. For the property Israeli law asks about, reliable detection of change after signing, a server-held Ed25519 key does that job. An accountant who insists on a personally approved signature needs a different product.
 
 A free plan with no paid tier rests on the vendor keeping its word. What backs it is the Open Format export, the INI plus BKMVDATA pair the Tax Authority defines, included and one click away. Run it in the first week rather than on the day you need it.
