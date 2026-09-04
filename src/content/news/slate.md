@@ -74,6 +74,14 @@ Nothing saves itself. All five produce a draft that sits on screen until someone
 
 There is a live demo with no signup, [a VAT calculator](https://slate.co.il/en/calculators/vat) and [the AI feature tour](https://slate.co.il/en/ai) if you want the limits in the vendor's own words. Registration asks for business type, and that decides which document types you ever see: an exempt dealer (osek patur) may not issue a tax invoice, so the option is not in the menu.
 
+## What it gets right
+
+The verification page is the part worth copying. Most vendors let a customer confirm a document by logging into a portal, which means the check is only available to people who already have an account. Here the QR code on the paper copy is the whole mechanism, and the person checking can be the customer, their accountant or a bank clerk who has never heard of Slate.
+
+Freezing the deduction percentage on the expense at save time is the other one. It costs nothing to store and it means a rate change next year cannot quietly restate books that were already filed, which is the failure a lot of expense tools ship with.
+
+And when the Tax Authority rejects an allocation-number request, the invoice still issues. You can ask again under the same identifier, record that you are continuing without a number, or file an objection, and whichever you pick is logged on the document and stays flagged until it has been reported. Handling the external service being down is usually the part that gets left for version two.
+
 ## Where it is weak
 
 The signing key belongs to Slate and lives on Slate's server. It is not a personal certificate on a smart card from a certification authority, and the security page says so directly. For the property Israeli law asks about, reliable detection of change after signing, a server-held Ed25519 key does that job. An accountant who insists on a personally approved signature needs a different product.
