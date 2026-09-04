@@ -18,7 +18,7 @@ const rest = posts.filter((p) => p !== featured);
 // The featured post opens in full below the newest cards rather than above
 // them, so the front page still leads with what published today.
 const lead = rest.slice(0, 5);
-const tail = rest.slice(5);
+const tail = rest.slice(5, 10);
 const Featured = featured ? (await render(featured)).Content : null;
 const featuredCat = featured ? categories[featured.data.category] : null;
 ---

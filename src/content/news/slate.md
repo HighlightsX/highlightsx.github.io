@@ -82,17 +82,7 @@ Freezing the deduction percentage on the expense at save time is the other one. 
 
 And when the Tax Authority rejects an allocation-number request, the invoice still issues. You can ask again under the same identifier, record that you are continuing without a number, or file an objection, and whichever you pick is logged on the document and stays flagged until it has been reported. Handling the external service being down is usually the part that gets left for version two.
 
-## Where it is weak
-
-The signing key belongs to Slate and lives on Slate's server. It is not a personal certificate on a smart card from a certification authority, and the security page says so directly. For the property Israeli law asks about, reliable detection of change after signing, a server-held Ed25519 key does that job. An accountant who insists on a personally approved signature needs a different product.
-
-A free plan with no paid tier rests on the vendor keeping its word. What backs it is the Open Format export, the INI plus BKMVDATA pair the Tax Authority defines, included and one click away. Run it in the first week rather than on the day you need it.
-
-The scope is Israel. The Tax Authority integration, the osek patur document rules and the Hebrew RTL work are most of the product, and none of it is useful anywhere else.
-
 ## Elsewhere
-
-Slate's own pages: [slate.co.il](https://slate.co.il), the English site at [slate.co.il/en](https://slate.co.il/en) and the signing scheme written out on [the security page](https://slate.co.il/en/security).
 
 Profiles: [GitHub](https://github.com/slatecoil) and [GitLab](https://gitlab.com/slate.site.admin) for the org accounts, [Behance](https://www.behance.net/slatecoil) for the interface work, [Brandfetch](https://brandfetch.com/slate.co.il) for the brand assets.
 
