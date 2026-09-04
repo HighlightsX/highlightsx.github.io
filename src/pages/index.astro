@@ -15,6 +15,10 @@ const posts = (await publishedNews()).sort(
 // is never listed twice on the same page.
 const featured = posts.find((p) => p.data.featured);
 const rest = posts.filter((p) => p !== featured);
+// The featured post opens in full below the newest cards rather than above
+// them, so the front page still leads with what published today.
+const lead = rest.slice(0, 5);
+const tail = rest.slice(5);
 const Featured = featured ? (await render(featured)).Content : null;
 const featuredCat = featured ? categories[featured.data.category] : null;
 ---
@@ -28,6 +32,17 @@ const featuredCat = featured ? categories[featured.data.category] : null;
         weak. Every figure carries the date it was true. Two posts a day.
       </p>
 
+      {rest.length === 0 && !featured ? (
+        <p class="empty">No highlights yet.</p>
+      ) : (
+        <>
+          <h2 class="section-title">Latest</h2>
+          <div class="cards">
+            {lead.map((post) => <NewsCard post={post} />)}
+          </div>
+        </>
+      )}
+
       {featured && Featured && featuredCat && (
         <article class="post featured" style={`--cat: ${featuredCat.color}`}>
           <span class="tag">Featured · {featuredCat.name}</span>
@@ -38,13 +53,11 @@ const featuredCat = featured ? categories[featured.data.category] : null;
         </article>
       )}
 
-      {rest.length === 0 ? (
-        <p class="empty">No highlights yet.</p>
-      ) : (
+      {tail.length > 0 && (
         <>
-          <h2 class="section-title">Latest</h2>
+          <h2 class="section-title">More</h2>
           <div class="cards">
-            {rest.map((post) => <NewsCard post={post} />)}
+            {tail.map((post) => <NewsCard post={post} />)}
           </div>
         </>
       )}
