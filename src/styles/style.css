@@ -392,7 +392,7 @@ main > h1 em, h1 .grad {
   line-height: 1.5;
 }
 
-.topic-chip:hover { color: var(--text); border-color: var(--accent); background: var(--accent-soft); }
+a.topic-chip:hover { color: var(--text); border-color: var(--accent); background: var(--accent-soft); }
 .topic-chip span { color: var(--dimmer); font-size: 0.75rem; }
 
 .topic-list {

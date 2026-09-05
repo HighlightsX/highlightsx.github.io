@@ -1,23 +1,11 @@
 ---
-import { publishedNews } from '../../lib/posts';
+import { topics } from '../../lib/posts';
 import Base from '../../layouts/Base.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import NewsCard from '../../components/NewsCard.astro';
-import { topicSlug } from '../../lib/format';
 
 export async function getStaticPaths() {
-  const posts = await publishedNews();
-  const byTopic = new Map<string, { name: string; posts: typeof posts }>();
-
-  for (const post of posts) {
-    for (const tag of post.data.tags) {
-      const slug = topicSlug(tag);
-      if (!byTopic.has(slug)) byTopic.set(slug, { name: tag, posts: [] });
-      byTopic.get(slug)!.posts.push(post);
-    }
-  }
-
-  return [...byTopic.entries()].map(([slug, { name, posts }]) => ({
+  return [...(await topics()).entries()].map(([slug, { name, posts }]) => ({
     params: { topic: slug },
     props: {
       name,
@@ -34,7 +22,7 @@ const { name, posts } = Astro.props;
     <main>
       <nav class="crumbs"><a href="/">Highlights</a><span>›</span>{name}</nav>
       <h1>{name}</h1>
-      <h2 class="section-title">{posts.length} {posts.length === 1 ? 'project' : 'projects'}</h2>
+      <h2 class="section-title">{posts.length} projects</h2>
       <div class="cards">
         {posts.map((post) => <NewsCard post={post} />)}
       </div>
