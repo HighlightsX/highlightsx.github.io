@@ -51,7 +51,7 @@ AutoPause suspends idle sandboxes and wakes them on the next request, which is t
 
 ## Try it
 
-Deployment is Kubernetes or Terraform, with ARM64 supported natively since 0.5. The quick start lives at [cubesandbox.com](https://cubesandbox.com), and the E2B-compatible SDK means existing client code mostly does not change.
+Deployment is Kubernetes or Terraform, with ARM64 supported natively since 0.5. The quick start lives at cubesandbox.com, and the E2B-compatible SDK means existing client code mostly does not change.
 
 ## Where it is weak
 

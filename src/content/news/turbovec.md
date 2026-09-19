@@ -28,7 +28,7 @@ Ten million 1536-dimension embeddings are 31 GB as float32, which is why most RA
 
 ## What it is
 
-A Rust vector index with Python bindings, built on Google Research's [TurboQuant](https://arxiv.org/abs/2504.19874), a data-oblivious quantizer with near-optimal distortion and no separate training phase. Data-oblivious is the load-bearing word: the quantizer does not learn from your corpus, so there is nothing to train and nothing to retrain as the corpus drifts.
+A Rust vector index with Python bindings, built on Google Research's TurboQuant, a data-oblivious quantizer with near-optimal distortion and no separate training phase. Data-oblivious is the load-bearing word: the quantizer does not learn from your corpus, so there is nothing to train and nothing to retrain as the corpus drifts.
 
 ## Why it showed up now
 

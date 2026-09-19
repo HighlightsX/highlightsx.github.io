@@ -52,7 +52,7 @@ That split â€” deterministic parsing for structure, models for interpretation â€
 
 ## Try it
 
-Open the [live demo](https://understand-anything.com/demo/) first; it is a real dashboard, not a video. Then install it as a plugin in whichever agent you use.
+Open the live demo first; it is a real dashboard, not a video. Then install it as a plugin in whichever agent you use.
 
 ## Where it is weak
 

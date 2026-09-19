@@ -39,7 +39,7 @@ A compiler that takes TypeScript and JavaScript through a typed intermediate rep
 
 ## How it actually works
 
-Static builds link a small native runtime and contain no Node and no JavaScript engine. The trade is stated as a rule: code that cannot compile statically is reported as a diagnostic. If you want npm packages and `any`-typed code, `--dynamic` embeds [quickjs-ng](https://github.com/quickjs-ng/quickjs) explicitly, and you have chosen to ship an engine rather than had one smuggled in.
+Static builds link a small native runtime and contain no Node and no JavaScript engine. The trade is stated as a rule: code that cannot compile statically is reported as a diagnostic. If you want npm packages and `any`-typed code, `--dynamic` embeds quickjs-ng explicitly, and you have chosen to ship an engine rather than had one smuggled in.
 
 The emit ladder is the useful part of the design. `--emit=ir`, `--emit=c` and `--emit=llvm` need only Node, so you can read the C or the LLVM IR the compiler produced without a toolchain installed at all:
 

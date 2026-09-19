@@ -41,7 +41,7 @@ A Rust library that converts Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, C
 
 Three entry points, same engine. `toMarkdown` takes a path, `toMarkdownBytes` sniffs the format from the content, and `toDocument` stops at the intermediate document model, which also carries embedded assets. Formats without a signature, CSV being the obvious one, have to be named explicitly.
 
-The WebAssembly build is the detail worth noticing. The [demo page](https://firecrawl.github.io/anydoc/) runs the library in the browser, so files never leave the machine. For anyone parsing documents they are not allowed to upload, that is the whole product.
+The WebAssembly build is the detail worth noticing. The demo page runs the library in the browser, so files never leave the machine. For anyone parsing documents they are not allowed to upload, that is the whole product.
 
 It also ships as an agent skill, so an agent can convert a file it stumbles into:
 

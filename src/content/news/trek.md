@@ -51,7 +51,7 @@ Costs are split in integer cents with custom shares, several payers per expense,
 
 ## Try it
 
-The demo at [demo.liketrek.com](https://demo.liketrek.com) is the fastest look. Self-hosting is Docker, and the image bundles the `kitinerary-extractor` binary that booking import needs.
+The demo at demo.liketrek.com is the fastest look. Self-hosting is Docker, and the image bundles the `kitinerary-extractor` binary that booking import needs.
 
 ## Where it is weak
 
