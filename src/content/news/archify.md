@@ -56,7 +56,7 @@ The feature I would use first is the snapshot diff: compare two validated snapsh
 npx skills add tt-a1i/archify -g
 ```
 
-Then ask your agent to map the repository's runtime architecture. The [Proof Lab](https://tt-a1i.github.io/archify/gallery.html) shows generated output before you install anything.
+Then ask your agent to map the repository's runtime architecture. The Proof Lab shows generated output before you install anything.
 
 ## Where it is weak
 

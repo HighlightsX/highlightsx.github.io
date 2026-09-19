@@ -47,7 +47,7 @@ AutoPause suspends idle sandboxes and wakes them on the next request, which is t
 
 0.7 also splits the control plane from operations, moving node management into CubeOps with multi-replica deployment and its own CLI.
 
-[QM](/qm) gives each employee a sandbox inside Slack. CubeSandbox is the layer such a product sits on if you do not want to rent it.
+QM gives each employee a sandbox inside Slack. CubeSandbox is the layer such a product sits on if you do not want to rent it.
 
 ## Try it
 

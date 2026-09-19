@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-[AutoHarness](/autoharness) distills skills from one developer's sessions. Hivemind does the same thing across a team, and adds the number that AutoHarness declines to claim: a benchmark.
+AutoHarness distills skills from one developer's sessions. Hivemind does the same thing across a team, and adds the number that AutoHarness declines to claim: a benchmark.
 
 ## What it is
 

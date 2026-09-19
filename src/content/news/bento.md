@@ -40,7 +40,7 @@ The framing in the README is a complaint about the category: office documents us
 
 ## Why it showed up now
 
-One month old, v1.0.17 on August 10, and a live demo that is also the product — [bento.page/slides](https://bento.page/slides) is the whole app running on a starter deck that doubles as the feature tour. Evaluating it costs one click, which is unusual enough in this category to explain the attention.
+One month old, v1.0.17 on August 10, and a live demo that is also the product — bento.page/slides is the whole app running on a starter deck that doubles as the feature tour. Evaluating it costs one click, which is unusual enough in this category to explain the attention.
 
 ## How it actually works
 

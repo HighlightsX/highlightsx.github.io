@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-You join a team and inherit 200,000 lines of code. The usual answer is to read entry points for a week and hope the shape emerges. Understand Anything, MIT-licensed and second only to [ponytail](/ponytail) in stars among projects covered here, proposes a graph instead.
+You join a team and inherit 200,000 lines of code. The usual answer is to read entry points for a week and hope the shape emerges. Understand Anything, MIT-licensed and second only to ponytail in stars among projects covered here, proposes a graph instead.
 
 ## What it is
 

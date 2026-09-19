@@ -41,7 +41,7 @@ Two days old, no release tags, no issue backlog, and six figures of stars. That 
 
 ## How it actually works
 
-The plugin system is not homegrown. It runs on [Cordis](https://github.com/cordiverse/cordis), an existing framework whose design is written up in a paper the README links, on what it calls spatiotemporal composability. In practice that means plugins are scoped by lifetime as well as by capability: a plugin can be loaded, reloaded and disposed while the process keeps running, and the things it registered go away with it. That is the property a long-lived agent session needs and the one an ordinary plugin registry does not give you.
+The plugin system is not homegrown. It runs on Cordis, an existing framework whose design is written up in a paper the README links, on what it calls spatiotemporal composability. In practice that means plugins are scoped by lifetime as well as by capability: a plugin can be loaded, reloaded and disposed while the process keeps running, and the things it registered go away with it. That is the property a long-lived agent session needs and the one an ordinary plugin registry does not give you.
 
 The consequence for anyone building on it: your extension is not a callback bolted onto a fixed pipeline. It is a unit with the same standing as the built-ins, and the discoverability convention is already in place — DeepSeek asks plugin authors to tag their repositories with the `dsh-plugin` topic.
 

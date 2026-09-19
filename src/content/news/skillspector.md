@@ -50,7 +50,7 @@ The pattern library is 69 checks across 17 categories, and the category list is 
 
 Two of those deserve a second look. *Trigger abuse* is a skill written so its description fires it in situations the user did not intend — the skill equivalent of typosquatting. *Anti-refusal* is instruction text designed to talk the model out of its own guardrails, which is exactly what the jailbreak-installer genre ships as a feature.
 
-Supply-chain checks query [OSV.dev](https://osv.dev) live for CVE data, with automatic offline fallback. Output is terminal, JSON, Markdown or SARIF — SARIF being the one that matters, since it drops straight into existing code-scanning pipelines. A 0–100 risk score comes with severity labels, and a baseline file lets you accept known findings so re-scans surface only new ones.
+Supply-chain checks query OSV.dev live for CVE data, with automatic offline fallback. Output is terminal, JSON, Markdown or SARIF — SARIF being the one that matters, since it drops straight into existing code-scanning pipelines. A 0–100 risk score comes with severity labels, and a baseline file lets you accept known findings so re-scans surface only new ones.
 
 ## Try it
 

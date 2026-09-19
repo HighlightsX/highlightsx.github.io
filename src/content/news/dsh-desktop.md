@@ -31,7 +31,7 @@ sources:
 reviewed: false
 ---
 
-[DeepSeek Harness](/deepseek-harness) shipped on August 13 with a web UI you start from the command line. By August 15 someone had wrapped it in a native desktop app with a system tray, a plugin marketplace, phone remote control and chat-app channels. That turnaround is the story here.
+DeepSeek Harness shipped on August 13 with a web UI you start from the command line. By August 15 someone had wrapped it in a native desktop app with a system tray, a plugin marketplace, phone remote control and chat-app channels. That turnaround is the story here.
 
 ## What it is
 

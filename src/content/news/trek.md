@@ -45,7 +45,7 @@ The planning side is drag and drop with undo: places move between days and reord
 
 The map layer is the part that respects your wallet. Leaflet, Mapbox GL or MapLibre GL against OpenFreeMap with no token. Place search uses Google Places when a key is set, and OpenStreetMap when it is not. Place enrichment pulls descriptions, hours and photo candidates from OpenStreetMap, Wikipedia, Wikidata and Wikimedia Commons. Routes auto-sort a day with nearest neighbour then 2-opt, keeping locked stops and hotel anchors in place, over OSRM. Public transport itineraries come from Transitous, weather from Open-Meteo.
 
-The bookings side is where the unglamorous work went. Sixteen reservation types with status, confirmation code, travellers and attachments. Flights with per-leg times and endpoint timezones resolved against 4,045 bundled airports, so local times are right without a key. Confirmation emails import through [KItinerary](https://invent.kde.org/pim/kitinerary) from EML, PDF, PKPass, HTML and TXT.
+The bookings side is where the unglamorous work went. Sixteen reservation types with status, confirmation code, travellers and attachments. Flights with per-leg times and endpoint timezones resolved against 4,045 bundled airports, so local times are right without a key. Confirmation emails import through KItinerary from EML, PDF, PKPass, HTML and TXT.
 
 Costs are split in integer cents with custom shares, several payers per expense, settle-up suggestions and a settlement log. Currency rates are frozen at entry, from Frankfurter, no key. Integer cents and a frozen rate are the two details that separate a money feature from a money bug.
 

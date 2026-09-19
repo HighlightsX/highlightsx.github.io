@@ -34,7 +34,7 @@ Stacking compositors pile windows on top of each other. Tiling compositors squee
 
 ## What it is
 
-A Wayland compositor in Rust, GPL-3.0-or-later, built on [smithay](https://github.com/Smithay/smithay), borrowing implementation details from niri and taking its idea from vxwm. 1,605 stars on a repository opened in late February, v0.17.0 shipped the day before the snapshot, and it is packaged in the AUR with a NixOS module in the flake.
+A Wayland compositor in Rust, GPL-3.0-or-later, built on smithay, borrowing implementation details from niri and taking its idea from vxwm. 1,605 stars on a repository opened in late February, v0.17.0 shipped the day before the snapshot, and it is packaged in the AUR with a NixOS module in the flake.
 
 There are no workspaces and no tiling. Windows overlap only when you put them there.
 

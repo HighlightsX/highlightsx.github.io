@@ -49,7 +49,7 @@ It also ships as an agent skill, so an agent can convert a file it stumbles into
 npx skills add firecrawl/anydoc
 ```
 
-[Skill Seekers](/skill-seekers) turns documentation into skills. This is the other half: giving the agent the ability to read whatever document it was handed in the first place.
+Skill Seekers turns documentation into skills. This is the other half: giving the agent the ability to read whatever document it was handed in the first place.
 
 ## Try it
 

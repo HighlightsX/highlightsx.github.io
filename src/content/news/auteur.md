@@ -56,7 +56,7 @@ Installation is agent-agnostic — it detects what you have and writes into each
 npx skills add agiwhitelist/auteur
 ```
 
-Or as a Claude Code plugin via `/plugin marketplace add agiwhitelist/auteur`. Open the [gallery](https://agiwhitelist.github.io/auteur/) first — one page tells you whether this is your taste.
+Or as a Claude Code plugin via `/plugin marketplace add agiwhitelist/auteur`. Open the gallery first — one page tells you whether this is your taste.
 
 ## Where it is weak
 

@@ -42,7 +42,7 @@ Two months old, tagged v0.7.5 in August, pushed to daily. The interesting timing
 
 ## How it actually works
 
-The README explains the trick in one paragraph, and it is the reason this project is worth reading about rather than just installing. Nub uses Node surfaces that mostly did not exist when Deno and Bun were designed: `--import` and `--require` preloads, `module.registerHooks()` for transpilation and resolution, and N-API native addons — which is how it embeds [oxc](https://oxc.rs/) to pre-transpile TypeScript.
+The README explains the trick in one paragraph, and it is the reason this project is worth reading about rather than just installing. Nub uses Node surfaces that mostly did not exist when Deno and Bun were designed: `--import` and `--require` preloads, `module.registerHooks()` for transpilation and resolution, and N-API native addons — which is how it embeds oxc to pre-transpile TypeScript.
 
 So the TypeScript support, the `tsconfig.json#paths` resolution, the extensionless imports, JSX, decorators and `using` are all handled by hooks inside a normal Node process. The claimed numbers follow from doing the slow parts in Rust: 2.9× faster startup than `tsx`, 24× faster script running than `pnpm run`, 19× faster than `npx`, 18× faster installs.
 

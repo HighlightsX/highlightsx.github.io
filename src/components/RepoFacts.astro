@@ -39,7 +39,7 @@ const facts = [
   <p class="snapshot">
     Figures as of <time datetime={isoDate(repo.snapshotAt)}>{enDate(repo.snapshotAt)}</time>.
     {repo.homepage && (
-      <> Project site: <a href={repo.homepage} rel="nofollow noopener" target="_blank">{new URL(repo.homepage).host}</a>.</>
+      <> Project site: {new URL(repo.homepage).host}.</>
     )}
   </p>
 </section>

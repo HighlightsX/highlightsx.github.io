@@ -46,7 +46,7 @@ Saves are incremental. `sync(path)` persists only what changed since the last ca
 
 Filters are honoured inside the kernel. Pass an id allowlist or a slot bitmask to `search()` and you get up to `k` results from the allowed set, with no over-fetching and no recall collapse on selective filters. That is the usual failure mode of bolt-on filtering, and fixing it in the kernel is the right place.
 
-[Zvec](/zvec) puts a vector database inside your process. turbovec is the layer below that: the index itself, with stable external ids through `IdMapIndex` and O(1) removal by id.
+Zvec puts a vector database inside your process. turbovec is the layer below that: the index itself, with stable external ids through `IdMapIndex` and O(1) removal by id.
 
 ## Try it
 

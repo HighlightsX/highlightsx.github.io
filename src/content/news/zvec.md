@@ -58,7 +58,7 @@ Hybrid search fuses vector similarity, full-text and structured filters in one q
 
 ## Try it
 
-Install the library, open a collection and search — no server to start. The project site at [zvec.org](https://zvec.org) carries the quickstart and the index-type guide, which is worth reading before choosing between HNSW and DiskANN for your data size.
+Install the library, open a collection and search — no server to start. The project site at zvec.org carries the quickstart and the index-type guide, which is worth reading before choosing between HNSW and DiskANN for your data size.
 
 ## Where it is weak
 

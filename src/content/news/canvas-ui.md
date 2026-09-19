@@ -39,7 +39,7 @@ One month old, pushed daily, no tagged release yet. The reason to look is not th
 
 ## How it actually works
 
-Most of the components use the experimental [HTML-in-canvas](https://chromestatus.com/feature/5172548013916160) API to read your live DOM and redraw it inside a canvas. Your page becomes a texture that fire, fluid and glass distort in real time — while the underlying elements remain the real ones. Text stays selectable, links stay clickable.
+Most of the components use the experimental HTML-in-canvas API to read your live DOM and redraw it inside a canvas. Your page becomes a texture that fire, fluid and glass distort in real time — while the underlying elements remain the real ones. Text stays selectable, links stay clickable.
 
 That is the trick that has been missing. Previously you either faked the effect in CSS or accepted that the pretty layer was inert. Where the API is unsupported, components fall back to WebGL overlays, so nobody gets a broken page — a degraded effect, but a working one.
 

@@ -51,7 +51,7 @@ hello.c
 
 `--emit=asm` and `--emit=obj` use an optional platform helper that ships with scriptc and needs no compiler, archiver, linker or SDK. Ordinary executables need a platform linker driver, selectable through `SCRIPTC_LINKER`. On macOS 15+ arm64 the bundled helper and a precompiled runtime pack do the work, and clang appears only as the linker driver.
 
-[Nub](/nub) went after Bun's ergonomics without leaving Node. scriptc goes the other way entirely and leaves the runtime behind.
+Nub went after Bun's ergonomics without leaving Node. scriptc goes the other way entirely and leaves the runtime behind.
 
 ## Try it
 

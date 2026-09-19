@@ -12,7 +12,7 @@ const { sources } = Astro.props;
   <ol>
     {sources.map((s) => (
       <li>
-        <a href={s.url} rel="nofollow noopener" target="_blank">{s.label}</a>
+        <span class="label">{s.label}</span>
         <span class="pub"> · {s.publisher} · {enDate(s.published)}</span>
       </li>
     ))}

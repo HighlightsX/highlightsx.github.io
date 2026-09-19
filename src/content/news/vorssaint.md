@@ -52,7 +52,7 @@ Every feature also carries what the README calls an honest energy badge, stating
 
 ## Try it
 
-Download from [vorssaint.com](https://vorssaint.com), or build from source. GPL-3.0, so a fork stays open.
+Download from vorssaint.com, or build from source. GPL-3.0, so a fork stays open.
 
 ## Where it is weak
 

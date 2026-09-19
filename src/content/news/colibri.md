@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-We covered [a 2.78-trillion-parameter model running in C99 on one CPU](/kimi-k3-in-c) — a single-model demonstration. Colibrì is the general version of that idea: five model families, 744B to 2.8T parameters, one C file each, the same front end, and a research programme attached.
+We covered a 2.78-trillion-parameter model running in C99 on one CPU — a single-model demonstration. Colibrì is the general version of that idea: five model families, 744B to 2.8T parameters, one C file each, the same front end, and a research programme attached.
 
 ## What it is
 

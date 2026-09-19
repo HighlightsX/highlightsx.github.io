@@ -34,7 +34,7 @@ Ask a coding agent for a product video and you get whatever motion vocabulary it
 
 ## What it is
 
-An Apache-2.0 agent skill that turns an existing coding agent into a motion-design studio. Point it at your product and it storyboards, animates and sound-designs a promo, launch or demo video with [Remotion](https://www.remotion.dev/) — real page captures, 2.5D camera moves, beat-synced cuts and sound effects included.
+An Apache-2.0 agent skill that turns an existing coding agent into a motion-design studio. Point it at your product and it storyboards, animates and sound-designs a promo, launch or demo video with Remotion — real page captures, 2.5D camera moves, beat-synced cuts and sound effects included.
 
 Each shot is a card with a native Remotion component at `demos/<category>/<name>/<Component>.tsx`, deterministic and driven by a normalised progress value `t`. Components are de-branded: neutral placeholder copy and a single swappable `ACCENT` colour variable.
 

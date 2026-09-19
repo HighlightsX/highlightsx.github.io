@@ -37,7 +37,7 @@ Every lab now ships a terminal coding agent, and the interesting part is no long
 
 The repository is synced periodically from the SpaceXAI monorepo, and a `SOURCE_REV` file at the root records the exact monorepo commit each tree corresponds to. That is a more honest arrangement than most one-way mirrors, which leave you guessing which internal commit you are looking at.
 
-Building it needs more than cargo. The toolchain is pinned by `rust-toolchain.toml`, and proto codegen resolves a hermetic `protoc` through [DotSlash](https://dotslash-cli.com), so `dotslash` has to be on `PATH` before the first build. macOS and Linux are supported build hosts; Windows is best-effort and untested from this tree.
+Building it needs more than cargo. The toolchain is pinned by `rust-toolchain.toml`, and proto codegen resolves a hermetic `protoc` through DotSlash, so `dotslash` has to be on `PATH` before the first build. macOS and Linux are supported build hosts; Windows is best-effort and untested from this tree.
 
 The binary artifact is `xai-grok-pager`. Official installs rename it `grok`. On first launch it opens a browser to authenticate, which is the part worth reading twice: the code is Apache-2.0, the thing it talks to is not.
 
