@@ -24,6 +24,31 @@ dropped us once the badge went away, and which ones kept the listing. Rows in
 | Dironix | https://dironix.com | yes |
 | Gets.tools | https://gets.tools | yes |
 
+## Baseline, checked 21 Sep 2026
+
+Taken within the hour after the badges came down, so this is the "before anyone
+reacted" state. Every row is a live fetch of the listing page, not a recollection.
+`rel` is the actual attribute on the anchor pointing at our homepage.
+
+| Directory | Listing | Status | rel on the link to us | Verdict |
+|---|---|---|---|---|
+| LemonLaunch | /dev-tools/github-highlights | 200 | `noopener` | live, passes |
+| TheSaaSDir | /product/github-highlights | 200 | `noopener` | live, passes |
+| Wired Business | /highlightsx-github-io | 200 | **no rel at all** | live, passes |
+| Twelve Tools | /highlightsx-github-io | 200 | `noopener` | live, passes |
+| AIHuntList | /tool/github-highlights | 200 | `noopener noreferrer` | live, passes (the `/about` link alone is nofollow) |
+| TheAIToolsDir | /product/github-highlights/ | 200 | `noopener` | live, passes |
+| SpotStartups | /github-highlights | 200 | `noopener` | live, passes, page is `index, follow` |
+| SaaS Cubes | /saas/github-highlights | 200 | `noopener noreferrer` | **live, passes**. Went live without us noticing; it sat under "waiting on review" |
+| EasyLaunch | /dev-tools/github-highlights | 200 | `noopener` | live, passes |
+| Nick Launches | /products/github-highlights | 200 | `noreferrer noopener` | **now `index, follow`**. The `noindex` seen on 19 Sep is gone, so the link counts as of today |
+| Gets.tools | none | n/a | n/a | **no listing ever existed.** 158 URLs in their sitemap, none ours. Submission was never pressed |
+| Dironix | none | n/a | n/a | **domain registration expired.** HTTPS fails handshake, HTTP serves a registrar parking page. We were linking to a dead domain |
+
+So the real count on the day the badges came down was ten live listings, not
+twelve. Nine of the ten pass link equity right now. That is the number any later
+loss gets measured against.
+
 ## The exact markup that was removed
 
 Paste this back inside `.footer-legal` in `src/components/Footer.astro` to

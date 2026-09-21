@@ -15,21 +15,21 @@ column below is now historical. The removed markup and the listing URLs to reche
 
 | Directory | Listing | Submitted | Badge | Notes |
 |---|---|---|---|---|
-| LemonLaunch | https://lemonlaunch.dev/dev-tools/github-highlights | before 16 Aug 2026 | yes | |
-| TheSaaSDir | https://thesaasdir.com/product/github-highlights | before 16 Aug 2026 | yes | badge required |
-| Twelve Tools | twelve.tools, slug `highlightsx-github-io` | 16 Aug 2026 | yes | badge required · manage: https://twelve.tools/edit?hash=wp8tefl59nwd9tmxvjrw&email=tommycoupe%40gmail.com |
-| Wired Business | https://wired.business/highlightsx-github-io | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — both outbound links are bare hrefs, no rel · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
-| TheAIToolsDir | https://theaitoolsdir.com/product/github-highlights/ | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — only outbound link is `rel="noopener"` (no crawl directive), href is our domain with `?utm_source=theaitoolsdir.com&utm_medium=referral` · page indexable, robots.txt `Allow: /`, no meta robots |
-| EasyLaunch | https://easylaunch.dev/dev-tools/github-highlights | 20 Aug 2026 | yes | badge added 20 Aug 2026 · **dofollow verified 20 Aug 2026** — page returns 200, the only outbound link to us is `rel="noopener"` (no crawl directive), no meta robots, site serves no robots.txt |
-| SpotStartups | https://spotstartups.com/github-highlights | 16 Aug 2026 | yes | badge required · **dofollow verified 19 Sep 2026**: the visit button is `rel="noopener"`, page is `index, follow` |
-| AIHuntList | https://aihuntlist.com/tool/github-highlights | 16 Aug 2026 | yes | submission id 3874 · **dofollow verified 19 Sep 2026**: links to the homepage are `rel="noopener"` or `noopener noreferrer`; only the `/about` link is nofollow |
-| Nick Launches | https://nicklaunches.com/products/github-highlights | 20 Aug 2026 | yes | launch week 14 to 20 Sep 2026 · links are `rel="noreferrer noopener"`, but on 19 Sep 2026 the page carried `noindex, follow`, so the link passes nothing while that stays. Recheck after 20 Sep |
+| LemonLaunch | https://lemonlaunch.dev/dev-tools/github-highlights | before 16 Aug 2026 | pulled | |
+| TheSaaSDir | https://thesaasdir.com/product/github-highlights | before 16 Aug 2026 | pulled | badge required |
+| Twelve Tools | twelve.tools, slug `highlightsx-github-io` | 16 Aug 2026 | pulled | badge required · manage: https://twelve.tools/edit?hash=wp8tefl59nwd9tmxvjrw&email=tommycoupe%40gmail.com |
+| Wired Business | https://wired.business/highlightsx-github-io | 16 Aug 2026 | pulled | badge required · **dofollow verified 17 Aug 2026** — both outbound links are bare hrefs, no rel · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
+| TheAIToolsDir | https://theaitoolsdir.com/product/github-highlights/ | 16 Aug 2026 | pulled | badge required · **dofollow verified 17 Aug 2026** — only outbound link is `rel="noopener"` (no crawl directive), href is our domain with `?utm_source=theaitoolsdir.com&utm_medium=referral` · page indexable, robots.txt `Allow: /`, no meta robots |
+| EasyLaunch | https://easylaunch.dev/dev-tools/github-highlights | 20 Aug 2026 | pulled | badge added 20 Aug 2026 · **dofollow verified 20 Aug 2026** — page returns 200, the only outbound link to us is `rel="noopener"` (no crawl directive), no meta robots, site serves no robots.txt |
+| SpotStartups | https://spotstartups.com/github-highlights | 16 Aug 2026 | pulled | badge required · **dofollow verified 19 Sep 2026**: the visit button is `rel="noopener"`, page is `index, follow` |
+| AIHuntList | https://aihuntlist.com/tool/github-highlights | 16 Aug 2026 | pulled | submission id 3874 · **dofollow verified 19 Sep 2026**: links to the homepage are `rel="noopener"` or `noopener noreferrer`; only the `/about` link is nofollow |
+| Nick Launches | https://nicklaunches.com/products/github-highlights | 20 Aug 2026 | pulled | launch week 14 to 20 Sep 2026 · links are `rel="noreferrer noopener"` · **rechecked 21 Sep 2026: the `noindex` is gone, the page is now `index, follow`**, so the link counts |
+| SaaS Cubes | https://saascubes.com/saas/github-highlights | 16 Aug 2026 | pulled | **found live 21 Sep 2026** while taking the badge baseline; it had been sitting under "waiting on review" since August. Both links to us are `rel="noopener noreferrer"`, no meta robots, so it passes |
 
 ## Submitted, waiting on review
 
 | Directory | Submitted | Badge | Status |
 |---|---|---|---|
-| SaaS Cubes | 16 Aug 2026 | yes | free plan, badge required, 3–5 business days |
 | SumoDir | 16 Aug 2026 | removed | **dropped** — they removed our listing; badge pulled from the footer 18 Aug 2026 |
 | ActiveSearchResults | 16 Aug 2026 | no | search-engine index submission, confirmed |
 | aitoolslist.io | 16 Aug 2026 | no | Tally form (`tally.so/r/n9BqRX`), editorial review |
@@ -57,9 +57,9 @@ column below is now historical. The removed markup and the listing URLs to reche
 | DevTool.io | free listing selected, all fields filled; **badge pulled from the footer 20 Aug 2026** — re-add it before submitting if they require one | tick the Cloudflare box, press *Submit Tool* |
 | wiby.me | URL and worksafe set | type the image captcha, press *Submit* |
 | Uneed | product created under @slate_coil, id **48243**, `uneed.best/tool/github-highlights`. Their AI filled name, slug, URL, category Development, pricing Free, tags Learning/Open Source/News, tagline and rich description. Repo URL and Open Source flag set. One gallery image saved; the logo upload did not stick on save — retry it | re-upload the logo under *Media*, then press **Schedule your launch**. Uneed advertises a DR 75 dofollow link |
-| Gets.tools | step 1 complete (name, tagline, 1,200-char description, logo, category Developer Tools, pricing Free, platform Web, GitHub repo). Reached step 2 | free tier says *"Add dofollow backlink to our site in your website footer"* — **badge required**, review within 2 days. Your call before I press submit |
+| Gets.tools | step 1 complete (name, tagline, 1,200-char description, logo, category Developer Tools, pricing Free, platform Web, GitHub repo). Reached step 2. **Confirmed 21 Sep 2026 that no listing exists**: 158 URLs in their sitemap, none ours, so the badge we carried was for nothing | free tier says *"Add dofollow backlink to our site in your website footer"* — **badge required**, review within 2 days. Your call before I press submit |
 | SubmitDeck | steps 1–2 complete (name, URL, description, logo, cover, 3 categories, Free, Web, 5 tags). Stuck at step 3 | free tier is **badge required** *and* every launch date is greyed out through November 2026 — no bookable slot. Effectively closed unless you pay $9 |
-| Dironix | same operator and identical template as SubmitDeck. Step 1 filled but their image upload fails — previews render broken and *Next* stays disabled | blocked on their bug |
+| Dironix | **dead.** Checked 21 Sep 2026: `dironix.com` fails the TLS handshake outright and over plain HTTP serves a registrar page reading "Domain registration has expired". The submission never completed anyway (their image upload was broken), yet a Dironix badge sat in our footer pointing at it | nothing to do, it is gone |
 
 Caveat on Insidr.ai: their submit page is one Elementor form where the tool fields sit apart from
 the email + Send button. The success message fired, but if their mail is a plain newsletter opt-in
