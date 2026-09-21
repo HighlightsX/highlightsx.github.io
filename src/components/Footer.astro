@@ -5,8 +5,6 @@ import { publishedNews } from '../lib/posts';
 const posts = await publishedNews();
 const used = new Set(posts.map((p) => p.data.category));
 const year = new Date().getFullYear();
-// build.format is 'file', so the built homepage is /index.html, not /.
-const isHome = /^\/(index\.html)?$/.test(Astro.url.pathname);
 ---
 
 <footer class="site-footer">
@@ -49,58 +47,6 @@ const isHome = /^\/(index\.html)?$/.test(Astro.url.pathname);
     </div>
 
     <div class="footer-legal">
-      {isHome && (
-        <p>
-          <a href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener">
-            <img src="https://lemonlaunch.dev/badge/lemonlaunch-badge-dark.svg"
-                 alt="Featured on LemonLaunch" width="134" height="40" />
-          </a>
-          <a href="https://thesaasdir.com/product/github-highlights?ref=badge" rel="dofollow">
-            <img src="https://thesaasdir.com/badge/github-highlights.svg"
-                 alt="Featured on TheSaaSDir" width="158" height="40" />
-          </a>
-          <a href="https://wired.business" target="_blank" rel="noopener">
-            <img src="https://wired.business/badge0-dark.svg"
-                 alt="Featured on Wired Business" width="148" height="40" />
-          </a>
-          <a href="https://twelve.tools" target="_blank" rel="noopener">
-            <img src="https://twelve.tools/badge2-dark.svg"
-                 alt="Featured on Twelve Tools" width="148" height="40" />
-          </a>
-          <a href="https://aihuntlist.com/tool/github-highlights" target="_blank" rel="noopener">
-            <img src="https://aihuntlist.com/badge-light.svg"
-                 alt="Featured on aihuntlist.com" height="40" />
-          </a>
-          <a href="https://theaitoolsdir.com/product/github-highlights?ref=badge" rel="dofollow">
-            <img src="https://theaitoolsdir.com/badge/github-highlights.svg"
-                 alt="Featured on TheAIToolsDir" width="145" height="40" />
-          </a>
-          <a href="https://spotstartups.com" target="_blank" rel="noopener">
-            <img src="https://spotstartups.com/badges/spotstartups.com_badge_dark.svg"
-                 alt="Featured on SpotStartups" width="127" height="40" />
-          </a>
-          <a href="https://saascubes.com" rel="noopener" title="Listed on SaaS Cubes">
-            <img src="https://saascubes.com/images/badges/badge-light.png"
-                 alt="Listed on SaaS Cubes" width="130" height="40" />
-          </a>
-          <a href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener">
-            <img src="https://easylaunch.dev/badge/easylaunch-badge-dark.svg"
-                 alt="Featured on EasyLaunch" width="134" height="40" />
-          </a>
-          <a href="https://nicklaunches.com/products/github-highlights/?utm_source=highlightsx.github.io&utm_medium=badge&utm_campaign=featured" target="_blank" rel="noopener">
-            <img src="https://nicklaunches.com/badges/featured-dark.png"
-                 alt="GitHub Highlights on Nick Launches" width="174" height="40" />
-          </a>
-          <a href="https://dironix.com" target="_blank" rel="noopener">
-            <img src="https://dironix.com/bage.png"
-                 alt="Featured on Dironix" width="111" height="40" />
-          </a>
-          <a href="https://gets.tools" target="_blank" rel="noopener">
-            <img src="https://gets.tools/badge/badge_dark.svg"
-                 alt="Featured on Gets.Tools" width="148" height="40" />
-          </a>
-        </p>
-      )}
       <p>
         Posts are drafted with a language model from the public repository data linked at the
         bottom of each one, and read by a person before publishing. Mistakes happen; what we

@@ -7,6 +7,10 @@ Contact used on all of them: **Tommy Coupe / tommycoupe@gmail.com**. Nothing her
 rendered only on `/`). Removing a badge un-publishes the listing on every row that says
 *badge required*.
 
+**All twelve badges were removed from the footer on 21 Sep 2026.** Every *yes* in the Badge
+column below is now historical. The removed markup and the listing URLs to recheck are in
+[footer-badges-removed.md](footer-badges-removed.md); who dropped us over it is still unknown.
+
 ## Live
 
 | Directory | Listing | Submitted | Badge | Notes |
@@ -17,14 +21,15 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | Wired Business | https://wired.business/highlightsx-github-io | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — both outbound links are bare hrefs, no rel · manage: https://wired.business/edit?hash=r9ecaxl637y3uifggeli&email=tommycoupe%40gmail.com |
 | TheAIToolsDir | https://theaitoolsdir.com/product/github-highlights/ | 16 Aug 2026 | yes | badge required · **dofollow verified 17 Aug 2026** — only outbound link is `rel="noopener"` (no crawl directive), href is our domain with `?utm_source=theaitoolsdir.com&utm_medium=referral` · page indexable, robots.txt `Allow: /`, no meta robots |
 | EasyLaunch | https://easylaunch.dev/dev-tools/github-highlights | 20 Aug 2026 | yes | badge added 20 Aug 2026 · **dofollow verified 20 Aug 2026** — page returns 200, the only outbound link to us is `rel="noopener"` (no crawl directive), no meta robots, site serves no robots.txt |
+| SpotStartups | https://spotstartups.com/github-highlights | 16 Aug 2026 | yes | badge required · **dofollow verified 19 Sep 2026**: the visit button is `rel="noopener"`, page is `index, follow` |
+| AIHuntList | https://aihuntlist.com/tool/github-highlights | 16 Aug 2026 | yes | submission id 3874 · **dofollow verified 19 Sep 2026**: links to the homepage are `rel="noopener"` or `noopener noreferrer`; only the `/about` link is nofollow |
+| Nick Launches | https://nicklaunches.com/products/github-highlights | 20 Aug 2026 | yes | launch week 14 to 20 Sep 2026 · links are `rel="noreferrer noopener"`, but on 19 Sep 2026 the page carried `noindex, follow`, so the link passes nothing while that stays. Recheck after 20 Sep |
 
 ## Submitted, waiting on review
 
 | Directory | Submitted | Badge | Status |
 |---|---|---|---|
-| SpotStartups | 16 Aug 2026 | yes | priority (dofollow) queue, badge verified by them, 24h review |
 | SaaS Cubes | 16 Aug 2026 | yes | free plan, badge required, 3–5 business days |
-| AIHuntList | 16 Aug 2026 | yes | free listing, backlink verified by them, submission id 3874 |
 | SumoDir | 16 Aug 2026 | removed | **dropped** — they removed our listing; badge pulled from the footer 18 Aug 2026 |
 | ActiveSearchResults | 16 Aug 2026 | no | search-engine index submission, confirmed |
 | aitoolslist.io | 16 Aug 2026 | no | Tally form (`tally.so/r/n9BqRX`), editorial review |
@@ -39,7 +44,6 @@ rendered only on `/`). Removing a badge un-publishes the listing on every row th
 | ooh.directory | 17 Aug 2026 | no | curated blog directory, category "Development", "it will take a while for new ones to appear" |
 | FutureTools | 17 Aug 2026 | no | free tier, category Research, "Matt will review it" |
 | ExactSeek | 17 Aug 2026 | no | "Website Submitted" — **needs the confirmation link emailed to tommycoupe@gmail.com** or it is dropped |
-| Nick Launches | 20 Aug 2026 | yes | **submitted** — Free Launch, $0, "Thanks, you're in the queue!". Badge verified by them ("Badge backlink found", last checked 20 Aug 2026). Weeks up to 13 Sep were full; publishes week of **14–20 Sep 2026**. Listing will be nicklaunches.com/products/github-highlights |
 | DevPages | 20 Aug 2026 | no | **no account and no badge** — plain open form. Category Learning Platforms, pricing Free, GitHub repo linked. "Submission received... every tool is reviewed by hand". Listing links `rel="noopener noreferrer"`, verified live 20 Aug 2026 on `/tool/openai` |
 | Curlie | 20 Aug 2026 | no | suggested to `Computers/Open_Source/News_and_Media` — the exact-fit category. "Your site suggestion has been received", human editor reviews. Free, no account, dofollow |
 | SaaSBison | 20 Aug 2026 | yes | free plan, **badge verified by them 20 Aug 2026**, id `0c190ce3-7e3f-4c00-9866-e62fad472ac0`, reviewed within 2 weeks, 1 dofollow backlink |
