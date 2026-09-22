@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge Listings Graded</title>
+<style>
+  :root{
+    --bg:#fbfbfa; --panel:#fff; --ink:#16150f; --muted:#6b6a63; --line:#e4e2dc; --hover:#f6f5f1;
+    --go:#1a7f4b; --go-bg:#e7f4ec; --no:#a8432c; --no-bg:#fbeceb; --maybe:#8a6a15; --maybe-bg:#fcf3dd;
+    --avoid:#8a1c1c; --avoid-bg:#f7e0e0; --accent:#2b5fd9; --code:#f2f1ec; --star:#7a3fbf; --star-bg:#f1e9fb;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141513; --panel:#1c1e1b; --ink:#eceae2; --muted:#9b9a92; --line:#2e312c; --hover:#232622;
+      --go:#5fd497; --go-bg:#16301f; --no:#f0836a; --no-bg:#331a15; --maybe:#e0b84e; --maybe-bg:#2e2612;
+      --avoid:#ff9b8f; --avoid-bg:#3d1414; --accent:#7ea2ff; --code:#232520; --star:#c39bf0; --star-bg:#2a1d3a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141513; --panel:#1c1e1b; --ink:#eceae2; --muted:#9b9a92; --line:#2e312c; --hover:#232622;
+    --go:#5fd497; --go-bg:#16301f; --no:#f0836a; --no-bg:#331a15; --maybe:#e0b84e; --maybe-bg:#2e2612;
+    --avoid:#ff9b8f; --avoid-bg:#3d1414; --accent:#7ea2ff; --code:#232520; --star:#c39bf0; --star-bg:#2a1d3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,system-ui,sans-serif;padding:2.25rem 1rem 5rem}
+  .wrap{max-width:1500px;margin:0 auto}
+  h1{font-size:1.85rem;line-height:1.15;margin:0 0 .3rem;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin:0 0 1.4rem;font-size:.92rem;max-width:80ch}
+  .stats{display:flex;gap:.55rem;flex-wrap:wrap;margin:0 0 1.4rem}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.55rem .85rem;min-width:106px}
+  .stat b{display:block;font-size:1.4rem;line-height:1.1;letter-spacing:-.02em}
+  .stat span{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .controls{display:flex;gap:.45rem;flex-wrap:wrap;align-items:center;margin:0 0 .9rem}
+  button.f{font:inherit;font-size:.8rem;font-weight:600;cursor:pointer;background:var(--panel);
+    color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.35rem .8rem;transition:.12s}
+  button.f:hover{border-color:var(--accent);color:var(--ink)}
+  button.f[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  #q{font:inherit;font-size:.85rem;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:.4rem .7rem;min-width:210px;flex:1;max-width:320px}
+  #q:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:1240px;font-size:.845rem}
+  th{text-align:left;font-weight:600;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);padding:.65rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap;
+    cursor:pointer;user-select:none;position:sticky;top:0;background:var(--panel);z-index:2}
+  th:hover{color:var(--ink)}
+  th .ar{opacity:.35;font-size:.7rem}
+  th[aria-sort] .ar{opacity:1;color:var(--accent)}
+  th.nos{cursor:default}
+  th.nos:hover{color:var(--muted)}
+  td{padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:hover{background:var(--hover)}
+  tbody tr:last-child td{border-bottom:0}
+  td.site{font-weight:600;white-space:nowrap}
+  td.site a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}
+  td.site a:hover{border-color:var(--accent);color:var(--accent)}
+  .field,.note-c{color:var(--muted);font-size:.81rem}
+  .where{min-width:190px}
+  .notes{min-width:250px}
+  code,.rel{font-family:ui-monospace,SFMono-Regular,"Cascadia Code",Menlo,monospace;
+    font-size:.755rem;background:var(--code);padding:.1rem .35rem;border-radius:4px}
+  .rel{white-space:nowrap}
+  .tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    padding:.18rem .42rem;border-radius:4px;white-space:nowrap}
+  .t-go{background:var(--go-bg);color:var(--go)}
+  .t-no{background:var(--no-bg);color:var(--no)}
+  .t-maybe{background:var(--maybe-bg);color:var(--maybe)}
+  .t-avoid{background:var(--avoid-bg);color:var(--avoid)}
+  .t-star{background:var(--star-bg);color:var(--star)}
+  .conf{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;margin-top:.1rem}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem;
+    overflow-x:auto;font-size:.78rem;line-height:1.5;margin:.7rem 0 0}
+  pre code{background:none;padding:0;white-space:pre}
+  h2{font-size:1.1rem;margin:2.4rem 0 .3rem;letter-spacing:-.01em}
+  .lede{color:var(--muted);font-size:.88rem;margin:.2rem 0 .9rem;max-width:74ch}
+  .note{border-left:3px solid var(--accent);background:var(--panel);border-radius:0 8px 8px 0;
+    padding:.75rem 1rem;margin:1rem 0;font-size:.86rem;color:var(--muted)}
+  .note.hot{border-left-color:var(--star)}
+  .note b{color:var(--ink)}
+  footer{margin-top:2.6rem;padding-top:1.1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem}
+  #count{font-size:.78rem;color:var(--muted);margin:.6rem 0 0}
+</style>
+<style>
+  table{min-width:1460px}
+  td.where a.u{color:var(--accent);text-decoration:none;font-size:.78rem;
+    font-family:ui-monospace,SFMono-Regular,"Cascadia Code",Menlo,monospace;word-break:break-all}
+  td.where a.u:hover{text-decoration:underline}
+  td.rank{color:var(--muted);font-variant-numeric:tabular-nums;width:2.2rem;font-size:.78rem}
+  td.grade .tag{font-size:.8rem;padding:.22rem .5rem;min-width:2.4rem;text-align:center}
+  tr.star td{background:linear-gradient(90deg,var(--star-bg),transparent 42%)}
+  .legend{display:grid;gap:.5rem;margin:.9rem 0 0;font-size:.84rem;color:var(--muted);max-width:92ch}
+  .legend b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Badge listings, graded</h1>
+<p class="sub">The twelve directories that carried a badge in our homepage footer, ordered best to worst. Every grade is built from values read off the live pages on <b>22 September 2026</b>: the <code>rel</code> on the link back, the robots directives, whether the listing sits in their sitemap, whether anything on their own site links to it, and how many other outbound links share the page. Nothing here is recalled.</p>
+
+<div class="stats">
+  <div class="stat"><b>3</b><span>grade A</span></div>
+  <div class="stat"><b>3</b><span>grade B</span></div>
+  <div class="stat"><b>3</b><span>grade C</span></div>
+  <div class="stat"><b>1</b><span>grade D</span></div>
+  <div class="stat"><b>2</b><span>grade F</span></div>
+  <div class="stat"><b>0</b><span>dropped so far</span></div>
+</div>
+
+<div class="controls">
+  <button class="f" data-f="all" aria-pressed="true">All</button>
+  <button class="f" data-f="live" aria-pressed="false">Live</button>
+  <button class="f" data-f="none" aria-pressed="false">No listing</button>
+  <button class="f" data-f="dead" aria-pressed="false">Dead</button>
+</div>
+
+<div class="card"><div class="scroll">
+<table>
+<thead><tr>
+  <th class="nos">#</th>
+  <th class="nos">Grade</th>
+  <th class="nos">Directory</th>
+  <th class="nos">Direct listing link</th>
+  <th class="nos">rel on link to us</th>
+  <th class="nos">Crawlability</th>
+  <th class="nos">Page dilution</th>
+  <th class="nos">Flag</th>
+  <th class="nos">What decided the grade</th>
+</tr></thead>
+<tbody>
+<tr data-st="live" class="star">
+  <td class="rank">1</td>
+  <td class="grade"><span class="tag t-go">A</span></td>
+  <td class="site"><a href="https://nicklaunches.com/products/github-highlights" target="_blank" rel="noopener noreferrer">Nick Launches</a></td>
+  <td class="where"><a class="u" href="https://nicklaunches.com/products/github-highlights" target="_blank" rel="noopener noreferrer">nicklaunches.com/products/github-highlights</a></td>
+  <td><span class="rel">noreferrer noopener</span></td>
+  <td class="field">in sitemap (2,137 URLs) &middot; canonical to self &middot; <code>index, follow</code> &middot; linked from their homepage</td>
+  <td class="field">5 outbound links, 3 domains</td>
+  <td class="field"></td>
+  <td class="notes note-c">Everything lines up. The <code>noindex</code> that sat on the page on 19 Sep is gone. Fewest outbound links of any listing here, so the least dilution.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">2</td>
+  <td class="grade"><span class="tag t-go">A</span></td>
+  <td class="site"><a href="https://aihuntlist.com/tool/github-highlights" target="_blank" rel="noopener noreferrer">AIHuntList</a></td>
+  <td class="where"><a class="u" href="https://aihuntlist.com/tool/github-highlights" target="_blank" rel="noopener noreferrer">aihuntlist.com/tool/github-highlights</a></td>
+  <td><span class="rel">noopener noreferrer</span></td>
+  <td class="field">in sitemap (18,716 URLs) &middot; canonical to self</td>
+  <td class="field">20 outbound links, 14 domains</td>
+  <td class="field"></td>
+  <td class="notes note-c">Four links back to us; only the one to <code>/about</code> is nofollow. Biggest directory of the set, which cuts both ways: well crawled, but any single page inside it carries less.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">3</td>
+  <td class="grade"><span class="tag t-go">A-</span></td>
+  <td class="site"><a href="https://saascubes.com/saas/github-highlights" target="_blank" rel="noopener noreferrer">SaaS Cubes</a></td>
+  <td class="where"><a class="u" href="https://saascubes.com/saas/github-highlights" target="_blank" rel="noopener noreferrer">saascubes.com/saas/github-highlights</a></td>
+  <td><span class="rel">noopener noreferrer</span></td>
+  <td class="field">in sitemap (125 URLs) &middot; canonical to self &middot; linked from their homepage</td>
+  <td class="field">31 outbound links, 9 domains</td>
+  <td class="field"></td>
+  <td class="notes note-c">Small and tidy, 69 entries in their listings sitemap. This is the one nobody knew was live until 21 Sep.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">4</td>
+  <td class="grade"><span class="tag t-maybe">B</span></td>
+  <td class="site"><a href="https://thesaasdir.com/product/github-highlights" target="_blank" rel="noopener noreferrer">TheSaaSDir</a></td>
+  <td class="where"><a class="u" href="https://thesaasdir.com/product/github-highlights" target="_blank" rel="noopener noreferrer">thesaasdir.com/product/github-highlights</a></td>
+  <td><span class="rel">noopener</span></td>
+  <td class="field">in sitemap (443 URLs) &middot; <b>no canonical tag</b></td>
+  <td class="field">36 outbound links, 19 domains</td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c">Markup is class-for-class identical to TheAIToolsDir, so those two are one operator and count as one voice, not two.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">5</td>
+  <td class="grade"><span class="tag t-maybe">B</span></td>
+  <td class="site"><a href="https://spotstartups.com/github-highlights" target="_blank" rel="noopener noreferrer">SpotStartups</a></td>
+  <td class="where"><a class="u" href="https://spotstartups.com/github-highlights" target="_blank" rel="noopener noreferrer">spotstartups.com/github-highlights</a></td>
+  <td><span class="rel">noopener</span></td>
+  <td class="field"><b>no sitemap.xml at all</b> &middot; canonical to self &middot; <code>index, follow</code></td>
+  <td class="field">4 outbound links, 4 domains</td>
+  <td class="field"></td>
+  <td class="notes note-c">Cleanest page of the twelve and the least dilution. Held back only by the missing sitemap, which leaves discovery to their internal links.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">6</td>
+  <td class="grade"><span class="tag t-maybe">B-</span></td>
+  <td class="site"><a href="https://theaitoolsdir.com/product/github-highlights/" target="_blank" rel="noopener noreferrer">TheAIToolsDir</a></td>
+  <td class="where"><a class="u" href="https://theaitoolsdir.com/product/github-highlights/" target="_blank" rel="noopener noreferrer">theaitoolsdir.com/product/github-highlights/</a></td>
+  <td><span class="rel">noopener</span></td>
+  <td class="field">in sitemap (106 URLs) &middot; <b>no canonical tag</b></td>
+  <td class="field">6 outbound links, 4 domains</td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c">Same template and same operator as TheSaaSDir, with a smaller index than its sibling.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">7</td>
+  <td class="grade"><span class="tag t-maybe">C+</span></td>
+  <td class="site"><a href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Wired Business</a></td>
+  <td class="where"><a class="u" href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">wired.business/highlightsx-github-io</a></td>
+  <td><span class="rel">(no rel at all)</span></td>
+  <td class="field"><b>excluded from sitemap</b> &middot; reachable via <code>/category/open-source</code> (10 entries) &middot; no canonical</td>
+  <td class="field">8 outbound links, 7 domains</td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c">Best <code>rel</code> of the twelve and the weakest discovery. Their sitemap holds 112 URLs and <b>not one is a listing page</b>, only the homepage, the submit pages and 109 categories. A category page carrying 10 entries is all that keeps this off the orphan pile.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">8</td>
+  <td class="grade"><span class="tag t-maybe">C</span></td>
+  <td class="site"><a href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">EasyLaunch</a></td>
+  <td class="where"><a class="u" href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">easylaunch.dev/dev-tools/github-highlights</a></td>
+  <td><span class="rel">noopener</span></td>
+  <td class="field"><b>no sitemap.xml</b> &middot; no canonical &middot; robots.txt allows all</td>
+  <td class="field"><b>90 outbound links, 46 domains</b></td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c">Heaviest dilution here: ninety outbound links share whatever the page has. Same operator and near-identical template to LemonLaunch.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">9</td>
+  <td class="grade"><span class="tag t-maybe">C</span></td>
+  <td class="site"><a href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">LemonLaunch</a></td>
+  <td class="where"><a class="u" href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">lemonlaunch.dev/dev-tools/github-highlights</a></td>
+  <td><span class="rel">noopener</span></td>
+  <td class="field"><b>no sitemap.xml, no robots.txt</b> &middot; no canonical</td>
+  <td class="field">74 outbound links, 38 domains</td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c">Same operator as EasyLaunch. Their <code>/robots.txt</code> returns the app shell instead of a robots file, so nothing steers a crawler.</td>
+</tr>
+<tr data-st="live">
+  <td class="rank">10</td>
+  <td class="grade"><span class="tag t-no">D</span></td>
+  <td class="site"><a href="https://twelve.tools/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Twelve Tools</a></td>
+  <td class="where"><a class="u" href="https://twelve.tools/highlightsx-github-io" target="_blank" rel="noopener noreferrer">twelve.tools/highlightsx-github-io</a></td>
+  <td><span class="rel">noopener</span></td>
+  <td class="field"><b>no sitemap &middot; not on their homepage &middot; not on its own category page</b></td>
+  <td class="field">8 outbound links, 6 domains</td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c"><b>Effectively an orphan.</b> The breadcrumb files us under Open Source, but <code>/c/open-source</code> lists 18 tools with no pagination and we are not among them. No sitemap to fall back on. A page nothing links to passes close to nothing, whatever its <code>rel</code> says.</td>
+</tr>
+<tr data-st="none">
+  <td class="rank">11</td>
+  <td class="grade"><span class="tag t-avoid">F</span></td>
+  <td class="site"><a href="https://gets.tools" target="_blank" rel="noopener noreferrer">Gets.tools</a></td>
+  <td class="where"><a class="u" href="https://gets.tools" target="_blank" rel="noopener noreferrer">gets.tools</a></td>
+  <td><span class="rel">n/a</span></td>
+  <td class="field">no listing exists</td>
+  <td class="field">n/a</td>
+  <td class="field"></td>
+  <td class="notes note-c">158 URLs in their sitemap, none ours. The submission was filled in but never pressed, so the badge sat in our footer for a listing that never existed.</td>
+</tr>
+<tr data-st="dead">
+  <td class="rank">12</td>
+  <td class="grade"><span class="tag t-avoid">F</span></td>
+  <td class="site"><a href="http://dironix.com" target="_blank" rel="noopener noreferrer">Dironix</a></td>
+  <td class="where"><a class="u" href="http://dironix.com" target="_blank" rel="noopener noreferrer">dironix.com</a></td>
+  <td><span class="rel">n/a</span></td>
+  <td class="field">domain registration expired</td>
+  <td class="field">n/a</td>
+  <td class="field"></td>
+  <td class="notes note-c">HTTPS fails its TLS handshake and plain HTTP serves a registrar page reading &ldquo;Domain registration has expired&rdquo;. We were linking out to a dead domain.</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<p id="count"></p>
+
+<h2>How the grades were set</h2>
+<p class="lede">Four measured things, in order of weight. A link nothing can reach is worth less than a link with an awkward <code>rel</code>, which is why discovery outranks everything under it.</p>
+<div class="legend">
+  <div><b>1. Does it pass at all.</b> The <code>rel</code> token list, the robots meta tag and the <code>x-robots-tag</code> header. Only <code>nofollow</code>, <code>sponsored</code> and <code>ugc</code> block; <code>noopener</code> and <code>noreferrer</code> pass in full. All ten live listings pass, and none carried an <code>x-robots-tag</code>, so this test separates nobody.</div>
+  <div><b>2. Can a crawler find the page.</b> Is it in their sitemap, does anything on their own site link to it, is it canonical to itself. This is what actually spread the grades apart.</div>
+  <div><b>3. How much the page is diluted.</b> Count of outbound links sharing the page: four on SpotStartups against ninety on EasyLaunch.</div>
+  <div><b>4. Whose voice it is.</b> Three pairs here run identical templates, so six of the ten links come from three operators. Two listings from one operator count roughly as one mention.</div>
+</div>
+
+<div class="note"><b>The one that surprised us.</b> Wired Business has the best <code>rel</code> of the twelve, no attribute at all, and still lands at C+. Their sitemap carries 112 URLs and not a single one is a listing page. Twelve Tools, its sibling, has no sitemap, does not show us on its homepage, and does not show us on the category page its own breadcrumb assigns us to. That is the D: perfect markup that nothing can reach.</div>
+
+<div class="note hot"><b>Nothing has dropped yet.</b> The badges came down on 21 September. These directories re-verify on a schedule, usually weekly, and some only when a listing is edited, so the realistic window for reactions is roughly 28 September to 5 October. Re-run the check then and compare against this table.</div>
+
+<footer>Source of record: <code>data/footer-badges-removed.md</code> and <code>data/submissions.md</code>. Every <code>rel</code>, sitemap figure and link count read from live HTML on 22 September 2026.</footer>
+</div>
+
+<script>
+  var btns=[].slice.call(document.querySelectorAll('button.f')),
+      rows=[].slice.call(document.querySelectorAll('tbody tr')),
+      out=document.getElementById('count');
+  function apply(f){
+    var n=0;
+    rows.forEach(function(r){
+      var on = f==='all' || r.dataset.st===f;
+      r.style.display = on ? '' : 'none';
+      if(on) n++;
+    });
+    out.textContent = n + ' of ' + rows.length + ' shown';
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.f===f)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.f); }); });
+  apply('all');
+</script>
+</body>
+</html>
