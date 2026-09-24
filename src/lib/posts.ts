@@ -12,14 +12,15 @@ import { getCollection } from 'astro:content';
 export const publishedNews = () =>
   getCollection('news', ({ data }) => data.publishDate <= new Date());
 
-// A topic earns a page once a second post shares it. Below that the page is a
-// worse copy of the post it lists: same title, same single card, same sidebar.
-// 103 of 126 tags were in that state, and they made up two thirds of the
-// sitemap on a domain with almost no crawl budget to spend.
+// A topic earns a page once five posts share it. Below that the page is a
+// worse copy of the posts it lists: a heading and a few cards that already sit
+// on the category page. At a floor of two, 19 of 26 tag pages held two or three
+// posts, and pairs like "inference" and "mixture of experts" overlapped 96%
+// because they listed the same posts.
 //
 // Both the tag pages and the chips on a post read this map, so a tag can never
 // be linked from a post without having a page to land on.
-const TOPIC_MIN = 2;
+const TOPIC_MIN = 5;
 
 export const topics = async () => {
   const posts = await publishedNews();
