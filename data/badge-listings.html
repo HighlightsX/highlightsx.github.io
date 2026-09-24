@@ -100,20 +100,22 @@
 <div class="wrap">
 
 <h1>Badge listings, graded</h1>
-<p class="sub">The twelve directories that carried a badge in our homepage footer, ordered best to worst. Every grade is built from values read off the live pages on <b>22 September 2026</b>: the <code>rel</code> on the link back, the robots directives, whether the listing sits in their sitemap, whether anything on their own site links to it, and how many other outbound links share the page. Nothing here is recalled.</p>
+<p class="sub">The twelve directories that carried a badge in our homepage footer, ordered best to worst. Every grade is built from values read off the live pages, last checked <b>24 September 2026</b>: the <code>rel</code> on the link back, the robots directives, whether the listing sits in their sitemap, whether anything on their own site links to it, and how many other outbound links share the page. Nothing here is recalled.</p>
+<p class="sub"><b>Two have now dropped us.</b> Wired Business and Twelve Tools, which are one operator, both pulled the link on 24 September, three days after the badges came down. Both pages still load and still describe the site; each now carries a line saying the listing was unlisted because the badge is no longer displayed. The other eight are untouched.</p>
 
 <div class="stats">
   <div class="stat"><b>3</b><span>grade A</span></div>
   <div class="stat"><b>3</b><span>grade B</span></div>
-  <div class="stat"><b>3</b><span>grade C</span></div>
-  <div class="stat"><b>1</b><span>grade D</span></div>
-  <div class="stat"><b>2</b><span>grade F</span></div>
-  <div class="stat"><b>0</b><span>dropped so far</span></div>
+  <div class="stat"><b>2</b><span>grade C</span></div>
+  <div class="stat"><b>0</b><span>grade D</span></div>
+  <div class="stat"><b>4</b><span>grade F</span></div>
+  <div class="stat"><b>2</b><span>dropped</span></div>
 </div>
 
 <div class="controls">
   <button class="f" data-f="all" aria-pressed="true">All</button>
   <button class="f" data-f="live" aria-pressed="false">Live</button>
+  <button class="f" data-f="dropped" aria-pressed="false">Dropped us</button>
   <button class="f" data-f="none" aria-pressed="false">No listing</button>
   <button class="f" data-f="dead" aria-pressed="false">Dead</button>
 </div>
@@ -200,17 +202,6 @@
 </tr>
 <tr data-st="live">
   <td class="rank">7</td>
-  <td class="grade"><span class="tag t-maybe">C+</span></td>
-  <td class="site"><a href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Wired Business</a></td>
-  <td class="where"><a class="u" href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">wired.business/highlightsx-github-io</a></td>
-  <td><span class="rel">(no rel at all)</span></td>
-  <td class="field"><b>excluded from sitemap</b> &middot; reachable via <code>/category/open-source</code> (10 entries) &middot; no canonical</td>
-  <td class="field">8 outbound links, 7 domains</td>
-  <td class="field"><span class="tag t-star">Shared operator</span></td>
-  <td class="notes note-c">Best <code>rel</code> of the twelve and the weakest discovery. Their sitemap holds 112 URLs and <b>not one is a listing page</b>, only the homepage, the submit pages and 109 categories. A category page carrying 10 entries is all that keeps this off the orphan pile.</td>
-</tr>
-<tr data-st="live">
-  <td class="rank">8</td>
   <td class="grade"><span class="tag t-maybe">C</span></td>
   <td class="site"><a href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">EasyLaunch</a></td>
   <td class="where"><a class="u" href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">easylaunch.dev/dev-tools/github-highlights</a></td>
@@ -221,7 +212,7 @@
   <td class="notes note-c">Heaviest dilution here: ninety outbound links share whatever the page has. Same operator and near-identical template to LemonLaunch.</td>
 </tr>
 <tr data-st="live">
-  <td class="rank">9</td>
+  <td class="rank">8</td>
   <td class="grade"><span class="tag t-maybe">C</span></td>
   <td class="site"><a href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">LemonLaunch</a></td>
   <td class="where"><a class="u" href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">lemonlaunch.dev/dev-tools/github-highlights</a></td>
@@ -231,16 +222,27 @@
   <td class="field"><span class="tag t-star">Shared operator</span></td>
   <td class="notes note-c">Same operator as EasyLaunch. Their <code>/robots.txt</code> returns the app shell instead of a robots file, so nothing steers a crawler.</td>
 </tr>
-<tr data-st="live">
+<tr data-st="dropped">
+  <td class="rank">9</td>
+  <td class="grade"><span class="tag t-avoid">F</span></td>
+  <td class="site"><a href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Wired Business</a></td>
+  <td class="where"><a class="u" href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">wired.business/highlightsx-github-io</a></td>
+  <td><span class="rel"><b>link removed</b></span></td>
+  <td class="field">page still returns 200, but the link to us is gone and we are off <code>/category/open-source</code></td>
+  <td class="field">n/a</td>
+  <td class="field"><span class="tag t-star">Shared operator</span></td>
+  <td class="notes note-c"><b>Dropped us on 24 Sep, three days after the badge came down.</b> The page now reads &ldquo;This listing has been unlisted because the website no longer displays the Wired Business badge.&rdquo; The listing text survives; the link does not.</td>
+</tr>
+<tr data-st="dropped">
   <td class="rank">10</td>
-  <td class="grade"><span class="tag t-no">D</span></td>
+  <td class="grade"><span class="tag t-avoid">F</span></td>
   <td class="site"><a href="https://twelve.tools/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Twelve Tools</a></td>
   <td class="where"><a class="u" href="https://twelve.tools/highlightsx-github-io" target="_blank" rel="noopener noreferrer">twelve.tools/highlightsx-github-io</a></td>
-  <td><span class="rel">noopener</span></td>
-  <td class="field"><b>no sitemap &middot; not on their homepage &middot; not on its own category page</b></td>
-  <td class="field">8 outbound links, 6 domains</td>
+  <td><span class="rel"><b>link removed</b></span></td>
+  <td class="field">page still returns 200, but the link to us is gone</td>
+  <td class="field">n/a</td>
   <td class="field"><span class="tag t-star">Shared operator</span></td>
-  <td class="notes note-c"><b>Effectively an orphan.</b> The breadcrumb files us under Open Source, but <code>/c/open-source</code> lists 18 tools with no pagination and we are not among them. No sitemap to fall back on. A page nothing links to passes close to nothing, whatever its <code>rel</code> says.</td>
+  <td class="notes note-c"><b>Dropped us on 24 Sep, the same day as its sibling Wired Business.</b> Same wording: &ldquo;This listing has been unlisted because the website no longer displays the Twelve Tools badge.&rdquo; It was already an orphan before this, so little was lost.</td>
 </tr>
 <tr data-st="none">
   <td class="rank">11</td>
@@ -280,9 +282,9 @@
 
 <div class="note"><b>The one that surprised us.</b> Wired Business has the best <code>rel</code> of the twelve, no attribute at all, and still lands at C+. Their sitemap carries 112 URLs and not a single one is a listing page. Twelve Tools, its sibling, has no sitemap, does not show us on its homepage, and does not show us on the category page its own breadcrumb assigns us to. That is the D: perfect markup that nothing can reach.</div>
 
-<div class="note hot"><b>Nothing has dropped yet.</b> The badges came down on 21 September. These directories re-verify on a schedule, usually weekly, and some only when a listing is edited, so the realistic window for reactions is roughly 28 September to 5 October. Re-run the check then and compare against this table.</div>
+<div class="note hot"><b>Two down, eight standing.</b> The badges came down on 21 September and the first reaction landed on 24 September, faster than the week-or-more these directories usually take. Both were the same operator, so this is one decision, not two. The remaining eight have not moved: same links, same attributes, same robots directives as on 22 September. Worth re-checking through mid-October before calling the rest safe.</div>
 
-<footer>Source of record: <code>data/footer-badges-removed.md</code> and <code>data/submissions.md</code>. Every <code>rel</code>, sitemap figure and link count read from live HTML on 22 September 2026.</footer>
+<footer>Source of record: <code>data/footer-badges-removed.md</code> and <code>data/submissions.md</code>. Every <code>rel</code>, sitemap figure and link count read from live HTML. Grades set 22 September 2026, drop status re-checked 24 September 2026.</footer>
 </div>
 
 <script>

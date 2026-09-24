@@ -24,6 +24,21 @@ dropped us once the badge went away, and which ones kept the listing. Rows in
 | Dironix | https://dironix.com | yes |
 | Gets.tools | https://gets.tools | yes |
 
+## Who dropped us
+
+**24 Sep 2026, three days after the badges came down: two of the ten dropped the link.**
+
+| Directory | What happened |
+|---|---|
+| Wired Business | Page still returns 200 and still carries our description, but the link is gone and we are no longer on `/category/open-source`. The page now reads: *"This listing has been unlisted because the website no longer displays the Wired Business badge."* |
+| Twelve Tools | Same day, same wording: *"This listing has been unlisted because the website no longer displays the Twelve Tools badge."* The link is gone. This one was already an orphan, so little was lost. |
+
+These two are **one operator**, so this is one decision rather than two. Neither
+page carries a `noindex`; they simply stripped the outbound link.
+
+The other eight are unchanged from the baseline below: same anchors, same `rel`
+values, same robots directives, checked again 24 Sep 2026.
+
 ## Baseline, checked 21 Sep 2026
 
 Taken within the hour after the badges came down, so this is the "before anyone
