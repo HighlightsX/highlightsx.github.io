@@ -30,14 +30,14 @@ dropped us once the badge went away, and which ones kept the listing. Rows in
 
 | Directory | What happened |
 |---|---|
-| Wired Business | Page still returns 200 and still carries our description, but the link is gone and we are no longer on `/category/open-source`. The page now reads: *"This listing has been unlisted because the website no longer displays the Wired Business badge."* |
+| Wired Business | **Gone in two steps.** 24 Sep: link stripped, page still up, reading *"This listing has been unlisted because the website no longer displays the Wired Business badge."* 25 Sep: the listing page itself deleted, a hard 404 with an empty body. Their homepage and peer listings (checked `/ikasulabs`) still answer 200, so this was aimed at us and not an outage. |
 | Twelve Tools | Same day, same wording: *"This listing has been unlisted because the website no longer displays the Twelve Tools badge."* The link is gone. This one was already an orphan, so little was lost. |
 
 These two are **one operator**, so this is one decision rather than two. Neither
 page carries a `noindex`; they simply stripped the outbound link.
 
 The other eight are unchanged from the baseline below: same anchors, same `rel`
-values, same robots directives, checked again 24 Sep 2026.
+values, same robots directives across all three checks, the latest on 25 Sep 2026.
 
 ## Baseline, checked 21 Sep 2026
 
