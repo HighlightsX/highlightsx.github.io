@@ -34,9 +34,9 @@ You join a team and inherit 200,000 lines of code. The usual answer is to read e
 
 ## What it is
 
-A plugin for coding agents — Claude Code, Codex, Cursor, Copilot, Gemini CLI and others — that runs a multi-agent pipeline over a project, builds a knowledge graph of every file, function, class and dependency, and hands back an interactive dashboard. Every node is clickable, searchable and annotated with a plain-English summary.
+A plugin for coding agents (Claude Code, Codex, Cursor, Copilot, Gemini CLI and others) that runs a multi-agent pipeline over a project, builds a knowledge graph of every file, function, class and dependency, and hands back an interactive dashboard. Every node is clickable, searchable and annotated with a plain-English summary.
 
-The stated design principle is the reason to take it seriously: graphs that teach, not graphs that impress. Anyone who has generated a dependency diagram of a real codebase knows the difference — the impressive one is a hairball.
+Its stated design principle is "graphs that teach, not graphs that impress". A full dependency diagram of a real codebase is usually an unreadable tangle.
 
 ## Why it showed up now
 
@@ -44,20 +44,20 @@ The stated design principle is the reason to take it seriously: graphs that teac
 
 ## How it actually works
 
-Three views, and the second is the unusual one. The structural graph is what you expect: files, functions, classes, relationships. The domain view maps code onto business processes — domains, flows and steps laid out horizontally — which is the translation layer that documentation normally fails to keep current.
+There are three views. The structural graph is what you expect: files, functions, classes, relationships. The domain view maps code onto business processes, laying out domains, flows and steps horizontally. Documentation that links code to business processes usually falls out of date.
 
 Guided tours are auto-generated walkthroughs ordered by dependency, so the codebase is presented in the order that makes it learnable rather than alphabetically. Search works both by name and by meaning: asking "which parts handle auth?" returns relevant nodes rather than string matches. There is also a diff-impact view, and a separate `/understand-knowledge` mode that ingests a Karpathy-pattern LLM wiki, parses wikilinks and categories deterministically, then uses agents to surface implicit relationships and claims.
 
-That split — deterministic parsing for structure, models for interpretation — is the right division of labour, and it is the reason the graph's skeleton can be trusted more than its prose.
+Structure comes from deterministic parsing and interpretation from models, so the graph's skeleton can be trusted more than its prose.
 
 ## Try it
 
-Open the live demo first; it is a real dashboard, not a video. Then install it as a plugin in whichever agent you use.
+Open the live demo first; it is an interactive dashboard. Then install it as a plugin in whichever agent you use.
 
 ## Where it is weak
 
-The summaries are model output about your code, which means confident, fluent descriptions that are sometimes wrong — and wrong in the most expensive way, because a newcomer has no way to tell. Treat the graph as a map to verify against the source, not as documentation.
+The summaries are model output about your code, which means confident, fluent descriptions that are sometimes wrong, and a newcomer has no way to tell which ones. Check what it says against the source before relying on it.
 
-Running a multi-agent pipeline across every file in a large repository is a real token bill, and the README does not put a number on it. That cost also recurs: a graph of a codebase is stale the moment people keep committing.
+Running a multi-agent pipeline across every file in a large repository is a real token bill, and the README does not put a number on it. That cost also recurs, because the graph goes stale as people keep committing.
 
-278 open issues, and the last push was August 11 with the release dating from July 10. For a project at 79,000 stars, those two numbers together mean a lot of people are watching and a smaller number are maintaining.
+278 open issues, and the last push was August 11 with the release dating from July 10. For a project at 79,000 stars, those two numbers together suggest far more people are watching than maintaining.

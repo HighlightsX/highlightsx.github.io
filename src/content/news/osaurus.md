@@ -30,27 +30,25 @@ sources:
 reviewed: false
 ---
 
-The argument Osaurus opens with is the most interesting thing about it: inference is becoming a commodity, and what is irreplaceable is the layer around it — your context, memory, tools and identity. Most products keep that layer on their servers. This MIT-licensed Swift app keeps it on your Mac.
+Osaurus opens with an argument: inference is becoming a commodity, and what is irreplaceable is the layer around it (your context, memory, tools and identity). Most products keep that layer on their servers. This MIT-licensed Swift app keeps it on your Mac.
 
 ## What it is
 
-A native macOS harness that sits between you and any model, local or cloud. Agents are the primary object: each gets its own prompts, memory and visual theme — a research assistant, a coding partner, a file organiser. Fully offline with local models; connect a cloud provider when you want more power.
+A native macOS harness that sits between you and any model, local or cloud. Agents are the primary object, such as a research assistant, a coding partner or a file organiser, and each gets its own prompts, memory and visual theme. Fully offline with local models; connect a cloud provider when you want more power.
 
 Pure Swift on Apple Silicon, no Electron. macOS 15.5 or later.
 
 ## Why it showed up now
 
-Release 0.22.22 on August 14, pushed daily, a year after the first commit. It is one of the few projects in this space betting on the Apple stack directly — MLX, the Neural Engine and Apple Foundation Models appear in its topic list alongside MCP.
+Release 0.22.22 on August 14, pushed daily, a year after the first commit. It is one of the few projects in this space betting on the Apple stack directly: MLX, the Neural Engine and Apple Foundation Models appear in its topic list alongside MCP.
 
 ## How it actually works
 
-Two design choices stand out from the usual local-agent app.
-
 Tools and skills are selected by RAG search against the task rather than configured by hand. That inverts the normal arrangement, where you decide up front which tools an agent may use and then maintain that list forever. It also means the tool surface an agent sees is a retrieval result, with the accuracy implications that carries.
 
-Agents can opt into a private local database and **a single self-scheduled next run** — one deliberately, not a cron. That is a restrained answer to autonomy: an agent that can wake itself once is useful for follow-ups and hard to turn into a runaway loop.
+Agents can opt into a private local database and **a single self-scheduled next run**, deliberately one rather than a cron schedule. An agent that can wake itself once is useful for follow-ups and hard to turn into a runaway loop.
 
-Storage is documented rather than glossed: local data is plaintext by default, protected by FileVault, with opt-in SQLCipher encryption. Saying "plaintext by default" out loud is the right call, and it tells you what to turn on before putting anything sensitive in an agent's memory.
+Storage is documented: local data is plaintext by default, protected by FileVault, with opt-in SQLCipher encryption. That tells you what to turn on before putting anything sensitive in an agent's memory.
 
 ## Try it
 
@@ -62,8 +60,8 @@ Then `osaurus ui` for the chat interface, `osaurus serve` for the server, `osaur
 
 ## Where it is weak
 
-162 open issues is the number to sit with. This is an ambitious surface — agents, memory, tools, identity, a server, a plugin registry — maintained against a fast-moving platform, and version 0.22.x says the interfaces are still moving.
+There are 162 open issues. The surface is large (agents, memory, tools, identity, a server, a plugin registry) and maintained against a fast-moving platform, and version 0.22.x says the interfaces are still moving.
 
-macOS and Apple Silicon only, by design. That is a coherent bet and it excludes most of the world.
+It is macOS and Apple Silicon only, by design, which excludes Windows, Linux and Intel Mac users.
 
-"Cryptographic identity" is a strong phrase for something a README asserts and a reader cannot easily verify; if that property is why you are adopting it, read the implementation rather than the tagline. And the harness-compounds thesis cuts both ways — the more your memory, tools and agent definitions live here, the more this project's maintenance becomes your dependency.
+"Cryptographic identity" is a strong phrase for something a README asserts and a reader cannot easily verify; if that property is why you are adopting it, read the implementation rather than the tagline. The harness-compounds thesis also works against you: the more your memory, tools and agent definitions live here, the more this project's maintenance becomes your dependency.

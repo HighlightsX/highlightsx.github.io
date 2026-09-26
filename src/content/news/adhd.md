@@ -30,13 +30,13 @@ sources:
 reviewed: false
 ---
 
-Ask a model for options and it commits to the first frame it lands in, then generates variations inside it. Chain-of-thought anchors on whatever it says first; tree-of-thought widens the search but walks a single shared context, so the anchoring survives the branching. ADHD's claim is that this is an architectural problem, not a prompting one.
+Ask a model for options and it commits to the first frame it lands in, then generates variations inside it. Chain-of-thought anchors on whatever it says first; tree-of-thought widens the search but walks a single shared context, so the anchoring survives the branching. ADHD's claim is that the fix has to be architectural.
 
 ## What it is
 
 An MIT-licensed skill for coding agents, built on the Claude and Codex agent SDKs, that spawns N isolated reasoning processes under deliberately distorted cognitive frames, with zero shared context during the divergent phase. A separate critic pass then scores the output, clusters it, prunes traps and deepens the survivors.
 
-It is aimed at a specific shape of question: design decisions, fuzzy debugging, naming, API surface design, strategy — anything phrased as "give me a few ways to…".
+It is aimed at a specific shape of question: design decisions, fuzzy debugging, naming, API surface design, strategy: anything phrased as "give me a few ways to…".
 
 ## Why it showed up now
 
@@ -44,20 +44,20 @@ A preprint, a public eval set and committed transcripts, which is more apparatus
 
 ## How it actually works
 
-Isolation is the mechanism. If branches share a context window, they share the anchor — the first framing contaminates every subsequent one, which is why tree-of-thought often produces four variants of the same idea. Running each frame as its own process with no shared state makes the divergence real, and the frames themselves are deliberately skewed rather than neutral, with names like `economic-incentive`, `async-control-surface`, `gamification`, `perceptual-distortion` and `collective-intelligence`.
+Isolation is the mechanism. If branches share a context window, they share the anchor: the first framing contaminates every subsequent one, which is why tree-of-thought often produces four variants of the same idea. Running each frame as its own process with no shared state makes the divergence real, and the frames themselves are deliberately skewed rather than neutral, with names like `economic-incentive`, `async-control-surface`, `gamification`, `perceptual-distortion` and `collective-intelligence`.
 
-The README's side-by-side is honest enough to be useful. Given "our CLI sometimes hangs for 90 seconds, design the retry/timeout/UX strategy", the baseline produces four textbook patterns and a sensible hybrid — 15s first-token timeout, 30s between tokens, 90s absolute, one auto-retry. The critique of that answer is not that it is wrong; it is that no traps are named, the possibility that the *user* wants to bail out is never raised, and the "wait, then retry the same model" frame is never questioned. ADHD's six frames surface 30-plus ideas across those blind spots, then prune.
+The README's side-by-side is honest enough to be useful. Given "our CLI sometimes hangs for 90 seconds, design the retry/timeout/UX strategy", the baseline produces four textbook patterns and a sensible hybrid: 15s first-token timeout, 30s between tokens, 90s absolute, one auto-retry. The answer is reasonable, but it names no traps, never raises the possibility that the *user* wants to bail out, and never questions the "wait, then retry the same model" frame. ADHD's six frames surface 30-plus ideas across those blind spots, then prune.
 
-That is the honest version of what this buys: not better answers to well-posed questions, but a wider set of framings before you commit to one.
+What this buys is a wider set of framings before you commit to one. It does not produce better answers to well-posed questions.
 
 ## Try it
 
-Install it as a skill in Claude Code or Codex, then use it only where divergence is the point — a question with one right answer will just cost more.
+Install it as a skill in Claude Code or Codex, then use it only on questions that need divergence. A question with one right answer will just cost more.
 
 ## Where it is weak
 
-Six isolated reasoning processes cost roughly six times the tokens of one, plus the critic pass. The value is real on genuinely open questions and negative on everything else, and nothing in the tool decides which one you have.
+Six isolated reasoning processes cost roughly six times the tokens of one, plus the critic pass. The value is real on open questions and negative on everything else, and nothing in the tool decides which one you have.
 
 The evidence is a self-published preprint with the author's own eval problems and transcripts. Committed transcripts are better than a claim, but this has not been evaluated by anyone else.
 
-v0.1.4 from late May, last push August 5, 12 open issues. That is a small, quiet project — the Discord and community forms in the README are recruiting for the contributors it does not have yet.
+v0.1.4 from late May, last push August 5, 12 open issues. The project is small, and the Discord and community forms in the README are recruiting for contributors it does not have yet.

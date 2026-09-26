@@ -1,6 +1,6 @@
 ---
 title: "OpenScience gives a research agent 295 skills and a lab"
-description: "A browser workbench that reads the literature, writes code, runs experiments and queries UniProt, PDB, ChEMBL and thirty more databases — on your own API keys."
+description: "A browser workbench that reads the literature, writes code, runs experiments and queries UniProt, PDB, ChEMBL and thirty more databases, on your own API keys."
 publishDate: 2026-08-19
 category: ai
 tags: ["research", "agents", "science", "TypeScript"]
@@ -30,13 +30,13 @@ sources:
 reviewed: false
 ---
 
-"Co-scientist" has been a demo category for two years: an agent that reads papers and proposes hypotheses, with the running of actual experiments left as an exercise. OpenScience is an Apache-2.0 attempt at the whole loop, and the part that makes it worth examining is the tooling inventory rather than the pitch.
+"Co-scientist" has been a demo category for two years: an agent that reads papers and proposes hypotheses, with the running of actual experiments left as an exercise. OpenScience is an Apache-2.0 attempt at the whole loop, backed by a large tooling inventory.
 
 ## What it is
 
 A workbench that opens in your browser with a file tree, an editor, a terminal, session history, and inline rendering for molecules, structures, genomes and plots. You give it a goal; it reviews the literature, forms a hypothesis, writes and runs code, executes experiments on real compute, queries scientific databases and writes up the result.
 
-It is model-agnostic — Anthropic, OpenAI, Google and dozens of other providers, using your own keys — and needs no account.
+It is model-agnostic (Anthropic, OpenAI, Google and dozens of other providers, using your own keys) and needs no account.
 
 ## Why it showed up now
 
@@ -44,11 +44,11 @@ v2.0.27 shipped on the day of the snapshot, six weeks after the repository appea
 
 ## How it actually works
 
-One adaptive research agent faces the user and handles the task end to end, loading domain skills when they are useful and delegating bounded Explore, Execute or Review work internally. Two effort levels, Normal and Ultra, control how widely it investigates, and plan mode stays read-only — a small design detail that matters when the alternative is an agent that starts running experiments while you are still thinking.
+One adaptive research agent faces the user and handles the task end to end, loading domain skills when they are useful and delegating bounded Explore, Execute or Review work internally. Two effort levels, Normal and Ultra, control how widely it investigates, and plan mode stays read-only, so the agent does not start running experiments while you are still thinking.
 
-The substance is in what it can reach. There are 295 bundled skills spanning training (DeepSpeed, PEFT, TRL), evaluation, dataset work, molecular and clinical biology, cheminformatics, papers and LaTeX, figures, and cloud compute through Modal and Tinker. Around thirty scientific databases are exposed as tools the agent can query directly: UniProt, PDB, Ensembl, ChEMBL, PubChem, arXiv, OpenAlex, Semantic Scholar.
+There are 295 bundled skills spanning training (DeepSpeed, PEFT, TRL), evaluation, dataset work, molecular and clinical biology, cheminformatics, papers and LaTeX, figures, and cloud compute through Modal and Tinker. Around thirty scientific databases are exposed as tools the agent can query directly: UniProt, PDB, Ensembl, ChEMBL, PubChem, arXiv, OpenAlex, Semantic Scholar.
 
-That inventory is the difference between an agent that can discuss a protein and one that can look it up, pull the structure, and run something against it. Extensibility covers LSP integration, MCP servers, plugins, custom agents and commands, and a TypeScript SDK.
+With these tools the agent can look up a protein, pull its structure and run something against it. Extensibility covers LSP integration, MCP servers, plugins, custom agents and commands, and a TypeScript SDK.
 
 ## Try it
 
@@ -61,8 +61,8 @@ Or `npx synsci` for a single-step run. Platform binaries are attached to the rel
 
 ## Where it is weak
 
-An agent that writes and runs code on real compute against live scientific databases is a machine for generating plausible results quickly, and plausibility is precisely the failure mode that matters in research. Nothing in the tooling substitutes for the review step, and the risk is that a fluent write-up makes a wrong experiment look finished.
+An agent that writes and runs code on real compute against live scientific databases is a machine for generating plausible results quickly, and plausibility is the failure mode that matters in research. Nothing in the tooling substitutes for the review step, and the risk is that a fluent write-up makes a wrong experiment look finished.
 
-Compute is your bill, and the Ultra effort level is where that becomes visible. Managed models from the project's own Atlas offering are an option, which is also where the open-source project meets a commercial one — worth understanding before a lab standardises on it.
+Compute is your bill, and the Ultra effort level is where that becomes visible. Managed models from the project's own Atlas offering are an option, and that is where the open-source project meets a commercial one. A lab should understand that relationship before standardising on it.
 
-Six weeks old, on a 2.x version line, with 295 skills that no one has independently audited. For real work, the honest posture is to treat every output as a draft to reproduce rather than a result to cite.
+It is six weeks old, on a 2.x version line, with 295 skills that no one has independently audited. For real work, treat every output as a draft to reproduce rather than a result to cite.

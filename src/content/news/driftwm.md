@@ -44,9 +44,9 @@ The design target is a laptop: navigation is trackpad-first, and the infinite ca
 
 ## How it actually works
 
-Move a window near another and they snap, and snapped windows become an implicit cluster — no group to create, name or dissolve. Hold `Shift` and any move, resize or fit acts on the whole cluster, so a row of panes resizes proportionally in one drag. Neighbours stay visible at the edge of the view for spatial context.
+Move a window near another and they snap, and snapped windows become an implicit cluster, with no group to create, name or dissolve. Hold `Shift` and any move, resize or fit acts on the whole cluster, so a row of panes resizes proportionally in one drag. Neighbours stay visible at the edge of the view for spatial context.
 
-The canvas keeps its own coordinates, so the rest follows from that one decision. Bookmarks are named canvas positions the camera jumps to, and they are exported over `ext-workspace-v1` so that a bar like waybar can list them — an export for tooling, not real workspaces. The background is part of the canvas and scrolls and zooms with it: a dot grid by default, or a GLSL shader, or a tiled pyramidal TIFF for gigapixel wallpapers, or `none` if you want `swaybg` or `mpvpaper` to own it.
+The canvas keeps its own coordinates, and the rest follows from that. Bookmarks are named canvas positions the camera jumps to, exported over `ext-workspace-v1` so that a bar like waybar can list them. The export exists for tooling; the compositor still has no workspaces. The background is part of the canvas and scrolls and zooms with it: a dot grid by default, or a GLSL shader, or a tiled pyramidal TIFF for gigapixel wallpapers, or `none` if you want `swaybg` or `mpvpaper` to own it.
 
 Window rules match on `app_id` and `title` globs and set position, size, blur, opacity and decorations. Two placement modes carry the canvas idea into the rules: `widget = true` nails a window to the canvas below the normal stack and out of Alt-Tab, for clocks and trays; `pinned_to_screen = true` nails it to the screen instead, so it ignores pan and zoom, for picture-in-picture and call toolbars.
 
@@ -58,12 +58,12 @@ Closing a window can leave a compositor-drawn placeholder at the same canvas spo
 yay -S driftwm
 ```
 
-It auto-detects whether it is nested inside an existing session or running on real hardware from a TTY, so `driftwm` is the whole command either way. Building from source wants Rust 1.88 and the usual `libseat`/`libinput`/`libdisplay-info`/`libxkbcommon` development packages — note that Ubuntu 24.04's `rustc` is 1.75 and too old, so rustup instead of apt. Every release also carries a vendored dependency tarball for building with no network.
+It auto-detects whether it is nested inside an existing session or running on real hardware from a TTY, so `driftwm` is the whole command either way. Building from source wants Rust 1.88 and the usual `libseat`/`libinput`/`libdisplay-info`/`libxkbcommon` development packages. Ubuntu 24.04's `rustc` is 1.75 and too old, so use rustup instead of apt. Every release also carries a vendored dependency tarball for building with no network.
 
 ## Where it is weak
 
-The README's own warning is the first thing to weigh: this is experimental software, and it says it was primarily built with AI. On a compositor — the process that owns your input devices and your session — that is a different risk than on a CLI tool, and it is the reason to run it nested before you put it in your display manager.
+The README warns that this is experimental software and says it was primarily built with AI. A compositor owns your input devices and your session, so that is a bigger risk than on a CLI tool. Run it nested before you put it in your display manager.
 
 Twenty open issues on a six-month-old project at v0.17.0 is a pre-1.0 pace, and GitHub reports the licence as unrecognised because the `LICENSE` file opens with a project header before the GPL text, so tooling that reads the API field will not see GPL-3.0-or-later.
 
-The deeper cost is conceptual. Everything that assumes workspaces — bars, scripts, muscle memory from ten years of i3 and sway — meets a canvas that only pretends to have them for `ext-workspace-v1` consumers. That is the trade, and no amount of gesture polish makes it smaller.
+The bigger cost is conceptual. Everything that assumes workspaces (bars, scripts, muscle memory from ten years of i3 and sway) meets a canvas that only pretends to have them for `ext-workspace-v1` consumers.

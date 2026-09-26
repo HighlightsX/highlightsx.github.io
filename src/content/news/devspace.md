@@ -1,6 +1,6 @@
 ---
 title: "DevSpace gives ChatGPT a tunnel to your actual machine"
-description: "A self-hosted MCP server that lets a web chat read, edit, search and run code in your real local projects — no upload, and a password only you hold."
+description: "A self-hosted MCP server that lets a web chat read, edit, search and run code in your real local projects, with no upload and a password only you hold."
 publishDate: 2026-08-26
 category: devtools
 tags: ["MCP", "self-hosted", "ChatGPT", "TypeScript"]
@@ -29,7 +29,7 @@ sources:
 reviewed: false
 ---
 
-The web chat interface and the coding agent are separate products with separate subscriptions, and the difference between them is mostly that one can touch your files. DevSpace is an MIT-licensed MCP server that closes that gap from the user's side: it gives ChatGPT — or Claude on the web — a connection to your real machine.
+The web chat interface and the coding agent are separate products with separate subscriptions, and the difference between them is mostly that one can touch your files. DevSpace is an MIT-licensed MCP server that closes that gap from the user's side: it gives ChatGPT, or Claude on the web, a connection to your real machine.
 
 ## What it is
 
@@ -37,7 +37,7 @@ A self-hosted server you run locally, exposed through a tunnel you control, prot
 
 ## Why it showed up now
 
-v1.0.7 on August 11, two months after the first commit. The pitch — "turn ChatGPT into Codex, or Claude web into Claude Code" — is a direct response to people paying for a chat plan and wanting the agent behaviour that ships in a different product.
+v1.0.7 on August 11, two months after the first commit. The pitch is "turn ChatGPT into Codex, or Claude web into Claude Code", aimed at people paying for a chat plan who want the agent behaviour that ships in a different product.
 
 ## How it actually works
 
@@ -49,12 +49,12 @@ npm install -g @waishnav/devspace
 
 Node 22.19 or later (and below 27). Then initialise and connect, and approve the tunnel with your password.
 
-The design consequence worth noting is where trust sits. Unlike an editor extension, the privileged component is a server you started and can stop, so revoking access is closing a process rather than uninstalling something.
+Unlike with an editor extension, the privileged component is a server you started and can stop, so revoking access means closing a process rather than uninstalling something.
 
 ## Where it is weak
 
 You are exposing a shell and a filesystem to a chat interface over a public tunnel. A password gates the connection, but everything downstream of that gate is your machine, and the request to run a command arrives from a model that has been reading whatever content you pasted or it browsed. Prompt injection turns into command execution here in a way it does not in a sandboxed cloud agent. Run it against a scratch directory before you point it at anything you care about, and stop the server when you are done.
 
-There is also a terms-of-service question worth checking on the chat side. Driving a web plan as a coding agent through a self-hosted bridge is exactly the kind of use that provider policies address, and the consequence would land on your account.
+Check the chat provider's terms of service too. Driving a web plan as a coding agent through a self-hosted bridge is exactly the kind of use that provider policies address, and the consequence would land on your account.
 
-58 open issues on a two-month-old project, and the README carries a sponsor block for a service that inserts a paid footer into your coding agent's sessions in exchange for cash back — worth knowing about the project's funding model, and worth reading before you enable anything optional it ships.
+58 open issues on a two-month-old project. The README also carries a sponsor block for a service that inserts a paid footer into your coding agent's sessions in exchange for cash back. That is part of how the project is funded; read it before you enable anything optional it ships.

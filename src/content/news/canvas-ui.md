@@ -1,6 +1,6 @@
 ---
 title: "canvas-ui turns your live DOM into a shader texture"
-description: "Fluid, glass and shatter effects running over a real page — text still selectable, links still clickable — using the experimental HTML-in-canvas API."
+description: "Fluid, glass and shatter effects running over a real page, with text still selectable and links still clickable, using the experimental HTML-in-canvas API."
 publishDate: 2026-08-19
 category: web
 tags: ["WebGL", "shaders", "components", "shadcn"]
@@ -31,17 +31,17 @@ Shader effects on the web have always come with a bargain: the beautiful layer i
 
 ## What it is
 
-A library of 33 creative components — Liquid, Glass, Shatter, Force Field, Decrypt Reveal and more — that run fluid simulations, shader effects and 3D scenes *over* an interactive page. Every component ships for React, Solid, Preact, Vue, Svelte and vanilla. Distribution is copy-not-install through a shadcn-compatible registry, so the source lands in your repository and stays yours to edit.
+A library of 33 creative components (Liquid, Glass, Shatter, Force Field, Decrypt Reveal and more) that run fluid simulations, shader effects and 3D scenes *over* an interactive page. Every component ships for React, Solid, Preact, Vue, Svelte and vanilla. Distribution is copy-not-install through a shadcn-compatible registry, so the source lands in your repository and stays yours to edit.
 
 ## Why it showed up now
 
-One month old, pushed daily, no tagged release yet. The reason to look is not the component count but the mechanism, which only became possible recently.
+One month old, pushed daily, no tagged release yet. The reason to look is the mechanism, which only became possible recently.
 
 ## How it actually works
 
-Most of the components use the experimental HTML-in-canvas API to read your live DOM and redraw it inside a canvas. Your page becomes a texture that fire, fluid and glass distort in real time — while the underlying elements remain the real ones. Text stays selectable, links stay clickable.
+Most of the components use the experimental HTML-in-canvas API to read your live DOM and redraw it inside a canvas. Your page becomes a texture that fire, fluid and glass distort in real time, while the underlying elements stay real. Text stays selectable, links stay clickable.
 
-That is the trick that has been missing. Previously you either faked the effect in CSS or accepted that the pretty layer was inert. Where the API is unsupported, components fall back to WebGL overlays, so nobody gets a broken page — a degraded effect, but a working one.
+Previously you either faked the effect in CSS or accepted that the pretty layer was inert. Where the API is unsupported, components fall back to WebGL overlays, so the page still works, with a weaker effect.
 
 Usage is a wrapper:
 
@@ -65,8 +65,8 @@ Swap `liquid` for any component and `react` for `solid`, `preact`, `vue`, `svelt
 
 ## Where it is weak
 
-The licence is the first thing to check, and it does not resolve cleanly: GitHub reports it as "Other" from a `LICENSE.md` it cannot identify. Everything else here is a technical judgement; this one is a legal one, and you should read that file before shipping any of it commercially.
+The licence is the first thing to check, and it does not resolve cleanly: GitHub reports it as "Other" from a `LICENSE.md` it cannot identify. Read that file before shipping any of it commercially.
 
-The core API is experimental and Chromium-specific. The fallback keeps the page working, but it means your users see two different products depending on their browser, and an experimental API can change or be withdrawn — this is a dependency on a feature nobody has committed to yet.
+The core API is experimental and Chromium-specific. The fallback keeps the page working, but it means your users see two different products depending on their browser, and an experimental API can change or be withdrawn before anyone commits to it.
 
-Then there is the cost of the effect itself. Continuously reading the DOM into a texture and running shaders over it is real GPU and battery work on a page that could have been static, and the README makes no performance or accessibility claims to lean on. Five open issues on a month-old repository means very little of this has been stress-tested by anyone else yet.
+Continuously reading the DOM into a texture and running shaders over it is real GPU and battery work on a page that could have been static, and the README makes no performance or accessibility claims to lean on. Five open issues on a month-old repository means very little of this has been stress-tested by anyone else yet.

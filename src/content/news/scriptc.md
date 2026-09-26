@@ -27,7 +27,7 @@ sources:
 reviewed: false
 ---
 
-Compiling TypeScript to a native binary has been attempted often enough to be a genre. The attempts mostly die on the same rock: JavaScript's dynamism means either you ship an engine, or you refuse to compile real code. scriptc picks the second option and says so out loud.
+Compiling TypeScript to a native binary has been attempted often enough to be a genre. The attempts mostly die on the same rock: JavaScript's dynamism means either you ship an engine, or you refuse to compile real code. scriptc picks the second option and says so.
 
 ## What it is
 
@@ -39,9 +39,9 @@ A compiler that takes TypeScript and JavaScript through a typed intermediate rep
 
 ## How it actually works
 
-Static builds link a small native runtime and contain no Node and no JavaScript engine. The trade is stated as a rule: code that cannot compile statically is reported as a diagnostic. If you want npm packages and `any`-typed code, `--dynamic` embeds quickjs-ng explicitly, and you have chosen to ship an engine rather than had one smuggled in.
+Static builds link a small native runtime and contain no Node and no JavaScript engine. The trade is stated as a rule: code that cannot compile statically is reported as a diagnostic. If you want npm packages and `any`-typed code, `--dynamic` embeds quickjs-ng explicitly, so shipping an engine is a choice you make.
 
-The emit ladder is the useful part of the design. `--emit=ir`, `--emit=c` and `--emit=llvm` need only Node, so you can read the C or the LLVM IR the compiler produced without a toolchain installed at all:
+The emit targets are tiered. `--emit=ir`, `--emit=c` and `--emit=llvm` need only Node, so you can read the C or the LLVM IR the compiler produced without a toolchain installed at all:
 
 ```console
 $ scriptc build hello.ts --emit=c
@@ -51,7 +51,7 @@ hello.c
 
 `--emit=asm` and `--emit=obj` use an optional platform helper that ships with scriptc and needs no compiler, archiver, linker or SDK. Ordinary executables need a platform linker driver, selectable through `SCRIPTC_LINKER`. On macOS 15+ arm64 the bundled helper and a precompiled runtime pack do the work, and clang appears only as the linker driver.
 
-Nub went after Bun's ergonomics without leaving Node. scriptc goes the other way entirely and leaves the runtime behind.
+Nub went after Bun's ergonomics without leaving Node, while scriptc leaves the runtime behind.
 
 ## Try it
 
@@ -65,10 +65,10 @@ Node 24 or newer is required for the compiler. The executables it produces do no
 
 ## Where it is weak
 
-v0.0.38, and the README opens by calling itself experimental. Treat the output as something to inspect, not to deploy.
+v0.0.38, and the README opens by calling itself experimental. Inspect the output; do not deploy it.
 
-The install section reads like a compatibility matrix because it is one: what you need depends on which emit target you pick, which host you are on, and whether you asked for sanitizers or explicit C builds. The best path, bundled helper plus precompiled runtime, is specified as macOS 15+ arm64 with an `arm64-apple-macosx14.0.0` deployment target. Linux and Windows are supported, but the README's precision drops noticeably when it leaves Apple silicon.
+The install section is a compatibility matrix: what you need depends on which emit target you pick, which host you are on, and whether you asked for sanitizers or explicit C builds. The best path, bundled helper plus precompiled runtime, is specified as macOS 15+ arm64 with an `arm64-apple-macosx14.0.0` deployment target. Linux and Windows are supported, but the README's precision drops noticeably when it leaves Apple silicon.
 
-"No JavaScript engine" holds only for the statically compilable subset, and that subset excludes npm packages. Most real TypeScript is npm packages. The honest reading is that this compiles your code, not your dependency tree.
+"No JavaScript engine" holds only for the statically compilable subset, and that subset excludes npm packages. Most real TypeScript code lives in npm packages, so scriptc compiles your code but not your dependency tree.
 
 79 open issues, external object consumption marked experimental, and sanitized assembly emission rejected outright until the helper's AddressSanitizer pipeline catches up with the executable path.

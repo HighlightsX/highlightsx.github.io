@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-The gap between "my agent should know this framework" and a working skill is a few hours of copying documentation into markdown and hoping the result is neither too thin nor too long. Skill Seekers is an MIT-licensed pipeline that does the conversion: documentation sites, repositories, PDFs, videos, notebooks and wikis in — 18 source types — structured skills out, packaged for 22 targets.
+The gap between "my agent should know this framework" and a working skill is a few hours of copying documentation into markdown and hoping the result is neither too thin nor too long. Skill Seekers is an MIT-licensed pipeline that does the conversion. It takes 18 source types, including documentation sites, repositories, PDFs, videos, notebooks and wikis, and outputs structured skills packaged for 22 targets.
 
 ## What it is
 
@@ -46,11 +46,11 @@ That leaves `output/django-claude.zip`, ready to install.
 
 ## Why it showed up now
 
-v3.9.1 in early August, ten months and three major versions in. The interesting recent capability is not the source list, it is the project scan.
+v3.9.1 in early August, ten months and three major versions in. The main recent addition is the project scan.
 
 ## How it actually works
 
-Point `scan` at a repository and an AI agent reads its manifests, README, Dockerfile and CI config, samples the source imports, and emits one config per framework it detects — plus a `-codebase.json` for your own code:
+Point `scan` at a repository and an AI agent reads its manifests, README, Dockerfile and CI config, samples the source imports, and emits one config per framework it detects, plus a `-codebase.json` for your own code:
 
 ```bash
 skill-seekers scan ./my-react-app --out ./configs/scanned/
@@ -59,7 +59,7 @@ skill-seekers scan ./my-react-app --out ./configs/scanned/
 
 That inverts the usual workflow. Instead of deciding which docs your agent needs, the tool reads what you actually depend on and proposes the set. When a detection has no existing preset, it generates a fresh config and offers to publish it back to the community catalogue.
 
-The other feature worth naming is automatic conflict detection. Installing five documentation skills that all describe "routing" is how an agent gets confused, and detecting that overlap before install is a problem most skill tooling has not noticed yet.
+It also detects conflicts automatically. Installing five documentation skills that all describe "routing" is how an agent gets confused, and detecting that overlap before install is a problem most skill tooling has not noticed yet.
 
 The enhancement step is agent-agnostic: `--agent kimi` or an arbitrary `--agent-cmd` runs the generation through whatever model you prefer.
 
@@ -69,8 +69,8 @@ Start with one framework you use daily, install the packaged skill, and ask your
 
 ## Where it is weak
 
-Generated skills are only as good as the documentation behind them, and they freeze at generation time. A skill built from a docs site in August describes August's API — nothing here re-runs when upstream changes, so a stale skill is an agent confidently using a removed function.
+Generated skills are only as good as the documentation behind them, and they freeze at generation time. A skill built from a docs site in August describes August's API. Nothing here re-runs when upstream changes, so a stale skill leads the agent to call functions that have since been removed.
 
-There is a cost dimension: enhancement runs an agent over the extracted content, so building skills for a large docs site is a real token bill.
+Enhancement also costs money: it runs an agent over the extracted content, so building skills for a large docs site is a real token bill.
 
-48 open issues, and the README carries a launch partner and sponsors, one of which is also an export target. That is disclosed rather than hidden, and it is still worth knowing when reading a feature list. The 18-sources, 22-targets framing is a matrix in which some cells are inevitably better tested than others — check the pair you need.
+48 open issues, and the README carries a launch partner and sponsors, one of which is also an export target. The sponsorship is disclosed, but keep it in mind when reading the feature list. The 18-sources, 22-targets framing is a matrix in which some cells are inevitably better tested than others, so check the pair you need.

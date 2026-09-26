@@ -40,13 +40,13 @@ Beyond sound there is a system monitor with CPU, GPU, memory and temperature his
 
 ## Why it showed up now
 
-v3.3.1 in August, pushed the day of the snapshot, three months after the first commit and already at a third major version. The interface is localised into thirteen languages, which is not what a weekend project looks like.
+v3.3.1 in August, pushed the day of the snapshot, three months after the first commit and already at a third major version. The interface is localised into thirteen languages.
 
 ## How it actually works
 
-The design decision worth stealing is that features are installable units, not settings. The Features page installs and uninstalls whole features: what you uninstall disappears from the app entirely and stops loading, so it spends no CPU, memory or energy. Nothing is deleted — reinstalling brings your old settings back.
+Features are installable units rather than settings. The Features page installs and uninstalls whole features: what you uninstall disappears from the app entirely and stops loading, so it spends no CPU, memory or energy. Nothing is deleted: reinstalling brings your old settings back.
 
-That solves the real problem with utility bundles, which is that you are made to pay in background processes for the eleven features you did not want. First setup offers three one-click bundles — Essentials, Windows, Battery and quiet — plus a visual picker, and only the permissions those choices need are requested. On a Mac, that last part matters: an app that asks for accessibility, screen recording and input monitoring up front is asking you to trust all of it at once.
+That addresses the usual problem with utility bundles: background processes running for features you never wanted. First setup offers three one-click bundles (Essentials, Windows, Battery and quiet) plus a visual picker, and only the permissions those choices need are requested. That matters on a Mac, where an app that asks for accessibility, screen recording and input monitoring up front is asking you to trust all of it at once.
 
 Every feature also carries what the README calls an honest energy badge, stating what it keeps alive while switched on. Settings export to a file and import on a new Mac.
 
@@ -56,8 +56,8 @@ Download from vorssaint.com, or build from source. GPL-3.0, so a fork stays open
 
 ## Where it is weak
 
-157 open issues is the highest count of anything covered here so far, and it is what a broad surface costs: every feature touches a different private-ish corner of macOS, and each new OS release can break any of them.
+157 open issues is the highest count of anything covered here so far, and it reflects the broad surface: every feature touches a different private-ish corner of macOS, and each new OS release can break any of them.
 
-Fan control is explicitly a beta that forces maximum cooling with an automatic return, and that is the one feature in the list where a bug has physical consequences. Treat it accordingly.
+Fan control is explicitly a beta that forces maximum cooling with an automatic return, and that is the one feature in the list where a bug has physical consequences.
 
-The permissions story is unavoidable rather than a criticism of this app in particular: per-app volume, a window switcher and clipboard history need deep system access by definition. GPL-3.0 and no telemetry is a good answer to that, but it is still an app you are giving the keys to.
+The permissions exposure is not specific to this app: per-app volume, a window switcher and clipboard history need deep system access by definition. GPL-3.0 and no telemetry reduce that risk, but you are still giving the app broad access to your Mac.

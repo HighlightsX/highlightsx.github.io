@@ -1,6 +1,6 @@
 ---
 title: "QM is an agent with a per-employee sandbox, in Slack"
-description: "A multiplayer agent harness where every person and every room gets its own memory, files, keychain, crons and durable sandbox — on a harness you choose."
+description: "A multiplayer agent harness where every person and every room gets its own memory, files, keychain, crons and durable sandbox, on a harness you choose."
 publishDate: 2026-08-16
 category: ai
 tags: ["agents", "Slack", "multi-tenant", "TypeScript"]
@@ -34,19 +34,19 @@ Most agents are built as one assistant with one memory. Point that at a company 
 
 ## What it is
 
-An MIT-licensed multiplayer agent harness that lives in Slack and on the web. Every employee gets an isolated workspace, and every room — channel, group message, project — is its own scope too. Each scope carries its own memory, files, keychain view, permissions, crons, web apps and durable sandbox. Identity and configuration carry between Slack and the web app, so it is one agent, not two integrations.
+An MIT-licensed multiplayer agent harness that lives in Slack and on the web. Every employee gets an isolated workspace, and every room (channel, group message, project) is its own scope too. Each scope carries its own memory, files, keychain view, permissions, crons, web apps and durable sandbox. Identity and configuration carry between Slack and the web app, so it behaves as one agent across both.
 
 It is also deliberately not tied to a vendor: Pi, OpenCode, Codex and Claude Code all drive the same core, and admins choose which harnesses and models are available at the org level.
 
 ## Why it showed up now
 
-Two weeks old at the time of writing, v0.1.4 tagged days after the first release, pushed daily. Five figures of stars on a repository that young is attention running ahead of the software — which is the reason to read the architecture rather than the star count.
+Two weeks old at the time of writing, v0.1.4 tagged days after the first release, pushed daily. Five figures of stars on a repository that young reflects attention more than maturity, so judge it by its architecture.
 
 ## How it actually works
 
-The README's diagram is unusually informative. A headless core owns the API, identity, policy and scheduler, and sits next to the agent loop; Postgres holds sessions, memory and the queue; and each scope gets its own sandbox. The agent has a small fixed tool surface, and one of those tools is `execute`, which runs commands in that scope's sandbox — a durable computer where installed tools stay installed between sessions.
+A headless core owns the API, identity, policy and scheduler, and sits next to the agent loop; Postgres holds sessions, memory and the queue; and each scope gets its own sandbox. The agent has a small fixed tool surface, and one of those tools is `execute`, which runs commands in that scope's sandbox: a durable computer where installed tools stay installed between sessions.
 
-That is the design decision worth taking away. Giving each person and each room a persistent machine, rather than a fresh container per task, means the agent accumulates a working environment the way a colleague would, while the blast radius of anything it installs or breaks stops at that scope.
+Giving each person and each room a persistent machine, rather than a fresh container per task, means the agent accumulates a working environment the way a colleague would, while the blast radius of anything it installs or breaks stops at that scope.
 
 The web UI, the admin panel and the public portal are optional plugins over the core's HTTP API, so the core is usable headless. Skills are scope-owned and shared by grant, with admin-gated promotion to the whole org and skill packs importable from git repositories. Crons and watches run work when nobody is looking.
 
@@ -56,8 +56,8 @@ The repository is the deployment: it needs Postgres, a Slack app and a harness o
 
 ## Where it is weak
 
-233 open issues on a two-week-old project is the clearest signal in this post. That is a lot of people finding a lot of edges very fast, and the `0.1.x` version says the maintainers agree it is early.
+There are 233 open issues on a two-week-old project, so many people are hitting edge cases quickly, and the `0.1.x` version says the maintainers agree it is early.
 
-A per-scope durable sandbox with a keychain view is a serious security surface: you are giving an agent a persistent machine with credentials, per employee, and the security posture is configured by an admin rather than enforced by isolation you can audit from the outside. That is worth a threat model before a pilot, not after.
+A per-scope durable sandbox with a keychain view is a serious security surface: you are giving an agent a persistent machine with credentials, per employee, and the security posture is configured by an admin rather than enforced by isolation you can audit from the outside. Write a threat model before a pilot.
 
-The homepage listed on the repository is an X profile rather than documentation, which tells you where this project currently is: shipping and talking, with the docs still catching up.
+The homepage listed on the repository is an X profile rather than documentation; the docs are still catching up.

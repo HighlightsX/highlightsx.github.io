@@ -31,7 +31,7 @@ Every agent that runs code needs somewhere to run it that is not your machine. T
 
 ## What it is
 
-A sandbox service built on RustVMM and KVM: hardware-isolated microVMs, single node or scaled to a cluster, created in under 60ms with less than 5MB of memory overhead each. The E2B SDK compatibility is the strategic part. Code written against the hosted incumbent points at your own cluster instead.
+A sandbox service built on RustVMM and KVM: hardware-isolated microVMs, single node or scaled to a cluster, created in under 60ms with less than 5MB of memory overhead each. Because it is E2B SDK compatible, code written against the hosted incumbent can point at your own cluster instead.
 
 ## Why it showed up now
 
@@ -39,11 +39,11 @@ A sandbox service built on RustVMM and KVM: hardware-isolated microVMs, single n
 
 ## How it actually works
 
-The 0.7 headline is cross-node pause and resume. With an S3 backend, a sandbox suspended on one node resumes on another, and new sandboxes can be created from snapshots. It is marked preview, but it is the feature that turns a sandbox fleet into something schedulable rather than pinned.
+The 0.7 headline is cross-node pause and resume. With an S3 backend, a sandbox suspended on one node resumes on another, and new sandboxes can be created from snapshots. It is marked preview, and it lets a sandbox fleet be scheduled across nodes instead of pinned to one.
 
 Underneath that sits CubeCoW, a copy-on-write snapshot engine introduced in 0.3, which is what makes event-level snapshots, instant clones and rollback to any saved state affordable at hundred-millisecond granularity.
 
-AutoPause suspends idle sandboxes and wakes them on the next request, which is the difference between paying for agent sessions and paying for agent wall-clock. The credential vault keeps API keys outside the sandbox entirely: the agent calls external services as usual, and the keys never enter the box it could leak them from. For anyone who has read the injection literature, that is the single most useful item on the list.
+AutoPause suspends idle sandboxes and wakes them on the next request, so you pay for agent sessions rather than agent wall-clock. The credential vault keeps API keys outside the sandbox entirely: the agent calls external services as usual, and the keys never enter the box it could leak them from. Given prompt injection, that is the most useful item on the list.
 
 0.7 also splits the control plane from operations, moving node management into CubeOps with multi-replica deployment and its own CLI.
 
@@ -55,10 +55,10 @@ Deployment is Kubernetes or Terraform, with ARM64 supported natively since 0.5. 
 
 ## Where it is weak
 
-GitHub's licence detector returns NOASSERTION, which means no standard licence file it recognises. For infrastructure you intend to run in production, that is the first thing to resolve, not the last: read the actual terms in the repository before you plan a deployment around it.
+GitHub's licence detector returns NOASSERTION, which means no standard licence file it recognises. For infrastructure you intend to run in production, resolve that first: read the actual terms in the repository before you plan a deployment around it.
 
 133 open issues, and the README is largely a wall of release announcements rather than an architecture document. Every performance figure quoted here is the vendor's own, measured on unstated hardware.
 
 KVM means bare-metal Linux or nested virtualisation, so this is not something you sprinkle onto an existing managed Kubernetes cluster without checking what the nodes actually are. Cross-node resume needs an S3 backend and is labelled preview.
 
-The open-source project and a hosted product share a domain and a roadmap. That arrangement usually works out fine until the features you depend on stop landing on the side you self-host.
+The open-source project and a hosted product share a domain and a roadmap. The risk is that features you depend on land only in the hosted product.

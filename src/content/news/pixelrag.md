@@ -30,19 +30,19 @@ sources:
 reviewed: false
 ---
 
-Every retrieval pipeline starts by destroying information. HTML gets parsed to text, and the table structure, the chart, the infographic and the layout that told you what related to what are gone before the first embedding is computed. PixelRAG's proposal is to skip that step: render the document as screenshots and retrieve over the images.
+A typical retrieval pipeline parses HTML to text first, and the table structure, the chart, the infographic and the layout that told you what related to what are gone before the first embedding is computed. PixelRAG's proposal is to skip that step: render the document as screenshots and retrieve over the images.
 
 ## What it is
 
-The official codebase for a Berkeley paper — SkyLab, BAIR and Berkeley NLP, with Matei Zaharia, Joseph Gonzalez and Sewon Min advising — released Apache-2.0 with two core operations. `pixelshot` renders any page, PDF or image to screenshot tiles. The search side queries a visual index, and the queries can themselves be images.
+The official codebase for a Berkeley paper (SkyLab, BAIR and Berkeley NLP, with Matei Zaharia, Joseph Gonzalez and Sewon Min advising), released Apache-2.0 with two core operations. `pixelshot` renders any page, PDF or image to screenshot tiles. The search side queries a visual index, and the queries can themselves be images.
 
 ## Why it showed up now
 
-The paper landed with a working hosted endpoint rather than a promise of one: `api.pixelrag.ai` serves a pre-built index of 8.28 million Wikipedia pages, no key, no setup. Research code you can curl is rare enough to explain the attention.
+The paper landed with a working hosted endpoint rather than a promise of one: `api.pixelrag.ai` serves a pre-built index of 8.28 million Wikipedia pages, no key, no setup. Few research releases come with an endpoint you can query with curl, which likely explains the attention.
 
 ## How it actually works
 
-The claim in the title of the paper is that screenshots beat text for RAG, and the mechanism is subtractive rather than clever: nothing is thrown away before retrieval, so visual structure survives into the part of the pipeline that needs it. A reader model looking at an image of a table can answer a question about the table. A reader model looking at that table after HTML-to-text conversion is often looking at a column of numbers with no headers.
+The claim in the title of the paper is that screenshots beat text for RAG, and the mechanism is simple: nothing is thrown away before retrieval, so visual structure survives into the part of the pipeline that needs it. A reader model looking at an image of a table can answer a question about the table. A reader model looking at that table after HTML-to-text conversion is often looking at a column of numbers with no headers.
 
 The renderer also ships as a Claude Code plugin called `pixelbrowse`, which changes what an agent does when it opens a page: instead of fetching raw HTML, it screenshots with `pixelshot` and reads the image, seeing charts, diagrams and layout the way a person does.
 
@@ -51,7 +51,7 @@ pip install pixelrag
 pixelshot https://en.wikipedia.org/wiki/Python --output ./tiles
 ```
 
-For the plugin, install the CLI with `uv tool` or `pipx` so `pixelshot` lands on `PATH` — a plain `pip install` into a project venv may leave it invisible to the agent — then add the marketplace and install `pixelbrowse@pixelrag-plugins`.
+For the plugin, install the CLI with `uv tool` or `pipx` so `pixelshot` lands on `PATH`, because a plain `pip install` into a project venv may leave it invisible to the agent. Then add the marketplace and install `pixelbrowse@pixelrag-plugins`.
 
 ## Try it
 
@@ -64,8 +64,8 @@ curl -X POST https://api.pixelrag.ai/search -H "Content-Type: application/json" 
 
 ## Where it is weak
 
-Images are expensive where text is cheap. Rendering a page costs a browser, storing tiles costs disk, and embedding and reading images costs far more tokens than the equivalent text — the paper's win has to be weighed against a per-document cost that is not close to parity.
+Images are expensive where text is cheap. Rendering a page costs a browser, storing tiles costs disk, and embedding and reading images costs far more tokens than the equivalent text. The paper's win has to be weighed against a per-document cost that is not close to parity.
 
-Last push was July 31, more than two weeks before the snapshot, with the release at v0.4.0. That is normal for research code and worth naming anyway: paper repositories tend to freeze after publication, and the hosted endpoint is a service somebody has to keep paying for.
+Last push was July 31, more than two weeks before the snapshot, with the release at v0.4.0. That is normal for research code, but paper repositories tend to freeze after publication, and the hosted endpoint is a service somebody has to keep paying for.
 
-Twenty-four issues are open. And the general pipeline is only as good as its renderer: pages behind logins, cookie walls and lazy-loading behave differently through a screenshotter than through a fetch, which is exactly where a real corpus differs from Wikipedia.
+Twenty-four issues are open. The general pipeline is only as good as its renderer: pages behind logins, cookie walls and lazy-loading behave differently through a screenshotter than through a fetch, which is where a real corpus differs from Wikipedia.

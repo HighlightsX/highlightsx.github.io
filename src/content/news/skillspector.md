@@ -30,31 +30,31 @@ sources:
 reviewed: false
 ---
 
-Agent skills are instructions that run with your agent's permissions, distributed the way npm packages were in 2013: a URL, a README and implicit trust. SkillSpector is NVIDIA's Apache-2.0 answer to the obvious question that arrangement raises.
+Agent skills are instructions that run with your agent's permissions, distributed the way npm packages were in 2013: a URL, a README and implicit trust. SkillSpector is NVIDIA's Apache-2.0 tool for checking a skill before you trust it.
 
 ## What it is
 
-A scanner that answers one thing: is this skill safe to install? It takes a Git repository, a URL, a zip, a directory or a single file, and reports what it found before the skill ever reaches your agent's skills folder.
+A scanner that checks whether a skill is safe to install. It takes a Git repository, a URL, a zip, a directory or a single file, and reports what it found before the skill ever reaches your agent's skills folder.
 
-The numbers in its README are the reason the tool exists. Citing research on the ecosystem, it states that **26.1% of skills contain vulnerabilities and 5.2% show likely malicious intent**. One in twenty is not a tail risk.
+Citing research on the ecosystem, it states that **26.1% of skills contain vulnerabilities and 5.2% show likely malicious intent**. The second figure is about one skill in twenty.
 
 ## Why it showed up now
 
-v2.9.5 shipped the day before this snapshot, five months after the repository appeared. It is also not a standalone tool: SkillSpector is the scanning stage of the NVIDIA Verified Skills pipeline, which scans, evaluates and signs skills before publishing them to a catalog. That makes it infrastructure for a supply chain rather than a linter someone wrote.
+v2.9.5 shipped the day before this snapshot, five months after the repository appeared. SkillSpector is the scanning stage of the NVIDIA Verified Skills pipeline, which scans, evaluates and signs skills before publishing them to a catalog.
 
 ## How it actually works
 
-Two stages. Fast static analysis first, then an optional LLM semantic pass — the right order, because most of what you want to catch is cheap to find and you should not pay a model to notice `curl | sh`.
+Two stages. Fast static analysis runs first, then an optional LLM semantic pass. That order makes sense, because most of what you want to catch is cheap to find and you should not pay a model to notice `curl | sh`.
 
-The pattern library is 69 checks across 17 categories, and the category list is the clearest map of this threat model published anywhere: prompt injection, data exfiltration, privilege escalation, supply chain, excessive agency, output handling, system prompt leakage, memory poisoning, tool misuse, rogue agent, anti-refusal, trigger abuse, dangerous code via AST analysis, taint tracking, YARA signatures, MCP least privilege, and MCP tool poisoning.
+The pattern library is 69 checks across 17 categories: prompt injection, data exfiltration, privilege escalation, supply chain, excessive agency, output handling, system prompt leakage, memory poisoning, tool misuse, rogue agent, anti-refusal, trigger abuse, dangerous code via AST analysis, taint tracking, YARA signatures, MCP least privilege, and MCP tool poisoning.
 
-Two of those deserve a second look. *Trigger abuse* is a skill written so its description fires it in situations the user did not intend — the skill equivalent of typosquatting. *Anti-refusal* is instruction text designed to talk the model out of its own guardrails, which is exactly what the jailbreak-installer genre ships as a feature.
+*Trigger abuse* is a skill written so its description fires it in situations the user did not intend, the skill equivalent of typosquatting. *Anti-refusal* is instruction text designed to talk the model out of its own guardrails, which is exactly what the jailbreak-installer genre ships as a feature.
 
-Supply-chain checks query OSV.dev live for CVE data, with automatic offline fallback. Output is terminal, JSON, Markdown or SARIF — SARIF being the one that matters, since it drops straight into existing code-scanning pipelines. A 0–100 risk score comes with severity labels, and a baseline file lets you accept known findings so re-scans surface only new ones.
+Supply-chain checks query OSV.dev live for CVE data, with automatic offline fallback. Output is terminal, JSON, Markdown or SARIF, and SARIF drops straight into existing code-scanning pipelines. A risk score from 0 to 100 comes with severity labels, and a baseline file lets you accept known findings so re-scans surface only new ones.
 
 ## Try it
 
-Point it at a skill repository before installing, and gate installs on the score. There is also a Pi extension so scans can run from inside an agent session — useful, and slightly recursive.
+Point it at a skill repository before installing, and gate installs on the score. There is also a Pi extension so scans can run from inside an agent session.
 
 ## Where it is weak
 
@@ -62,4 +62,4 @@ Pattern matching plus an LLM pass finds what it knows to look for. A skill writt
 
 The optional semantic stage costs tokens and introduces the same failure mode it is guarding against: judgement from a model reading attacker-authored text.
 
-There are 78 open issues, and the deeper structural point is worth saying plainly — a scanner is a mitigation for an ecosystem that ships executable instructions with no signing by default. The Verified Skills pipeline is NVIDIA's attempt at the actual fix, and it only covers skills published through it.
+There are 78 open issues. More broadly, a scanner is a mitigation for an ecosystem that ships executable instructions with no signing by default. The Verified Skills pipeline is NVIDIA's attempt at the actual fix, and it only covers skills published through it.

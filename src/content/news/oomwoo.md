@@ -34,17 +34,15 @@ Open hardware, firmware and software for a home robot vacuum that maps and navig
 
 ## Why it showed up now
 
-The project is two months old, has 8,532 stars, and is being built in public across Discord, YouTube, Reddit and a newsletter — but it is not finished. The README says early build instructions arrive in autumn 2026, and the images in the repository are labelled reference designs showing approximately how the finished machine will look.
-
-That gap between attention and availability is exactly why it is worth covering carefully rather than enthusiastically.
+The project is two months old, has 8,532 stars, and is being built in public across Discord, YouTube, Reddit and a newsletter, but it is not finished. The README says early build instructions arrive in autumn 2026, and the images in the repository are labelled reference designs showing approximately how the finished machine will look.
 
 ## How it actually works
 
 The division of labour is the conventional and correct one for a hobby robot: an ESP32 with Arduino firmware handles the real-time motor and sensor work, and a Raspberry Pi runs ROS2 with Nav2 for SLAM and navigation using the 2D LiDAR. Home Assistant is the control surface, which means scheduling and automation come from the system you already run rather than from a vendor's app.
 
-The consequential decision is the sensor: a 2D LiDAR is what makes autonomous mapping cheap enough for a build like this, and it is also what most budget commercial vacuums use, so the navigation ceiling is roughly comparable rather than a toy.
+A 2D LiDAR is what makes autonomous mapping cheap enough for a build like this, and it is also what most budget commercial vacuums use, so the navigation ceiling is roughly comparable to theirs.
 
-Everything local by default, with the README allowing optional extra functionality when connected to a cloud — the correct order for those two sentences, and the opposite of the products it competes with.
+Everything is local by default, and the README allows optional extra functionality when connected to a cloud. The products it competes with work the other way round.
 
 ## Try it
 
@@ -52,8 +50,8 @@ There is nothing to install yet. The repository is the design and the community;
 
 ## Where it is weak
 
-There is no release, and the build instructions do not exist yet. Three open issues on 8,500 stars is not a sign of a smooth project — it is a sign that almost nobody has built one, because almost nobody can yet.
+There is no release, and the build instructions do not exist yet. Three open issues on 8,500 stars means almost nobody has built one, because almost nobody can yet.
 
 Hardware projects carry a failure mode software does not: parts availability. A build defined around specific LiDAR and motor modules ages when a supplier discontinues one, and the cost of your build depends on markets nobody in the project controls.
 
-And "home appliance product quality" is a high bar for a printed chassis with a Pi taped to a battery. It is a good goal, stated honestly as a goal. Read the project as something to follow into autumn, not as a vacuum you can have this month.
+"Home appliance product quality" is a high bar for a printed chassis with a Pi taped to a battery, and the README states it as a goal. Until the build instructions arrive in autumn, there is no vacuum to build.

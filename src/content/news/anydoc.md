@@ -27,7 +27,7 @@ sources:
 reviewed: false
 ---
 
-Feeding a `.docx` to a model is a solved problem roughly eight times over, and every solution produces different Markdown. anydoc's pitch is the boring one that matters: one output shape, whatever goes in.
+Plenty of tools already convert a `.docx` for a model, and each produces different Markdown. anydoc's pitch is one output shape, whatever goes in.
 
 ## What it is
 
@@ -41,7 +41,7 @@ A Rust library that converts Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, C
 
 Three entry points, same engine. `toMarkdown` takes a path, `toMarkdownBytes` sniffs the format from the content, and `toDocument` stops at the intermediate document model, which also carries embedded assets. Formats without a signature, CSV being the obvious one, have to be named explicitly.
 
-The WebAssembly build is the detail worth noticing. The demo page runs the library in the browser, so files never leave the machine. For anyone parsing documents they are not allowed to upload, that is the whole product.
+The WebAssembly build lets the demo page run the library in the browser, so files never leave the machine. That matters for anyone parsing documents they are not allowed to upload.
 
 It also ships as an agent skill, so an agent can convert a file it stumbles into:
 
@@ -49,7 +49,7 @@ It also ships as an agent skill, so an agent can convert a file it stumbles into
 npx skills add firecrawl/anydoc
 ```
 
-Skill Seekers turns documentation into skills. This is the other half: giving the agent the ability to read whatever document it was handed in the first place.
+Skill Seekers turns documentation into skills. anydoc covers the input side: letting the agent read whatever document it was handed.
 
 ## Try it
 
@@ -62,8 +62,8 @@ npx @firecrawl/anydoc slides.pptx -o slides.md
 
 ## Where it is weak
 
-Scanned pages are the hard case in document conversion, and anydoc does not solve them. `--ocr hosted` sends the page to Firecrawl Parse, the company's paid API. The local story stops exactly where documents get difficult, and the README is upfront that the hosted API exists because of it.
+Scanned pages are the hard case in document conversion, and anydoc does not solve them. `--ocr hosted` sends the page to Firecrawl Parse, the company's paid API. Local conversion stops where documents get difficult, and the README is upfront that the hosted API exists because of it.
 
-89 open issues on a repository that is one month old. Some of that is the price of claiming nine input formats at once: every one of them has a long tail of malformed files in the wild, and Excel and PDF have two long tails each.
+89 open issues on a repository that is one month old. Some of that is the price of claiming nine input formats at once: every one of them has a long tail of malformed files in the wild.
 
 v0.2.4 means the output shape is not promised to be stable, and "one consistent output" is a design goal you cannot verify without running your own corpus through it. No published benchmark numbers accompany the milliseconds claim.

@@ -28,7 +28,7 @@ Ten million 1536-dimension embeddings are 31 GB as float32, which is why most RA
 
 ## What it is
 
-A Rust vector index with Python bindings, built on Google Research's TurboQuant, a data-oblivious quantizer with near-optimal distortion and no separate training phase. Data-oblivious is the load-bearing word: the quantizer does not learn from your corpus, so there is nothing to train and nothing to retrain as the corpus drifts.
+A Rust vector index with Python bindings, built on Google Research's TurboQuant, a data-oblivious quantizer with near-optimal distortion and no separate training phase. Data-oblivious means the quantizer does not learn from your corpus, so there is nothing to train and nothing to retrain as the corpus drifts.
 
 ## Why it showed up now
 
@@ -36,15 +36,13 @@ A Rust vector index with Python bindings, built on Google Research's TurboQuant,
 
 ## How it actually works
 
-Four design decisions, each aimed at a specific operational annoyance.
-
-Ingest is online. You add vectors and they are indexed, with no train step, no parameter tuning and no rebuild as the corpus grows. Anyone who has re-fit an IVF index after a data refresh knows what that is worth.
+Ingest is online. You add vectors and they are indexed, with no train step, no parameter tuning and no rebuild as the corpus grows. That avoids re-fitting the index after a data refresh, which an IVF index requires.
 
 Search is hand-written SIMD: NEON SDOT and SMMLA on ARM, AVX-512 VNNI and `vpermb` on x86, with AVX2 and scalar fallbacks. The claim is that it beats FAISS IndexPQFastScan in every measured configuration, averaging 3.4x at 4-bit and 23% at 2-bit across eight cells per width, on both architectures.
 
 Saves are incremental. `sync(path)` persists only what changed since the last call, one fsync per call, crash-safe at any byte, so a small append costs milliseconds no matter how large the index has grown. `write` and `load` remain for whole-file snapshots.
 
-Filters are honoured inside the kernel. Pass an id allowlist or a slot bitmask to `search()` and you get up to `k` results from the allowed set, with no over-fetching and no recall collapse on selective filters. That is the usual failure mode of bolt-on filtering, and fixing it in the kernel is the right place.
+Filters are honoured inside the kernel. Pass an id allowlist or a slot bitmask to `search()` and you get up to `k` results from the allowed set, with no over-fetching and no recall collapse on selective filters. Recall collapse is the usual failure of filtering applied after the search, which is why handling it inside the kernel matters.
 
 Zvec puts a vector database inside your process. turbovec is the layer below that: the index itself, with stable external ids through `IdMapIndex` and O(1) removal by id.
 
@@ -59,11 +57,11 @@ scores, indices = index.search(query, k=10)
 index.sync("my_index.tv")
 ```
 
-`pip install turbovec`. Inputs must be 2-D float32 arrays; other dtypes are rejected rather than quietly converted, which is the correct choice and rarer than it should be.
+`pip install turbovec`. Inputs must be 2-D float32 arrays; other dtypes are rejected rather than silently converted.
 
 ## Where it is weak
 
-The benchmark compares against IndexPQFastScan, the FAISS index that also scans quantized codes. It is a claim about scanning faster, not about searching sublinearly, and a graph index like HNSW answers a different question at a different recall and memory point. Nothing in the README addresses that comparison.
+The benchmark compares against IndexPQFastScan, the FAISS index that also scans quantized codes. It is a claim about scanning faster. Searching sublinearly is a separate question: a graph index like HNSW answers a different question at a different recall and memory point. Nothing in the README addresses that comparison.
 
 The numbers come from the author's own harness, with the configuration described in prose rather than in a runnable script the README names. Distortion guarantees inherited from a paper are not the same as recall measured on your corpus, and quantization down to 2-bit costs recall somewhere.
 

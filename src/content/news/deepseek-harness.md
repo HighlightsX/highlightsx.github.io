@@ -33,17 +33,17 @@ DeepSeek released `dsh`, an agent harness of its own, and the repository went fr
 
 A harness is the part of an agent product that is not the model: the loop that calls tools, the session state, the permission prompts, the interface you actually sit in front of. DeepSeek Harness ships that layer as an open-source program you run locally, pointed at a model of your choosing, with a web UI on `127.0.0.1:3080`.
 
-The organising idea is stated in four words in the README: everything is a plugin. Not "extensible through plugins" — the harness itself is assembled out of them, and the pieces you would expect to be built in are the same kind of object as the pieces you write.
+The organising idea is stated in four words in the README: everything is a plugin. The harness itself is assembled out of plugins, and the pieces you would expect to be built in are the same kind of object as the pieces you write.
 
 ## Why it showed up now
 
-Two days old, no release tags, no issue backlog, and six figures of stars. That number is not a verdict on the software; it is what happens when a lab with DeepSeek's following publishes a repository. Worth knowing precisely because the star count tells you nothing here — the interesting question is whether the architecture underneath is worth adopting, and that has an answer independent of the trend list.
+Two days old, no release tags, no issue backlog, and six figures of stars. That count is what happens when a lab with DeepSeek's following publishes a repository, and it says nothing about the code. Whether the architecture underneath is worth adopting has to be judged separately from the trend list.
 
 ## How it actually works
 
 The plugin system is not homegrown. It runs on Cordis, an existing framework whose design is written up in a paper the README links, on what it calls spatiotemporal composability. In practice that means plugins are scoped by lifetime as well as by capability: a plugin can be loaded, reloaded and disposed while the process keeps running, and the things it registered go away with it. That is the property a long-lived agent session needs and the one an ordinary plugin registry does not give you.
 
-The consequence for anyone building on it: your extension is not a callback bolted onto a fixed pipeline. It is a unit with the same standing as the built-ins, and the discoverability convention is already in place — DeepSeek asks plugin authors to tag their repositories with the `dsh-plugin` topic.
+For anyone building on it, an extension has the same standing as the built-ins. A discoverability convention is already in place too: DeepSeek asks plugin authors to tag their repositories with the `dsh-plugin` topic.
 
 ## Try it
 
@@ -65,8 +65,8 @@ pnpm dsh web
 
 ## Where it is weak
 
-The developer-preview warning is the honest part of the README and should be read literally: this is a two-day-old public repository with no tagged release, so anything you build against it today is building against a moving target.
+The developer-preview warning in the README should be read literally: this is a two-day-old public repository with no tagged release, so anything you build against it today is building against a moving target.
 
-The issue tracker is empty — feedback is routed to GitHub Discussions and a Discord server instead. That is a legitimate choice for a project this young, but it means there is no public record yet of what is broken, and no way to judge maintainer response time from the outside.
+The issue tracker is empty. Feedback is routed to GitHub Discussions and a Discord server instead. That is a legitimate choice for a project this young, but it means there is no public record yet of what is broken, and no way to judge maintainer response time from the outside.
 
-The plugin ecosystem is, at the moment, a topic tag with almost nothing under it. An architecture whose main claim is composability is only as good as the things composed with it, and that part has not been built by anyone but DeepSeek yet.
+The plugin ecosystem is, at the moment, a topic tag with almost nothing under it. The architecture's main claim is composability, and so far nobody outside DeepSeek has built anything to compose with it.

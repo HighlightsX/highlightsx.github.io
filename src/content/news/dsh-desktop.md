@@ -1,6 +1,6 @@
 ---
 title: "A community desktop shell for DeepSeek Harness, in two days"
-description: "DSH Desktop wraps the official harness in a native app with a tray, a plugin marketplace, phone remote control and IM channels — and is not a DeepSeek product."
+description: "DSH Desktop wraps the official harness in a native app with a tray, a plugin marketplace, phone remote control and IM channels. It is not a DeepSeek product."
 publishDate: 2026-08-20
 category: apps
 tags: ["desktop", "DeepSeek", "plugins", "Electron"]
@@ -31,7 +31,7 @@ sources:
 reviewed: false
 ---
 
-DeepSeek Harness shipped on August 13 with a web UI you start from the command line. By August 15 someone had wrapped it in a native desktop app with a system tray, a plugin marketplace, phone remote control and chat-app channels. That turnaround is the story here.
+DeepSeek Harness shipped on August 13 with a web UI you start from the command line. By August 15 someone had wrapped it in a native desktop app with a system tray, a plugin marketplace, phone remote control and chat-app channels.
 
 ## What it is
 
@@ -41,13 +41,13 @@ Beyond the wrapper: remote control from iOS and Android so you can start a task 
 
 ## Why it showed up now
 
-It gained 131 stars in the few hours between two discovery runs, the fastest mover in the queue. Two days old, v0.1.0 tagged on day one. When a platform declares that everything is a plugin, the interesting question is whether anyone builds one — this is the first substantial answer.
+It gained 131 stars in the few hours between two discovery runs, the fastest mover in the queue. Two days old, v0.1.0 tagged on day one. When a platform declares that everything is a plugin, the open question is whether anyone builds one. This is the first substantial example.
 
 ## How it actually works
 
 The project builds against a pinned submodule of the upstream `deepseek-harness` source, with the outer repository on Yarn and the pinned submodule keeping its own pnpm workspace. The core agent loop, models, tools, sessions, web UI and plugin ecosystem all come from upstream; this repository owns the desktop packaging, the local service lifecycle, tray and window integration, and the macOS and Windows builds.
 
-The stated ambition is not to remain a wrapper. The plan is to reorganise the desktop capabilities as proper plugins under the official mechanism, so service management, system integration and the marketplace compose the same way everything else in the harness does. That is the right instinct for an ecosystem project and also the hardest part to finish.
+The authors plan to move past the wrapper stage by reorganising the desktop capabilities as proper plugins under the official mechanism, so service management, system integration and the marketplace compose the same way everything else in the harness does. That is the right instinct for an ecosystem project, and the hardest part to finish.
 
 Development is three commands from the repository root:
 
@@ -65,6 +65,6 @@ Installers for macOS and Windows are linked from the README and from the project
 
 It is a community project, not a DeepSeek product, and the README says so twice. Anything it gets wrong will nonetheless be experienced by users as DeepSeek getting it wrong.
 
-Pinning a submodule to a fixed upstream commit is a sensible way to build against a moving target, and it means you are always running an older harness than the one upstream ships — on a project whose own README promises compatibility-breaking changes.
+Pinning a submodule to a fixed upstream commit is a sensible way to build against a moving target, and it means you are always running an older harness than the one upstream ships, on a project whose own README promises compatibility-breaking changes.
 
 Seventy-one open issues at two days old. Documentation is mostly Chinese, with an English README available but less complete. And the wrapper inherits the trust surface of the thing it wraps, plus a new one: an app that manages a local service, integrates a tray, and bridges four messaging platforms is a lot of privilege for a two-day-old project to hold.

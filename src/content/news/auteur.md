@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-Everyone can see the problem: agent-built landing pages all look like each other. Gradient hero, three feature cards, a testimonial, a footer. Auteur is an MIT-licensed skill whose answer is not a better prompt but a gate — an executable linter that refuses to ship the generic version.
+Everyone can see the problem: agent-built landing pages all look like each other. Gradient hero, three feature cards, a testimonial, a footer. Auteur, an MIT-licensed skill, answers with a gate: an executable linter that refuses to ship the generic version.
 
 ## What it is
 
@@ -38,17 +38,17 @@ A Claude Code skill, roughly 1 MB, no dependencies, no API keys, no build step, 
 
 ## Why it showed up now
 
-v1.3.1 on August 5, a month after the first commit, and zero open issues. The live gallery is the strongest argument in the repository: it is not a mockup but the actual landing page, holding a wordmark in 131,072 GPU particles that tear apart under the cursor and re-form — built by the skill it is selling.
+v1.3.1 on August 5, a month after the first commit, and zero open issues. The live gallery is the strongest argument in the repository. It is the actual landing page, built by the skill itself, and holds a wordmark in 131,072 GPU particles that tear apart under the cursor and re-form.
 
 ## How it actually works
 
-The ordering is the method. Deciding art direction *before* code means the model is executing a locked brief rather than inventing style while it writes markup, which is where drift toward the average begins. A commit sheet is a constraint the later stages cannot renegotiate.
+Deciding art direction *before* code means the model is executing a locked brief rather than inventing style while it writes markup, which is where drift toward the average begins. A commit sheet is a constraint the later stages cannot renegotiate.
 
-The gates are the part worth stealing. Most quality instructions in agent skills are advisory — "make it distinctive", "avoid generic layouts" — and a model that has just produced a generic layout will happily agree it is distinctive. An executable linter does not care what the model thinks. Same with the motion check: animation quality is exactly the thing a text-based self-review cannot assess, so it is measured instead of asserted.
+Most quality instructions in agent skills are advisory ("make it distinctive", "avoid generic layouts"), and a model that has just produced a generic layout will happily agree it is distinctive. An executable linter does not care what the model thinks. Same with the motion check: animation quality is exactly the thing a text-based self-review cannot assess, so it is measured instead of asserted.
 
-That generalises well beyond web design. Any skill trying to enforce taste needs at least one check the model cannot talk its way past.
+The same applies outside web design: a skill that enforces taste needs at least one check the model cannot override.
 
-Installation is agent-agnostic — it detects what you have and writes into each agent's skills folder, across a claimed 75-plus agents.
+Installation is agent-agnostic: it detects what you have and writes into each agent's skills folder, across a claimed 75-plus agents.
 
 ## Try it
 
@@ -56,12 +56,12 @@ Installation is agent-agnostic — it detects what you have and writes into each
 npx skills add agiwhitelist/auteur
 ```
 
-Or as a Claude Code plugin via `/plugin marketplace add agiwhitelist/auteur`. Open the gallery first — one page tells you whether this is your taste.
+Or as a Claude Code plugin via `/plugin marketplace add agiwhitelist/auteur`. Open the gallery first to see whether the style suits you.
 
 ## Where it is weak
 
-The linter encodes one person's definition of slop. It will reject things that are fine and pass things you dislike, and its opinions are strongest exactly where the aesthetic is most specific — heavy motion, particle work, GSAP and Three.js. If your brand is quiet and typographic, you are fighting the gate rather than using it.
+The linter encodes one person's definition of slop. It will reject things that are fine and pass things you dislike, and its opinions are strongest where the aesthetic is most specific: heavy motion, particle work, GSAP and Three.js. If your brand is quiet and typographic, you are fighting the gate rather than using it.
 
-131,072 GPU particles is a statement, not a default: performance, battery and reduced-motion needs point the other way for most production sites, and the README does not discuss accessibility.
+131,072 GPU particles is a poor default for most production sites, where performance, battery and reduced-motion needs point the other way, and the README does not discuss accessibility.
 
-One month old, one contributor's worth of history, last push August 6, no issues filed — which at a thousand stars usually means people starred the gallery rather than shipped with it.
+One month old, one contributor's worth of history, last push August 6, no issues filed. At a thousand stars, that usually means people starred the gallery rather than shipped with it.

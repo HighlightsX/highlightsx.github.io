@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-A Bento deck is a single HTML file that contains the slides, the fonts, the images, the charts, the animations — and the editor. You open it in a browser and you are editing it. You send it to someone and they need nothing, because the file is the software.
+A Bento deck is a single HTML file that contains the slides, the fonts, the images, the charts, the animations and the editor. You open it in a browser and you are editing it. Whoever you send it to needs nothing else installed.
 
 ## What it is
 
@@ -40,11 +40,11 @@ The framing in the README is a complaint about the category: office documents us
 
 ## Why it showed up now
 
-One month old, v1.0.17 on August 10, and a live demo that is also the product — bento.page/slides is the whole app running on a starter deck that doubles as the feature tour. Evaluating it costs one click, which is unusual enough in this category to explain the attention.
+One month old, v1.0.17 on August 10, and a live demo that is also the product: bento.page/slides is the whole app running on a starter deck that doubles as the feature tour. Evaluating it costs one click, which is unusual enough in this category to explain the attention.
 
 ## How it actually works
 
-The self-containment is the whole design, and the interesting consequence is what it does to AI editing. Because the document is plain JSON in one plaintext block, any assistant with filesystem access can edit a deck with no plugin and no API: Claude Code, Cursor, Aider, or anything else that can open a file. There is a packaged `bento-slides` skill installable from the repository's own plugin marketplace, and a chat round-trip path for assistants without file access — copy the JSON out, have it rewritten, paste it back.
+Self-containment also shapes AI editing. Because the document is plain JSON in one plaintext block, any assistant with filesystem access can edit a deck with no plugin and no API: Claude Code, Cursor, Aider, or anything else that can open a file. There is a packaged `bento-slides` skill installable from the repository's own plugin marketplace, and a chat round-trip path for assistants without file access: copy the JSON out, have it rewritten, paste it back.
 
 That also means it works with local models. Point Ollama, llama.cpp or LM Studio at the deck and nothing leaves the machine. The agent guide is one page, published at `bento.page/agents.md`, designed to be dropped into any model's context.
 
@@ -56,12 +56,12 @@ Offline mode is enforced rather than promised: switch it on and updates and coll
 https://bento.page/releases/slides/Bento_Slides.bento.html
 ```
 
-Save it, open it in a browser, start editing. That is the install.
+Save it, open it in a browser and start editing. There is no other install step.
 
 ## Where it is weak
 
-Everything lives in one file, which is the feature and the constraint. Embedded images and fonts are carried in the document, so a media-heavy deck grows a file that has to be loaded, parsed and saved as a unit — and the save path depends on a browser API that Safari and Firefox support less completely than Chromium does, where you fall back to downloading a new copy each time.
+Everything lives in one file. Embedded images and fonts are carried in the document, so a media-heavy deck grows a file that has to be loaded, parsed and saved as a unit. The save path also depends on a browser API that Safari and Firefox support less completely than Chromium does, where you fall back to downloading a new copy each time.
 
 Collaboration is the obvious gap. A file that rewrites itself locally has no merge story, and "send it to someone" means someone now has a fork.
 
-Thirty-seven issues are open on a project that reached v1.0 within a month of its first commit. The format is honest and inspectable, which is the real insurance here: if the project stops, your decks are still readable JSON.
+Thirty-seven issues are open on a project that reached v1.0 within a month of its first commit. The format is inspectable: if the project stops, your decks are still readable JSON.

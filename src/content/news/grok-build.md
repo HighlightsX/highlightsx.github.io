@@ -23,7 +23,7 @@ sources:
 reviewed: false
 ---
 
-Every lab now ships a terminal coding agent, and the interesting part is no longer the agent. It is what each one does with the source. Grok Build publishes the whole Rust runtime under Apache-2.0, then tells you plainly that this tree is a copy.
+Every lab now ships a terminal coding agent, and what separates them now is what each one does with the source. Grok Build publishes the whole Rust runtime under Apache-2.0, then tells you plainly that this tree is a copy.
 
 ## What it is
 
@@ -31,15 +31,15 @@ Every lab now ships a terminal coding agent, and the interesting part is no long
 
 ## Why it showed up now
 
-26,686 stars, 1,396 of them in the discovery window, on a repository first pushed on July 14 and last updated September 9. There is no release tag here at all. Binaries and the changelog live on x.ai, so the GitHub side is source, not distribution.
+26,686 stars, 1,396 of them in the discovery window, on a repository first pushed on July 14 and last updated September 9. There is no release tag here at all. Binaries and the changelog live on x.ai, so the GitHub side carries only source.
 
 ## How it actually works
 
-The repository is synced periodically from the SpaceXAI monorepo, and a `SOURCE_REV` file at the root records the exact monorepo commit each tree corresponds to. That is a more honest arrangement than most one-way mirrors, which leave you guessing which internal commit you are looking at.
+The repository is synced periodically from the SpaceXAI monorepo, and a `SOURCE_REV` file at the root records the exact monorepo commit each tree corresponds to. That is more transparent than most one-way mirrors, which leave you guessing which internal commit you are looking at.
 
 Building it needs more than cargo. The toolchain is pinned by `rust-toolchain.toml`, and proto codegen resolves a hermetic `protoc` through DotSlash, so `dotslash` has to be on `PATH` before the first build. macOS and Linux are supported build hosts; Windows is best-effort and untested from this tree.
 
-The binary artifact is `xai-grok-pager`. Official installs rename it `grok`. On first launch it opens a browser to authenticate, which is the part worth reading twice: the code is Apache-2.0, the thing it talks to is not.
+The binary artifact is `xai-grok-pager`. Official installs rename it `grok`. On first launch it opens a browser to authenticate. The code is Apache-2.0; the service it talks to is not.
 
 MCP servers, slash commands, keyboard shortcuts and theming are all documented in a user guide that ships inside the pager crate rather than only on the docs site.
 
@@ -54,10 +54,10 @@ From source, `cargo run -p xai-grok-pager-bin` builds and launches the TUI.
 
 ## Where it is weak
 
-The GitHub API reports zero open issues on a repository with 26,686 stars. On a project this size that means issues are closed off or triaged somewhere internal, so the public repository is a read path, not a place where your bug gets tracked.
+The GitHub API reports zero open issues on a repository with 26,686 stars. On a project this size that means issues are closed off or triaged somewhere internal, so a bug you report will not be tracked in the public repository.
 
-Development happens in a monorepo you cannot see. You can read every line of the runtime, fork it, and still not participate in the history that produces it. Apache-2.0 on a mirror buys you the right to keep using the code, not a seat at the table.
+Development happens in a monorepo you cannot see. You can read every line of the runtime and fork it, but you cannot take part in the history that produces it.
 
-The agent authenticates against x.ai on first launch. Local models are not what this is for, so the open licence covers a client to a paid service. Judge it as one.
+The agent authenticates against x.ai on first launch. Local models are not what this is for, so the open licence covers a client to a paid service.
 
 Building from source drags in DotSlash and a pinned toolchain before the first compile, and Windows is explicitly not tested. Take the released binary unless you intend to patch the runtime.

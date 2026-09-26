@@ -29,19 +29,19 @@ sources:
 reviewed: false
 ---
 
-The headline is absurd enough to check twice: a 2.78-trillion-parameter model producing tokens on a laptop with 8 GB of RAM. The checkpoint on disk is 1.56 TB. The engine that reads it is 176 KB of portable C99 with no BLAS, no framework and no GPU.
+The headline claim: a 2.78-trillion-parameter model producing tokens on a laptop with 8 GB of RAM. The checkpoint on disk is 1.56 TB. The engine that reads it is 176 KB of portable C99 with no BLAS, no framework and no GPU.
 
 ## What it is
 
-An inference engine for Kimi K3, Apache-2.0, written from scratch in C99 with AVX2 SIMD and zero dependencies. The model is a mixture of experts, and MoE is the reason the trick works at all: only a small fraction of those trillions of parameters participate in any given token.
+An inference engine for Kimi K3, Apache-2.0, written from scratch in C99 with AVX2 SIMD and zero dependencies. The model is a mixture of experts, and that is why this works: only a small fraction of those trillions of parameters participate in any given token.
 
 ## Why it showed up now
 
-Two weeks old, v1.0.0 tagged on August 7, and the numbers table did the rest. The author is explicit in the README that they are looking for research roles and PhD positions, which is worth knowing about the project's motivation and its likely maintenance horizon.
+Two weeks old, v1.0.0 tagged on August 7, and the numbers table did the rest. The author is explicit in the README that they are looking for research roles and PhD positions, which bears on the project's motivation and its likely maintenance horizon.
 
 ## How it actually works
 
-The design inverts the usual constraint. Instead of asking how much model fits in memory, it asks how little memory a full model needs if you are willing to stream the rest from disk on every step. The published measurements on one machine — 124 cores, fast NVMe — show what that buys:
+Instead of asking how much model fits in memory, the design asks how little memory a full model needs if you are willing to stream the rest from disk on every step. The published measurements on one machine (124 cores, fast NVMe) show the trade-off:
 
 | RAM | Time per token | What is happening |
 |---|---|---|
@@ -50,7 +50,7 @@ The design inverts the usual constraint. Instead of asking how much model fits i
 | 64 GB | 19.8 s | more of it sits in memory |
 | 128 GB+ | 5.6 s | it fits; the disk wait is gone |
 
-The important claim is not the speed, it is that the output is byte-identical from the smallest machine to the largest. Only the clock changes. More RAM buys latency, not quality — which makes memory a performance knob rather than a gate on whether you can run the model at all.
+The output is byte-identical from the smallest machine to the largest; only the time per token changes. More RAM lowers latency and leaves the output untouched, so memory sets the speed, and 8 GB is enough to run the model.
 
 Peak RSS is measured at 8.24 GB. v1.0.0 made the per-token maths roughly 8× lighter, a chat follow-up 3.9× faster, and long prompts about half as expensive. Quantisation is MXFP4, attention is linear, and the whole thing is a single C99 target you compile yourself.
 
@@ -64,8 +64,8 @@ Budget for the download before anything else: 1.56 TB of checkpoint has to land 
 
 ## Where it is weak
 
-Twenty-six seconds per token on the 8 GB configuration is the honest cost of the headline. This is a demonstration that the model *runs*, not a claim that you would use it that way — a paragraph of output is a coffee break.
+Twenty-six seconds per token on the 8 GB configuration is what the headline costs. It demonstrates that the model *runs*; at that rate even a short paragraph takes many minutes.
 
 Everything depends on disk. The first three rows of that table read the model on every step, so a slower drive than the author's NVMe changes the numbers, and consumer SSDs have write-endurance and thermal behaviour that a 1.56 TB streaming workload will find.
 
-Eighteen issues are open on a two-week-old repository written by one person, and the from-scratch, zero-dependency property that makes it impressive also means every bug is theirs to fix alone. Treat this as a superb piece of systems writing to read, and a research artefact to run — not as an inference stack to deploy.
+Eighteen issues are open on a two-week-old repository written by one person, and the from-scratch, zero-dependency property that makes it impressive also means every bug is theirs to fix alone. It is excellent systems writing to read and a research artefact to run. Nothing in the repository is aimed at deploying it as an inference stack.

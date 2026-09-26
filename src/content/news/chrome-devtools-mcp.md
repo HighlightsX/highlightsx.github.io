@@ -34,19 +34,19 @@ An agent asked to fix a slow page has historically had to work from your descrip
 
 ## What it is
 
-An MCP server exposing the DevTools surface to Antigravity, Claude, Cursor, Copilot or anything else that speaks the protocol. Three capability groups: performance traces with extracted insights, browser debugging — network requests, screenshots, console messages carrying source-mapped stack traces — and Puppeteer-driven automation that waits for actions to actually complete. A CLI is included for use without MCP at all.
+An MCP server exposing the DevTools surface to Antigravity, Claude, Cursor, Copilot or anything else that speaks the protocol. Three capability groups: performance traces with extracted insights, browser debugging (network requests, screenshots, console messages carrying source-mapped stack traces), and Puppeteer-driven automation that waits for actions to actually complete. A CLI is included for use without MCP at all.
 
 ## Why it showed up now
 
-v1.7.0 on August 10 and pushed the day of this snapshot. It has been around since September 2025, which by the standards of this ecosystem makes it ancient and, more usefully, maintained.
+v1.7.0 on August 10 and pushed the day of this snapshot. It has been around since September 2025, which makes it old for this ecosystem, and it is still maintained.
 
 ## How it actually works
 
-The design decision that matters is that this is not a screenshot tool with a protocol wrapper. Performance work runs through the real DevTools trace pipeline and returns *insights* rather than raw traces, which is the difference between handing a model a 40 MB JSON blob and handing it "layout shift caused by this image without dimensions".
+Performance work runs through the real DevTools trace pipeline and returns *insights* rather than raw traces: the difference between handing a model a 40 MB JSON blob and handing it "layout shift caused by this image without dimensions".
 
-Source-mapped stack traces are the other quiet win. An agent reading a minified console error is guessing; an agent reading the mapped frame is looking at your source. Puppeteer underneath means action results are awaited rather than slept on, which is where most homegrown browser automation becomes flaky.
+Source-mapped stack traces let the agent read your source instead of guessing from a minified console error. Puppeteer underneath means action results are awaited rather than slept on, which is where most homegrown browser automation becomes flaky.
 
-Support is scoped honestly: Google Chrome and Chrome for Testing officially, other Chromium browsers may work, with committed support for the latest Extended Stable Chrome.
+Official support covers Google Chrome and Chrome for Testing. Other Chromium browsers may work, with committed support for the latest Extended Stable Chrome.
 
 ## Try it
 
@@ -54,8 +54,8 @@ Add it to your agent's MCP configuration as the npm package `chrome-devtools-mcp
 
 ## Where it is weak
 
-Read the disclaimers, because they are unusually direct. The server exposes the content of the browser instance to MCP clients, allowing them to inspect, debug and modify any data in the browser or DevTools. If that Chrome profile is logged into anything, the agent — and whatever it just read on a hostile page — is inside your session. The README's advice is to avoid sharing sensitive information with MCP clients, which in practice means running it against a clean profile.
+Read the disclaimers, because they are unusually direct. The server exposes the content of the browser instance to MCP clients, allowing them to inspect, debug and modify any data in the browser or DevTools. If that Chrome profile is logged into anything, the agent, and whatever it just read on a hostile page, is inside your session. The README's advice is to avoid sharing sensitive information with MCP clients, which in practice means running it against a clean profile.
 
-There is a telemetry path worth knowing about: performance tooling may send trace URLs to Google's CrUX API to fetch real-user data alongside your lab measurements. It is disableable by flag, and it is on by default.
+Performance tooling may send trace URLs to Google's CrUX API to fetch real-user data alongside your lab measurements. A flag disables it, and it is on by default.
 
-114 open issues, and the fundamental constraint is Chrome-shaped. This makes your agent excellent at debugging one browser engine, which is not the same as debugging the web.
+114 open issues, and it covers Chrome only: bugs specific to other browser engines stay out of reach.

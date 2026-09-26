@@ -1,6 +1,6 @@
 ---
 title: "OpenLogi replaces Logitech Options+ with a Rust agent"
-description: "Remap buttons, DPI and SmartShift over HID++ from a plain TOML file, with no account and no telemetry — and on Linux, which Options+ never supported."
+description: "Remap buttons, DPI and SmartShift over HID++ from a plain TOML file, with no account and no telemetry, including on Linux, which Options+ never supported."
 publishDate: 2026-08-17
 category: apps
 tags: ["Rust", "Logitech", "HID", "local-first"]
@@ -30,7 +30,7 @@ sources:
 reviewed: false
 ---
 
-A mouse should not need an account. Logitech's Options+ is the software you install to make an expensive peripheral do the thing you bought it for, and OpenLogi is the Apache-2.0 Rust replacement: same devices, same HID++ protocol, no cloud, no telemetry, plain TOML config.
+Logitech's Options+ is the software you install to make an expensive peripheral do the thing you bought it for. OpenLogi is an Apache-2.0 Rust replacement that needs no account: same devices, same HID++ protocol, no cloud, no telemetry, plain TOML config.
 
 ## What it is
 
@@ -44,11 +44,11 @@ v0.6.27 landed two days before the snapshot, on a repository not yet three month
 
 ## How it actually works
 
-Bindings live in a plain TOML file. The agent remaps button presses through the operating system's input hook and writes DPI, SmartShift, scroll and lighting changes straight to the device over HID++. That is the whole architecture, and its consequence is that your mouse configuration becomes a text file you can put in a dotfiles repository — a thing Options+ has never allowed.
+Bindings live in a plain TOML file. The agent remaps button presses through the operating system's input hook and writes DPI, SmartShift, scroll and lighting changes straight to the device over HID++. As a result, your mouse configuration is a text file you can keep in a dotfiles repository, which Options+ has never allowed.
 
-The split between agent and GUI is what makes the headless story work: the CLI can list devices and run diagnostics on a machine with no desktop session, and the same agent serves both.
+The split between agent and GUI allows headless use: the CLI can list devices and run diagnostics on a machine with no desktop session, and the same agent serves both.
 
-What it does that Options+ will not: run on Linux as a first-class platform, with an evdev/uinput hook, udev rules, a systemd user unit and `.deb`, `.rpm` and `.pkg.tar.zst` packages. And move the gesture role to whichever physical button you want — the dedicated gesture button, middle, back or forward, with per-direction swipe bindings, or gestures off entirely. Options+ pins that role in place.
+What it does that Options+ will not: run on Linux as a first-class platform, with an evdev/uinput hook, udev rules, a systemd user unit and `.deb`, `.rpm` and `.pkg.tar.zst` packages. It can also move the gesture role to any physical button: the dedicated gesture button, middle, back or forward, with per-direction swipe bindings, or gestures off entirely. Options+ pins that role in place.
 
 Network behaviour is stated plainly: device-image fetches are the only automatic calls, and update checks and downloads run only when requested or opted into.
 
@@ -58,8 +58,8 @@ Packages for all three platforms are on the releases page, with distro packages 
 
 ## Where it is weak
 
-The README opens with a warning that the project is under active development and not yet stable, with features and config still liable to change — at v0.6.x with 147 open issues, take that at face value. A config format that moves means a dotfiles entry that breaks.
+The README opens with a warning that the project is under active development and not yet stable, with features and config still liable to change. At v0.6.x with 147 open issues, take that at face value. A config format that moves means a dotfiles entry that breaks.
 
 Windows is the newest port and the most likely to bite. Device coverage is the other unknown: HID++ is a family of protocols and Logitech's range is large, so whether *your* model exposes the features you want is a per-device question the star count cannot answer.
 
-An input hook plus a background agent is also a privileged position by construction. Apache-2.0 and no telemetry is the mitigation, and reading what the agent does is possible precisely because it is open.
+An input hook plus a background agent is also a privileged position by construction. The mitigation is that the code is Apache-2.0 with no telemetry, so you can read what the agent does.
