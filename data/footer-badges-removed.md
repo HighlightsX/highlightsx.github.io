@@ -26,18 +26,20 @@ dropped us once the badge went away, and which ones kept the listing. Rows in
 
 ## Who dropped us
 
-**24 Sep 2026, three days after the badges came down: two of the ten dropped the link.**
+**Two of the ten dropped us, and both listings are now deleted.** The link came off
+both on 24 Sep 2026, three days after the badges came down. The pages themselves
+were deleted on 25 and 26 Sep.
 
 | Directory | What happened |
 |---|---|
 | Wired Business | **Gone in two steps.** 24 Sep: link stripped, page still up, reading *"This listing has been unlisted because the website no longer displays the Wired Business badge."* 25 Sep: the listing page itself deleted, a hard 404 with an empty body. Their homepage and peer listings (checked `/ikasulabs`) still answer 200, so this was aimed at us and not an outage. |
-| Twelve Tools | Same day, same wording: *"This listing has been unlisted because the website no longer displays the Twelve Tools badge."* The link is gone. This one was already an orphan, so little was lost. |
+| Twelve Tools | **Same path, one day behind its sibling.** 24 Sep: link stripped, page up, reading *"This listing has been unlisted because the website no longer displays the Twelve Tools badge."* 26 Sep: the page serves their 404 template, *"The page you were looking for does not exist."*, carrying `noindex, follow`. Their homepage and a peer listing (`/backlinkcatalog`) both answer 200. This one was already an orphan, so little was lost. |
 
 These two are **one operator**, so this is one decision rather than two. Neither
 page carries a `noindex`; they simply stripped the outbound link.
 
 The other eight are unchanged from the baseline below: same anchors, same `rel`
-values, same robots directives across all three checks, the latest on 25 Sep 2026.
+values, same robots directives across four checks: 22, 24, 25 and 26 Sep 2026.
 
 ## Baseline, checked 21 Sep 2026
 
