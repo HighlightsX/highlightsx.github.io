@@ -39,7 +39,16 @@ These two are **one operator**, so this is one decision rather than two. Neither
 page carries a `noindex`; they simply stripped the outbound link.
 
 The other eight are unchanged from the baseline below: same anchors, same `rel`
-values, same robots directives across four checks: 22, 24, 25 and 26 Sep 2026.
+values, same robots directives across five checks: 22, 24, 25, 26 and 27 Sep 2026.
+
+On 27 Sep I also went looking for anything that would explain an Ahrefs row still
+showing twelve.tools as a live link. Five alternate slug shapes on twelve.tools all
+return 404, and their sitemap.xml returns 404 outright. The operator's sibling
+domains 500.tools and ramen.tools have no listing of ours either, and ramentools.com
+does not resolve. Their 404 pages do echo our slug inside `og:url` and `canonical`,
+which looks like a mention in a raw grep but carries no anchor. There is no second
+listing. Ahrefs grades the domain and its crawler has not revisited the deleted URL
+yet, so that row is reporting the past.
 
 ## Baseline, checked 21 Sep 2026
 
