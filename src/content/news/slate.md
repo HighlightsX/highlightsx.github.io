@@ -72,7 +72,7 @@ Nothing saves itself. All five produce a draft that sits on screen until someone
 
 ## Try it
 
-There is a live demo with no signup, [a VAT calculator](https://slate.co.il/en/calculators/vat) and [the AI feature tour](https://slate.co.il/en/ai) if you want the limits in the vendor's own words. Registration asks for business type, and that decides which document types you ever see: an exempt dealer (osek patur) may not issue a tax invoice, so the option is not in the menu.
+There is a live demo with no signup, a VAT calculator, and a page setting out the AI limits in the vendor's own words. Registration asks for business type, and that decides which document types you ever see: an exempt dealer (osek patur) may not issue a tax invoice, so the option is not in the menu.
 
 ## What it gets right
 
@@ -84,6 +84,4 @@ And when the Tax Authority rejects an allocation-number request, the invoice sti
 
 ## Elsewhere
 
-Profiles: [GitHub](https://github.com/slatecoil) and [GitLab](https://gitlab.com/slate.site.admin) for the org accounts, [Behance](https://www.behance.net/slatecoil) for the interface work, [Brandfetch](https://brandfetch.com/slate.co.il) for the brand assets.
-
-Listings and reviews, for third-party signal before moving the books: [ProvenExpert](https://www.provenexpert.com/slate4/), [Trustindex](https://www.trustindex.io/reviews/slate.co.il), [Sortlist](https://www.sortlist.com/agency/slate-co-il) and [WTO Register](https://wtoregister.com/en/profile/138653/slate).
+The maker writes up the build on [Indie Hackers](https://www.indiehackers.com/slatecoil). The business itself is listed on [WTO Register](https://wtoregister.com/en/profile/138653/slate), which is the one to check if you want to confirm who is behind the books before moving yours.
