@@ -39,7 +39,14 @@ These two are **one operator**, so this is one decision rather than two. Neither
 page carries a `noindex`; they simply stripped the outbound link.
 
 The other eight are unchanged from the baseline below: same anchors, same `rel`
-values, same robots directives across five checks: 22, 24, 25, 26 and 27 Sep 2026.
+values, same robots directives across nine checks: 22, 24, 25, 26, 27 and 28 Sep
+and 1 and 2 Oct 2026.
+
+**The reaction window has passed.** The badges came down 21 Sep. The one operator
+that reacted did so within three days. Eleven days on, none of the eight others
+has touched the link, which reads as these directories verifying the badge once
+at approval and never re-checking. Treat the eight as stable and drop the daily
+cadence; a weekly look is enough.
 
 On 27 Sep I also went looking for anything that would explain an Ahrefs row still
 showing twelve.tools as a live link. Five alternate slug shapes on twelve.tools all
