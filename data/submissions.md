@@ -26,6 +26,42 @@ column below is now historical. The removed markup and the listing URLs to reche
 | Nick Launches | https://nicklaunches.com/products/github-highlights | 20 Aug 2026 | pulled | launch week 14 to 20 Sep 2026 · links are `rel="noreferrer noopener"` · **rechecked 21 Sep 2026: the `noindex` is gone, the page is now `index, follow`**, so the link counts |
 | SaaS Cubes | https://saascubes.com/saas/github-highlights | 16 Aug 2026 | pulled | **found live 21 Sep 2026** while taking the badge baseline; it had been sitting under "waiting on review" since August. Both links to us are `rel="noopener noreferrer"`, no meta robots, so it passes |
 
+## Everywhere we actually have a page, swept 4 Oct 2026
+
+Prompted by two listings that went live without us noticing (SaaS Cubes on 21 Sep,
+Good for Bots on 4 Oct). Every row below was verified by fetching the page, or by
+reading the host's own sitemap where no listing URL was known.
+
+**Nine live pages about us.** The eight surviving directory listings in the Live
+table above, plus one nobody submitted:
+
+| Host | Page | Link to us | Note |
+|---|---|---|---|
+| goodforbots.com | https://goodforbots.com/r/highlightsx.github.io | `nofollow noopener` | **Unsolicited.** A scan-and-score report, not a directory entry. Surfaced because SaaS Cubes added their badge to our listing. Absent from their own 32-URL sitemap and from page 1 of their directory, so it is close to an orphan. Scores us 50/100: full readable base, no agent layer, no penalties. |
+
+**Everything else that was ever submitted has no page.** Checked by sitemap grep
+unless noted:
+
+| Host | Sitemap URLs | Ours in it |
+|---|---|---|
+| futuretools.io | 4,383 | no |
+| ooh.directory | 2,613 | no |
+| dododirectory.com | 530 | no |
+| saasbison.com | 524 | no |
+| sumodir.com | 164 | no (confirms the 18 Aug drop) |
+| aitoolslist.io | 99 | no |
+| aitools.inc | 3 | no |
+| insidr.ai | sitemap empty | no |
+| easydofollow.dev | no sitemap | `/education/github-highlights` still 404 |
+| indieblog.page | no sitemap | homepage does not mention us |
+| launchingnext.com | no sitemap | `/startups/github-highlights/` answers 200 but contains nothing of ours, so it is a soft 404 |
+| devpages.co | - | **domain no longer resolves** |
+| curlie.org | no sitemap | no page found |
+
+The index-and-ping submissions (ActiveSearchResults, ExactSeek, Infotiger,
+Ping-O-Matic, Search My Site, feedle.world) are excluded on purpose: they index a
+URL rather than publish a listing page, so there is nothing to find.
+
 ## Submitted, waiting on review
 
 | Directory | Submitted | Badge | Status |
