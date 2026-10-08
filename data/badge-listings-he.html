@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מי הסיר את הרישום שלנו</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --line:#d9d9d9; --bg:#fff; --head:#f4f4f4; --ink:#000; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 Heebo,"Segoe UI",system-ui,sans-serif;padding:28px 20px 70px}
+  .wrap{max-width:1700px;margin:0 auto}
+  h1{font-size:27px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{margin:0 0 20px;font-size:15px;max-width:95ch}
+  .nums{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}
+  .box{border:1px solid var(--line);border-radius:8px;padding:10px 15px;min-width:112px}
+  .box b{display:block;font-size:25px;font-weight:700;line-height:1.1}
+  .box span{font-size:12.5px}
+  .btns{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+  button{font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:#fff;color:var(--ink);
+    border:1px solid var(--line);border-radius:999px;padding:6px 16px}
+  button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .card{border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:1320px;font-size:14.5px}
+  th{text-align:start;font-weight:700;font-size:13px;padding:11px 12px;background:var(--head);
+    border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none;
+    position:sticky;top:0;z-index:2}
+  th .ar{font-size:11px;opacity:.4}
+  th[aria-sort] .ar{opacity:1}
+  td{text-align:start;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  td.num{width:34px;font-variant-numeric:tabular-nums}
+  td.grade{width:46px;font-weight:700;font-size:16px}
+  td.name{font-weight:500;white-space:nowrap}
+  td.date{white-space:nowrap;font-variant-numeric:tabular-nums}
+  td.note{min-width:330px}
+  td.crawl{min-width:240px}
+  td.url{min-width:250px}
+  a{color:var(--ink)}
+  a.ltr{unicode-bidi:isolate;direction:ltr;text-decoration:none;border-bottom:1px solid var(--line)}
+  a.ltr:hover{border-bottom-color:var(--ink)}
+  .ltr{unicode-bidi:isolate;direction:ltr}
+  .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+  .none{color:#767676}
+  .pill{display:inline-block;font-size:12.5px;font-weight:500;padding:3px 9px;border-radius:5px;white-space:nowrap;
+    border:1px solid var(--line)}
+  .st-live{background:#eef7f0}
+  .st-risk{background:#fdf6e3}
+  .st-gone{background:#f6eeee}
+  .st-never{background:#f2f2f2}
+  h2{font-size:19px;font-weight:700;margin:34px 0 8px}
+  p{margin:0 0 12px;max-width:95ch;font-size:15px}
+  ol{max-width:95ch;font-size:15px;padding-inline-start:22px}
+  li{margin-bottom:9px}
+  footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);font-size:13px}
+  #cnt{font-size:13px;margin:9px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>מי הסיר את הרישום שלנו</h1>
+<p class="sub">שנים עשר האתרים שהחזיקו תג בתחתית דף הבית שלנו. התגים הורדו ב-21/09/2026, ומאז אנחנו בודקים מי מגיב. כל שורה נבדקה מול הדף החי, לא מהזיכרון. עדכון אחרון 08/10/2026.</p>
+
+<div class="nums">
+  <div class="box"><b>6</b><span>רישומים חיים</span></div>
+  <div class="box"><b>4</b><span>הסירו אותנו</span></div>
+  <div class="box"><b>2</b><span>לא היה רישום</span></div>
+  <div class="box"><b>2</b><span>מפעילים שעזבו</span></div>
+  <div class="box"><b>17</b><span>ימים מאז הורדו התגים</span></div>
+</div>
+
+<div class="btns">
+  <button data-f="all" aria-pressed="true">הכל</button>
+  <button data-f="live" aria-pressed="false">חיים</button>
+  <button data-f="risk" aria-pressed="false">בסיכון</button>
+  <button data-f="gone" aria-pressed="false">הסירו</button>
+  <button data-f="never" aria-pressed="false">ללא רישום</button>
+</div>
+
+<div class="card"><div class="scroll">
+<table id="t">
+<thead><tr>
+  <th data-k="0">#<span class="ar"> ▼</span></th>
+  <th data-k="1">דירוג<span class="ar"> ▼</span></th>
+  <th data-k="2">האתר<span class="ar"> ▼</span></th>
+  <th data-k="3">מצב<span class="ar"> ▼</span></th>
+  <th data-k="4">תאריך ההסרה<span class="ar"> ▼</span></th>
+  <th data-k="5">סימון הקישור<span class="ar"> ▼</span></th>
+  <th data-k="6">איך גוגל מגיע לדף<span class="ar"> ▼</span></th>
+  <th data-k="7">הערות<span class="ar"> ▼</span></th>
+  <th data-k="8">כתובת<span class="ar"> ▼</span></th>
+</tr></thead>
+<tbody>
+<tr data-st="live"><td class="num">1</td><td class="grade">A</td><td class="name"><a class="ltr" href="https://nicklaunches.com/products/github-highlights" target="_blank" rel="noopener noreferrer">Nick Launches</a></td><td><span class="pill st-live">חי</span></td><td class="date">–</td><td class="rel"><span class="ltr code">noreferrer noopener</span></td><td class="crawl">ברשימת הדפים שלהם, 2,137 כתובות · מצהיר על עצמו ככתובת הרשמית · מקושר מהעמוד הראשי</td><td class="note">החזק ברשימה. חמישה קישורים יוצאים בלבד בדף, כלומר הערכים לא מתפזרים.</td><td class="url"><a class="ltr" href="https://nicklaunches.com/products/github-highlights" target="_blank" rel="noopener noreferrer">nicklaunches.com/products/github-highlights</a></td></tr>
+<tr data-st="live"><td class="num">2</td><td class="grade">A</td><td class="name"><a class="ltr" href="https://aihuntlist.com/tool/github-highlights" target="_blank" rel="noopener noreferrer">AIHuntList</a></td><td><span class="pill st-live">חי</span></td><td class="date">–</td><td class="rel"><span class="ltr code">noopener noreferrer</span></td><td class="crawl">ברשימת הדפים שלהם, 18,716 כתובות · מצהיר על עצמו ככתובת הרשמית</td><td class="note">ארבעה קישורים אלינו. הספריה הגדולה ברשימה, מה שגם אומר שכל דף בודד נושא פחות.</td><td class="url"><a class="ltr" href="https://aihuntlist.com/tool/github-highlights" target="_blank" rel="noopener noreferrer">aihuntlist.com/tool/github-highlights</a></td></tr>
+<tr data-st="live"><td class="num">3</td><td class="grade">A-</td><td class="name"><a class="ltr" href="https://saascubes.com/saas/github-highlights" target="_blank" rel="noopener noreferrer">SaaS Cubes</a></td><td><span class="pill st-live">חי</span></td><td class="date">–</td><td class="rel"><span class="ltr code">noopener noreferrer</span></td><td class="crawl">ברשימת הדפים שלהם, 125 כתובות · מצהיר על עצמו ככתובת הרשמית · מקושר מהעמוד הראשי</td><td class="note">שני קישורים אלינו. בארבעה באוקטובר הוסיפו לדף תג של שירות צד שלישי, בלי לגעת בקישורים שלנו.</td><td class="url"><a class="ltr" href="https://saascubes.com/saas/github-highlights" target="_blank" rel="noopener noreferrer">saascubes.com/saas/github-highlights</a></td></tr>
+<tr data-st="live"><td class="num">4</td><td class="grade">B</td><td class="name"><a class="ltr" href="https://spotstartups.com/github-highlights" target="_blank" rel="noopener noreferrer">SpotStartups</a></td><td><span class="pill st-live">חי</span></td><td class="date">–</td><td class="rel"><span class="ltr code">noopener</span></td><td class="crawl">אין להם רשימת דפים בכלל · מצהיר על עצמו ככתובת הרשמית</td><td class="note">הדף הנקי ברשימה, ארבעה קישורים יוצאים בלבד. מה שמוריד אותו זה שאין מה שיכוון את גוגל לדף.</td><td class="url"><a class="ltr" href="https://spotstartups.com/github-highlights" target="_blank" rel="noopener noreferrer">spotstartups.com/github-highlights</a></td></tr>
+<tr data-st="risk"><td class="num">5</td><td class="grade">C</td><td class="name"><a class="ltr" href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">EasyLaunch</a></td><td><span class="pill st-risk">חי, בסיכון</span></td><td class="date">–</td><td class="rel"><span class="ltr code">noopener</span></td><td class="crawl">אין להם רשימת דפים · אין הצהרת כתובת רשמית</td><td class="note">תשעים קישורים יוצאים בדף אחד, ההתפזרות הגבוהה ברשימה. אותו מפעיל כמו LemonLaunch.</td><td class="url"><a class="ltr" href="https://easylaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">easylaunch.dev/dev-tools/github-highlights</a></td></tr>
+<tr data-st="risk"><td class="num">6</td><td class="grade">C</td><td class="name"><a class="ltr" href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">LemonLaunch</a></td><td><span class="pill st-risk">חי, בסיכון</span></td><td class="date">–</td><td class="rel"><span class="ltr code">noopener</span></td><td class="crawl">אין להם רשימת דפים וגם לא קובץ הנחיות לסורקים · אין הצהרת כתובת רשמית</td><td class="note">שבעים וארבעה קישורים יוצאים. אותו מפעיל כמו EasyLaunch, ולפי התבנית הזוג הבא בתור.</td><td class="url"><a class="ltr" href="https://lemonlaunch.dev/dev-tools/github-highlights" target="_blank" rel="noopener noreferrer">lemonlaunch.dev/dev-tools/github-highlights</a></td></tr>
+<tr data-st="gone"><td class="num">7</td><td class="grade">F</td><td class="name"><a class="ltr" href="https://thesaasdir.com/product/github-highlights" target="_blank" rel="noopener noreferrer">TheSaaSDir</a></td><td><span class="pill st-gone">הסירו אותנו</span></td><td class="date">08/10/2026</td><td class="rel"><span class="none">אין קישור</span></td><td class="crawl">הדף נמחק</td><td class="note">מחזיר שגיאה על דף של 179 תווים, בזמן שהעמוד הראשי שלהם ודפי מוצרים אחרים עולים תקין. בארבעה באוקטובר הקישור עוד עבד.</td><td class="url"><a class="ltr" href="https://thesaasdir.com/product/github-highlights" target="_blank" rel="noopener noreferrer">thesaasdir.com/product/github-highlights</a></td></tr>
+<tr data-st="gone"><td class="num">8</td><td class="grade">F</td><td class="name"><a class="ltr" href="https://theaitoolsdir.com/product/github-highlights/" target="_blank" rel="noopener noreferrer">TheAIToolsDir</a></td><td><span class="pill st-gone">הסירו אותנו</span></td><td class="date">08/10/2026</td><td class="rel"><span class="none">אין קישור</span></td><td class="crawl">הדף נמחק</td><td class="note">נמחק באותו יום כמו TheSaaSDir, אותו מפעיל. ללא שלב ביניים, מחי לשגיאה.</td><td class="url"><a class="ltr" href="https://theaitoolsdir.com/product/github-highlights/" target="_blank" rel="noopener noreferrer">theaitoolsdir.com/product/github-highlights/</a></td></tr>
+<tr data-st="gone"><td class="num">9</td><td class="grade">F</td><td class="name"><a class="ltr" href="https://twelve.tools/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Twelve Tools</a></td><td><span class="pill st-gone">הסירו אותנו</span></td><td class="date">26/09/2026</td><td class="rel"><span class="none">אין קישור</span></td><td class="crawl">הדף נמחק</td><td class="note">קודם הורד הקישור ב-24 בספטמבר עם הודעה שהרישום הוסר כי הסמל לא מוצג, וב-26 נמחק הדף עצמו.</td><td class="url"><a class="ltr" href="https://twelve.tools/highlightsx-github-io" target="_blank" rel="noopener noreferrer">twelve.tools/highlightsx-github-io</a></td></tr>
+<tr data-st="gone"><td class="num">10</td><td class="grade">F</td><td class="name"><a class="ltr" href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">Wired Business</a></td><td><span class="pill st-gone">הסירו אותנו</span></td><td class="date">25/09/2026</td><td class="rel"><span class="none">אין קישור</span></td><td class="crawl">הדף נמחק</td><td class="note">הראשון שהגיב. הקישור הורד ב-24 בספטמבר, הדף נמחק ב-25. היה לו הקישור הטוב ברשימה, בלי שום סימון מגביל.</td><td class="url"><a class="ltr" href="https://wired.business/highlightsx-github-io" target="_blank" rel="noopener noreferrer">wired.business/highlightsx-github-io</a></td></tr>
+<tr data-st="never"><td class="num">11</td><td class="grade">F</td><td class="name"><a class="ltr" href="https://gets.tools" target="_blank" rel="noopener noreferrer">Gets.tools</a></td><td><span class="pill st-never">לא היה רישום</span></td><td class="date">–</td><td class="rel"><span class="none">אין קישור</span></td><td class="crawl">רישום לא נוצר אף פעם</td><td class="note">158 כתובות ברשימה שלהם, אף אחת לא שלנו. ההגשה מולאה ולא נשלחה, והתג ישב אצלנו לשווא.</td><td class="url"><a class="ltr" href="https://gets.tools" target="_blank" rel="noopener noreferrer">gets.tools</a></td></tr>
+<tr data-st="never"><td class="num">12</td><td class="grade">F</td><td class="name"><a class="ltr" href="http://dironix.com" target="_blank" rel="noopener noreferrer">Dironix</a></td><td><span class="pill st-never">לא היה רישום</span></td><td class="date">–</td><td class="rel"><span class="none">אין קישור</span></td><td class="crawl">הדומיין פג</td><td class="note">החיבור המאובטח נכשל, ובחיבור רגיל מוצג דף של רושם הדומיינים שאומר שהרישום פג.</td><td class="url"><a class="ltr" href="http://dironix.com" target="_blank" rel="noopener noreferrer">dironix.com</a></td></tr>
+</tbody>
+</table>
+</div></div>
+<p id="cnt"></p>
+
+<h2>מה קרה כאן, לפי הסדר</h2>
+<ol>
+  <li>ב-21/09 הורדו כל שנים עשר התגים מתחתית דף הבית. תשעה מהאתרים דורשים את התג כתנאי לרישום.</li>
+  <li>ב-24/09, שלושה ימים אחרי כן, מפעיל אחד הוריד את הקישור בשתי הספריות שלו בבת אחת, והשאיר בדף הודעה שהרישום הוסר כי התג לא מוצג. ב-25 וב-26 נמחקו שני הדפים לגמרי.</li>
+  <li>בין 02/10 ל-08/10 מפעיל שני מחק גם הוא את שני הדפים שלו. הפעם בלי שלב ביניים: ב-04/10 הקישור עוד עבד, וב-08/10 הדף כבר לא היה קיים.</li>
+  <li>שני המפעילים האלה מקבלים החלטה אחת שמתגלגלת לשני אתרים, כי הקוד של כל זוג זהה לגמרי.</li>
+</ol>
+
+<h2>מה זה אומר על ההמשך</h2>
+<p>הסיכון הבא הוא הזוג EasyLaunch ו-LemonLaunch. גם הם אותו מפעיל על תבנית זהה, ולפי מה שקרה פעמיים הם ילכו יחד או יישארו יחד. זה גם הזוג החלש ברשימה, ככה שאם הם ילכו ההפסד קטן.</p>
+<p>ארבעת הרישומים האחרים הם ארבעה מפעילים שונים ולא זזו באחת עשרה בדיקות רצופות. שלושה מהם, והם גם השלושה החזקים ברשימה, מעולים במדדים שבאמת קובעים: הדף שלנו נמצא ברשימת הדפים שהאתר מוסר לגוגל, הוא מצהיר על עצמו ככתובת הרשמית, ויש משהו באתר שמקשר אליו.</p>
+
+<h2>איך נקבע הדירוג</h2>
+<p>ארבעה דברים נמדדו, לפי הסדר הזה. ראשון, האם הקישור בכלל מעביר ערך: שלושה סימונים בלבד חוסמים, ואלה שנראים חוסמים אבל לא חוסמים עוברים במלוא. שני, האם גוגל יכול להגיע לדף בכלל. שלישי, כמה קישורים אחרים חולקים את אותו דף. רביעי, שתי ספריות של אותו בעלים נחשבות בערך כהמלצה אחת.</p>
+<p>מה שהפריד בפועל בין הדירוגים היה הסעיף השני. הקישור עצמו היה תקין בכל עשרת הרישומים, אז הוא לא הבדיל ביניהם בכלום.</p>
+
+<footer>מקור הנתונים: <span class="ltr code">data/footer-badges-removed.md</span> ו<span class="ltr code">data/submissions.md</span>. כל סימון קישור, כל רשימת דפים וכל ספירת קישורים נקראו מהדף החי. עדכון אחרון 08/10/2026.</footer>
+</div>
+
+<script>
+  var btns=[].slice.call(document.querySelectorAll('button[data-f]')),
+      tb=document.querySelector('#t tbody'),
+      rows=[].slice.call(tb.rows),
+      cnt=document.getElementById('cnt');
+  function show(f){
+    var n=0;
+    rows.forEach(function(r){
+      var on = f==='all' || r.dataset.st===f;
+      r.style.display = on ? '' : 'none';
+      if(on) n++;
+    });
+    cnt.textContent = n + ' מתוך ' + rows.length;
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.f===f)); });
+  }
+  btns.forEach(function(b){ b.onclick=function(){ show(b.dataset.f); }; });
+  show('all');
+
+  var dir={};
+  [].slice.call(document.querySelectorAll('#t th')).forEach(function(th){
+    th.onclick=function(){
+      var k=+th.dataset.k, asc=!(dir[k]===true); dir={}; dir[k]=asc;
+      document.querySelectorAll('#t th').forEach(function(o){ o.removeAttribute('aria-sort'); });
+      th.setAttribute('aria-sort', asc?'ascending':'descending');
+      var sorted=rows.slice().sort(function(a,b){
+        var x=a.cells[k].textContent.trim(), y=b.cells[k].textContent.trim();
+        var nx=parseFloat(x), ny=parseFloat(y);
+        if(!isNaN(nx)&&!isNaN(ny)&&/^[0-9.]+$/.test(x)&&/^[0-9.]+$/.test(y)) return asc?nx-ny:ny-nx;
+        var dx=x.split('/').reverse().join(''), dy=y.split('/').reverse().join('');
+        if(/^\d{8}$/.test(dx)&&/^\d{8}$/.test(dy)) return asc?dx.localeCompare(dy):dy.localeCompare(dx);
+        return asc?x.localeCompare(y,'he'):y.localeCompare(x,'he');
+      });
+      sorted.forEach(function(r){ tb.appendChild(r); });
+    };
+  });
+</script>
+</body>
+</html>

@@ -57,6 +57,36 @@ which looks like a mention in a raw grep but carries no anchor. There is no seco
 listing. Ahrefs grades the domain and its crawler has not revisited the deleted URL
 yet, so that row is reporting the past.
 
+## 8 Oct 2026: the second operator pair went too
+
+TheSaaSDir and TheAIToolsDir both deleted our listing page. Both answer 404 with
+an identical 179-byte error page, while their homepages and peer listings
+(`/product/vibeready/`, `/product/alterable/`) answer 200. Aimed at us.
+
+These two run class-for-class identical templates, so this is one operator, the
+second to act. The pattern now holds twice: an operator decides once and both of
+its sites follow.
+
+**Running total: four deleted, six live.**
+
+| Deleted | Link pulled | Page deleted |
+|---|---|---|
+| Wired Business | 24 Sep | 25 Sep |
+| Twelve Tools | 24 Sep | 26 Sep |
+| TheSaaSDir | by 8 Oct | by 8 Oct |
+| TheAIToolsDir | by 8 Oct | by 8 Oct |
+
+The second pair gave no warning: on 4 Oct both still carried a working
+`rel="noopener"` link. No intermediate "unlisted" stage this time, the page went
+straight from live to 404.
+
+**Still live:** Nick Launches, AIHuntList, SaaS Cubes, SpotStartups, EasyLaunch,
+LemonLaunch. Two of those six, EasyLaunch and LemonLaunch, are themselves one
+operator on an identical template, so by the pattern they are the next pair at
+risk and would go together.
+
+My 2 Oct call that the reaction window had passed was wrong. It had not.
+
 ## Baseline, checked 21 Sep 2026
 
 Taken within the hour after the badges came down, so this is the "before anyone
