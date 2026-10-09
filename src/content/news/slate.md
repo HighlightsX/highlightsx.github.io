@@ -84,4 +84,4 @@ And when the Tax Authority rejects an allocation-number request, the invoice sti
 
 ## Elsewhere
 
-The maker writes up the build on [Indie Hackers](https://www.indiehackers.com/slatecoil). The business itself is listed on [WTO Register](https://wtoregister.com/en/profile/138653/slate), which is the one to check if you want to confirm who is behind the books before moving yours.
+There is a project page on [PromoteProject](https://www.promoteproject.com/startup/204035/slate-invoicing). The business itself is listed on [WTO Register](https://wtoregister.com/en/profile/138653/slate), which is the one to check if you want to confirm who is behind the books before moving yours.
